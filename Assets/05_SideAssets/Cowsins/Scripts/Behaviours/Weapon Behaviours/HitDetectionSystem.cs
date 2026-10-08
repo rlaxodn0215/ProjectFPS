@@ -60,19 +60,22 @@ namespace cowsins
                 settings.userEvents.OnCriticalHit?.Invoke();
                 var damageable = CowsinsUtilities.GatherDamageableParent(hitTransform);
                 if (damageable != null)
-                    DamageService.RequestDamage(damageable, finalDamage * weapon.criticalDamageMultiplier, true);
+                    DamageService.RequestDamage(damageable, finalDamage * weapon.criticalDamageMultiplier, true,
+                        new DamageContext(context.Dependencies.transform, h.collider, DamageKind.Hitscan));
             }
             else if (hitTransform.CompareTag(CowsinsUtilities.BODY_SHOT_TAG))
             {
                 var damageable = CowsinsUtilities.GatherDamageableParent(hitTransform);
                 if (damageable != null)
-                    DamageService.RequestDamage(damageable, finalDamage, false);
+                    DamageService.RequestDamage(damageable, finalDamage, false,
+                        new DamageContext(context.Dependencies.transform, h.collider, DamageKind.Hitscan));
             }
             else
             {
                 var damageable = CowsinsUtilities.GatherDamageableParent(hitTransform);
                 if (damageable != null)
-                    DamageService.RequestDamage(damageable, finalDamage, false);
+                    DamageService.RequestDamage(damageable, finalDamage, false,
+                        new DamageContext(context.Dependencies.transform, h.collider, DamageKind.Hitscan));
             }
         }
 

@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Cowsins/Demo/MainMenu.unity
+    path: Assets/05_SideAssets/Cowsins/Demo/MainMenu.unity
     guid: 8f9c85f44b8279c438ee7f287f4c2159
   - enabled: 1
-    path: Assets/Cowsins/Demo/MovementShowroom.unity
+    path: Assets/05_SideAssets/Cowsins/Demo/MovementShowroom.unity
     guid: 613fba616958bec418ee718b8e414d39
   - enabled: 1
-    path: Assets/Cowsins/Demo/Showroom.unity
+    path: Assets/05_SideAssets/Cowsins/Demo/Showroom.unity
     guid: c65d245ca63349e40af89661df799c04
   - enabled: 0
     path: Assets/MultiplayerFPSEngine/Scenes/Multiplayer_MainMenu.unity
@@ -22,3 +22,4 @@ EditorBuildSettings:
     guid: f3408ed7538fb4d44847e0dc0d894fa9
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 33f591010f343104f853b337a1fca25a, type: 2}
+  m_UseUCBPForAssetBundles: 0

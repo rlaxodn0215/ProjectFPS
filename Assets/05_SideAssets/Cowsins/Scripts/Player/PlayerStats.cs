@@ -277,6 +277,7 @@ namespace cowsins
 
             if (player == null || playerEvents == null) GetAllReferences();
             playerEvents.Events.OnRespawn?.Invoke(respawnPosition, player.Orientation.Rotation, true, true);
+            playerDependencies.PlayerControl?.CheckIfCanGrantControl();
         }
 
         // This method is used to set the Player Health values when the game loads, only if the Save & Load Add-On is available.

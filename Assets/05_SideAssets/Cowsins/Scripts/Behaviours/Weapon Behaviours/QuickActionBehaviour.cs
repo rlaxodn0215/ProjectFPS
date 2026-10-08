@@ -108,17 +108,12 @@ namespace cowsins
             for (int i = 0; i < hits; i++)
             {
                 var c = meleeHitColliders[i];
-                if (CowsinsUtilities.IsDamageableHitbox(c))
+                if (c.transform.root == playerRoot) continue;
+                var damageable = CowsinsUtilities.GatherDamageableParent(c.transform);
+                if (damageable != null)
                 {
-                    var parent = CowsinsUtilities.GatherDamageableParent(c.transform);
-                    if (parent != null)
-                        DamageService.RequestDamage(parent, dmg, false);
-                    break;
-                }
-
-                if (c.TryGetComponent<IDamageable>(out var damageable))
-                {
-                    DamageService.RequestDamage(damageable, dmg, false);
+                    DamageService.RequestDamage(damageable, dmg, false,
+                        new DamageContext(context.Dependencies.transform, c, DamageKind.QuickMelee));
                     break;
                 }
             }

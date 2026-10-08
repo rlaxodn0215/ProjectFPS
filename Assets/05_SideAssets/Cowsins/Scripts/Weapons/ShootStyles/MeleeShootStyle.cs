@@ -82,18 +82,12 @@ namespace cowsins
 
             foreach (var c in col)
             {
-                if (CowsinsUtilities.IsDamageableHitbox(c))
-                {
-                    var parent = CowsinsUtilities.GatherDamageableParent(c.transform);
-                    if (parent != null)
-                        DamageService.RequestDamage(parent, dmg, false);
-                    break;
-                }
-
-                IDamageable damageable = c.GetComponent<IDamageable>();
+                if (c.transform.root == playerRoot) continue;
+                IDamageable damageable = CowsinsUtilities.GatherDamageableParent(c.transform);
                 if (damageable != null)
                 {
-                    DamageService.RequestDamage(damageable, dmg, false);
+                    DamageService.RequestDamage(damageable, dmg, false,
+                        new DamageContext(playerDependencies.transform, c, DamageKind.Melee));
                     break;
                 }
             }

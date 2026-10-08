@@ -36,6 +36,18 @@ namespace cowsins
             Instantiate(destroyedObject, transform.position, Quaternion.identity);
             Instantiate(explosionVFX, transform.position, Quaternion.identity);
 
+            foreach (var entry in DamageService.GatherExplosionTargets(cols, transform.position))
+            {
+                var collider = entry.Value;
+                if (!hurtPlayer && collider.GetComponentInParent<PlayerStats>() != null) continue;
+                float dmg = damage / (Vector3.Distance(collider.transform.position, transform.position) + 0.1f);
+                DamageService.RequestDamage(entry.Key, dmg, false,
+                    new DamageContext(null, collider, DamageKind.Environmental));
+                var movement = collider.GetComponentInParent<PlayerMovement>();
+                if (movement != null && movement.TryGetComponent<CameraEffects>(out var effects))
+                    effects.ExplosionShake(Vector3.Distance(effects.transform.position, transform.position));
+            }
+
             foreach (Collider c in cols)
             {
                 bool isPlayer = c.CompareTag("Player") || (c.CompareTag("Enemy") && c.GetComponentInParent<PlayerStats>() != null);
@@ -50,29 +62,6 @@ namespace cowsins
                         5f,
                         ForceMode.Impulse
                     );
-                }
-                float dmg = damage / (Vector3.Distance(c.transform.position, transform.position) + 0.1f);
-                
-                if (c.CompareTag(CowsinsUtilities.BODY_SHOT_TAG))
-                {
-                    var damageable = CowsinsUtilities.GatherDamageableParent(c.transform);
-                    if (damageable != null)
-                    {
-                        DamageService.EnvironmentalContext = true;
-                        DamageService.RequestDamage(damageable, dmg, false);
-                    }
-                    continue;
-                }
-                else if (c.GetComponent<IDamageable>() != null)
-                {
-                    DamageService.EnvironmentalContext = true;
-                    DamageService.RequestDamage(c.GetComponent<IDamageable>(), dmg, false);
-                    if (c.GetComponent<IPlayerMovementStateProvider>() != null)
-                    {
-                        CameraEffects cameraEffects = c.GetComponent<CameraEffects>();
-                        cameraEffects.ExplosionShake(Vector3.Distance(cameraEffects.transform.position, transform.position));
-                    }
-                    continue;
                 }
             }
             base.Die();
