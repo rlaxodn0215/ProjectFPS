@@ -36,6 +36,9 @@ namespace EmeraldAI
         public event DodgeHandler OnDodge;
         public delegate void DeathHandler();
         public event DeathHandler OnDeath;
+        public event Action<int, Transform> OnDamageResolved;
+        public event Action OnLifeStarted;
+        public void NotifyLifeStarted() { OnLifeStarted?.Invoke(); }
         public delegate void HealRateTickHandler();
         public event HealRateTickHandler OnHealRateTick;
         public delegate void OnHealingReceivedHandler();
@@ -59,6 +62,7 @@ namespace EmeraldAI
             CurrentHealth = StartingHealth;
             EmeraldComponent = GetComponent<EmeraldSystem>();
             EmeraldComponent.CombatComponent.OnExitCombat += RecoverHealth; //Subscribe to the OnExitCombat event for RecoverHealth
+            NotifyLifeStarted();
         }
 
         /// <summary>
@@ -96,6 +100,7 @@ namespace EmeraldAI
             //Don't reduce an AI's health if Immortal is enabled
             if (!Immortal)
                 Health -= CalculatedDamage;
+            if (!Immortal && CalculatedDamage > 0) OnDamageResolved?.Invoke(CalculatedDamage, AttackerTransform);
 
             //Display the damage dealt through the Combat Text System, given that it's enabled.
             if (CalculatedDamage > 0) CombatTextSystem.Instance.CreateCombatTextAI(CalculatedDamage, EmeraldComponent.CombatComponent.DamagePosition(), CriticalHit, false);
@@ -185,6 +190,7 @@ namespace EmeraldAI
         /// </summary>
         public void KillAI()
         {
+            OnDamageResolved?.Invoke(0, null); // Scripted death clears previous damage credit.
             EmeraldComponent.CombatComponent.ReceivedRagdollForceAmount = 1;
             Health = 0;
             Death();

@@ -28,6 +28,7 @@ namespace cowsins
 
         public sealed override void UpdateState()
         {
+            if (!_ctx.PlayerControlProvider.IsMovementControllable) { SwitchState(_factory.Default()); return; }
             playerMovement.playerSettings.events.OnDashing?.Invoke();
             playerMovement.dashBehaviour?.Tick();
             CheckSwitchState();

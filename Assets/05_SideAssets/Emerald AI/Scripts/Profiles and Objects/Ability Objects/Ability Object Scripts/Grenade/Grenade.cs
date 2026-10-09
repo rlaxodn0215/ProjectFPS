@@ -194,7 +194,7 @@ namespace EmeraldAI
             {
                 bool IsCritHit = CurrentAbilityData.DamageSettings.GenerateCritHit();
                 int DamageMitigation = Mathf.RoundToInt((1f - Vector3.Distance(Target.transform.position, transform.position) / CurrentAbilityData.GrenadeSettings.ExplosionRadius) * CurrentAbilityData.DamageSettings.GenerateDamage(IsCritHit));
-                m_IDamageable.Damage(DamageMitigation, transform, 0, IsCritHit);
+                EmeraldDamageDispatch.Damage(m_IDamageable, DamageMitigation, Owner.transform, 0, IsCritHit, EmeraldAttackKind.Explosion);
                 CurrentAbilityData.DamageSettings.DamageTargetOverTime(CurrentAbilityData, CurrentAbilityData.DamageSettings, Owner, Target);
 
                 if (m_IDamageable.Health <= 0)

@@ -35,7 +35,7 @@ namespace cowsins
             if (playerControlProvider.IsControllable && playerControlProvider.CameraControllable)
                 playerMovement.cameraLookBehaviour.Tick();
 
-            if (!playerControlProvider.IsControllable) return;
+            if (!playerControlProvider.IsControllable || !playerControlProvider.IsMovementControllable) return;
 
             playerMovement.footstepsBehaviour?.FootSteps();
             if (playerMovement.playerSettings.allowGrapple)
@@ -48,7 +48,7 @@ namespace cowsins
         public sealed override void FixedUpdateState()
         {
             playerMovement.basicMovementBehaviour?.Movement();
-            playerMovement.wallRunBehaviour?.FixedTick();
+            if (playerControlProvider.IsMovementControllable) playerMovement.wallRunBehaviour?.FixedTick();
         }
 
         public sealed override void ExitState()

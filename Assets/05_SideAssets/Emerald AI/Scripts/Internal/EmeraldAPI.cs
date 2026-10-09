@@ -229,6 +229,7 @@ namespace EmeraldAI
                 EmeraldCombatManager.EnableComponents(EmeraldComponent);
                 EmeraldComponent.AnimationComponent.IsDead = false;
                 EmeraldCombatManager.DisableRagdoll(EmeraldComponent);
+                EmeraldComponent.HealthComponent.NotifyLifeStarted();
             }
 
             /// <summary>

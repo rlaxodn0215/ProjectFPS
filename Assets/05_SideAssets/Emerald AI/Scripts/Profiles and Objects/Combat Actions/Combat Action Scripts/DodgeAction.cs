@@ -24,6 +24,13 @@ namespace EmeraldAI
             DodgeActionUpdate(EmeraldComponent, ActionClass);
         }
 
+        public bool TryReactToShot(EmeraldSystem system, ActionsClass state)
+        {
+            if (state.IsActive || !state.Enabled || !CanExecute(system, state)) return false;
+            TriggerDodge(system, state);
+            return system.AnimationComponent.InternalDodge;
+        }
+
         void DodgeActionUpdate(EmeraldSystem EmeraldComponent, ActionsClass ActionClass)
         {
             ActionClass.IsActive = EmeraldComponent.AnimationComponent.IsDodging || EmeraldComponent.AnimationComponent.InternalDodge;
@@ -80,7 +87,7 @@ namespace EmeraldAI
             EmeraldComponent.AnimationComponent.InternalDodge = true;
             //Set the current mitigation amount and angle equal to those from this action
             EmeraldComponent.CombatComponent.MitigationAmount = MitigationAmount;
-            EmeraldComponent.CombatComponent.MaxMitigationAngle = MaxDodgeAngle;
+            EmeraldComponent.CombatComponent.MaxMitigationAngle = MaxDodgeAngle / 2f;
             EmeraldComponent.AIAnimator.SetBool("Blocking", false); //Stop block in case it was triggered at the same time as a dodge
             EmeraldComponent.AnimationComponent.TriggerDodgeState();
             EmeraldComponent.AIAnimator.ResetTrigger("Hit");

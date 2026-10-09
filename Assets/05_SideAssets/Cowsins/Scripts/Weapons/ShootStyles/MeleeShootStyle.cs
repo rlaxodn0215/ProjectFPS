@@ -63,6 +63,8 @@ namespace cowsins
                 delay = weapon.hitDelays[id.CurrentShotIndex];
 
             yield return new WaitForSeconds(delay);
+            if (!playerDependencies.PlayerControl.IsControllable || !playerDependencies.PlayerControl.ActionsControllable)
+            { canShoot = true; yield break; }
 
             Melee(weapon, 0, damageMultiplier);
             playerDependencies.StartCoroutine(AllowShootAfterDelay(weapon.attackRate));

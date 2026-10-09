@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 namespace cowsins
 {
@@ -8,10 +10,25 @@ namespace cowsins
     public class PlayerControl : MonoBehaviour, IPlayerControlProvider
     {
         public bool IsControllable => controllable;
-        public bool IsMovementControllable => movementControllable;
-        public bool CameraControllable => cameraControllable;
-        public bool ActionsControllable => actionsControllable;
-        public bool ShootingControllable => shootingControllable;
+        public bool IsMovementControllable => movementControllable && !IsRestricted(ControlRestriction.Movement);
+        public bool CameraControllable => cameraControllable && !IsRestricted(ControlRestriction.Camera);
+        public bool ActionsControllable => actionsControllable && !IsRestricted(ControlRestriction.Actions);
+        public bool ShootingControllable => shootingControllable && !IsRestricted(ControlRestriction.Shooting);
+
+        [Flags]
+        public enum ControlRestriction { Movement = 1, Camera = 2, Actions = 4, Shooting = 8 }
+        private readonly Dictionary<object, ControlRestriction> restrictions = new Dictionary<object, ControlRestriction>();
+        public void AddRestriction(object token, ControlRestriction restriction)
+        {
+            if (token == null) throw new ArgumentNullException(nameof(token));
+            restrictions[token] = restriction;
+        }
+        public void RemoveRestriction(object token) { if (token != null) restrictions.Remove(token); }
+        public bool IsRestricted(ControlRestriction restriction)
+        {
+            foreach (var value in restrictions.Values) if ((value & restriction) != 0) return true;
+            return false;
+        }
 
         private bool controllable = true;
         private bool movementControllable = true;

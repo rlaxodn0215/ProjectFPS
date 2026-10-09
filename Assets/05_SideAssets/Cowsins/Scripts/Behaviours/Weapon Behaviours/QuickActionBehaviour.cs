@@ -70,6 +70,7 @@ namespace cowsins
         private IEnumerator MeleeRoutine()
         {
             yield return new WaitForSeconds(settings.meleeDelay);
+            if (!playerControl.IsControllable || !playerControl.ActionsControllable) { FinishMelee(); yield break; }
             Melee();
         }
 

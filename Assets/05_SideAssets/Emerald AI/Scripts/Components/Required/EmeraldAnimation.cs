@@ -309,28 +309,32 @@ namespace EmeraldAI
         /// </summary>
         public void PlayStunnedAnimation (float StunnedLength)
         {
-            if (EmeraldComponent.CombatComponent.CurrentWeaponType == EmeraldCombat.WeaponTypes.Type1 && m_AnimationProfile.Type1Animations.Stunned.AnimationClip == null || 
-                EmeraldComponent.CombatComponent.CurrentWeaponType == EmeraldCombat.WeaponTypes.Type2 && m_AnimationProfile.Type2Animations.Stunned.AnimationClip == null) return;
-
-            if (!IsStunned && !AIAnimator.GetBool("Blocking") && !AIAnimator.GetBool("Dodge Triggered") && !IsDodging && transform.localScale != Vector3.one * 0.003f)
-            {
-                if (StunnedCoroutine != null) StopCoroutine(StunnedCoroutine);
-                StunnedCoroutine = StartCoroutine(SetStunned(StunnedLength));
-            }
+            if (IsDead || !isActiveAndEnabled || StunnedLength <= 0 || float.IsNaN(StunnedLength) || float.IsInfinity(StunnedLength)) return;
+            var profile = m_AnimationProfile == null ? null : EmeraldComponent.CombatComponent.CurrentWeaponType == EmeraldCombat.WeaponTypes.Type1
+                ? m_AnimationProfile.Type1Animations : m_AnimationProfile.Type2Animations;
+            if (profile?.Stunned?.AnimationClip == null || AIAnimator == null || AIAnimator.runtimeAnimatorController == null)
+            { Debug.LogWarning("Emerald AI: 스턴 클립 또는 Animator Controller가 없어 스턴을 적용하지 않습니다.", this); return; }
+            if (StunnedCoroutine != null) StopCoroutine(StunnedCoroutine);
+            EmeraldComponent.CombatComponent.CancelAllCombatActions();
+            InternalBlock = false; InternalDodge = false;
+            AIAnimator.SetBool("Blocking", false); AIAnimator.ResetTrigger("Dodge Triggered"); AIAnimator.ResetTrigger("Attack");
+            StunnedCoroutine = StartCoroutine(SetStunned(StunnedLength));
         }
 
         IEnumerator SetStunned(float StunnedLength)
         {
-            yield return new WaitForSeconds(0.5f);
-            if (IsDodging || IsDead || IsBlocking || IsStunned)
-            {
-                AIAnimator.SetBool("Stunned Active", false);
-                yield break; //If this AI is doding or is dead, don't trigger a stun.
-            }
             AIAnimator.SetBool("Stunned Active", true);
             yield return new WaitForSeconds(StunnedLength);
             AIAnimator.SetBool("Stunned Active", false);
             EmeraldComponent.BehaviorsComponent.IsAiming = false;
+            StunnedCoroutine = null;
+        }
+
+        private void OnDisable()
+        {
+            if (StunnedCoroutine != null) StopCoroutine(StunnedCoroutine);
+            StunnedCoroutine = null; IsStunned = false;
+            if (AIAnimator != null && AIAnimator.runtimeAnimatorController != null) AIAnimator.SetBool("Stunned Active", false);
         }
 
         /// <summary>

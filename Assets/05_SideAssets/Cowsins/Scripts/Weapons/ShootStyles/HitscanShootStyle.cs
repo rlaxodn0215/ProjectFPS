@@ -81,17 +81,19 @@ namespace cowsins
             // Avoid calling the while loop if we only want to shoot one bullet
             if (weapon.bulletsPerFire == 1)
             {
-                if (weapon == null) yield break;
+                if (weapon == null || !CanFireNow()) yield break;
                 HitscanShot(spread);
+                weaponEvents.Events.OnWeaponFired.Invoke(weapon);
             }
             else
             {
                 int i = 0;
                 while (i < weapon.bulletsPerFire)
                 {
-                    if (weapon == null) yield break;
+                    if (weapon == null || !CanFireNow()) yield break;
 
                     HitscanShot(spread);
+                    if (i == 0 || weapon.timeBetweenShots > 0) weaponEvents.Events.OnWeaponFired.Invoke(weapon);
                     if (weapon.timeBetweenShots > 0) yield return new WaitForSeconds(weapon.timeBetweenShots);
                     i++;
                 }
@@ -146,6 +148,9 @@ namespace cowsins
                 }
             }
         }
+
+        private bool CanFireNow() => playerDependencies.PlayerControl.IsControllable &&
+            playerDependencies.PlayerControl.ActionsControllable && playerDependencies.PlayerControl.ShootingControllable;
         private IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)
         {
             float time = 0;

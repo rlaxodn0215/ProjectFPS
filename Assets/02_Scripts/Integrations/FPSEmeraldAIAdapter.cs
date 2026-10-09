@@ -9,6 +9,7 @@ namespace ProjectFPS.Integrations
     public sealed class FPSEmeraldAIAdapter : MonoBehaviour, cowsins.IDamageable
     {
         [SerializeField, Min(0)] private int ragdollForce = 40;
+        [SerializeField, Min(0)] private float meleeStunSeconds = 1;
         private EmeraldSystem system;
         private EmeraldHealth health;
 
@@ -46,7 +47,12 @@ namespace ProjectFPS.Integrations
             if (ownCollider && combat != null) combat.RagdollTransform = collider.transform;
 
             // Do not call DamageArea: FPS Engine has already applied the weapon's headshot multiplier.
+            int before = HealthComponent.CurrentHealth;
             HealthComponent.Damage(amount, context.Attacker, ragdollForce, isHeadshot);
+            if (!IsDead && HealthComponent.CurrentHealth < before && context.Attacker != null &&
+                context.Attacker.GetComponentInParent<PlayerStats>() != null &&
+                (context.Kind == DamageKind.Melee || context.Kind == DamageKind.QuickMelee))
+                SystemComponent.CombatComponent.TriggerStun(meleeStunSeconds);
             if (area != null && !SystemComponent.AnimationComponent.IsBlocking && !SystemComponent.AnimationComponent.IsDodging)
                 area.CreateImpactEffect(collider.ClosestPoint(transform.position), HealthComponent.AttachHitEffects);
         }

@@ -44,7 +44,12 @@ namespace cowsins
             weaponEvents.Events.OnWeaponCooling.AddListener(CancelAllowShoot);
         }
 
-        public void Shoot() => id?.Shoot(weaponEvents.Events.RequestSpread(), playerMultipliers.DamageMultiplier.Value, weaponBehaviour.AimingCamShakeMultiplier * weaponBehaviour.CrouchingCamShakeMultiplier);
+        public void Shoot()
+        {
+            var control = playerDependencies.PlayerControl;
+            if (!control.IsControllable || !control.ActionsControllable || !control.ShootingControllable) return;
+            id?.Shoot(weaponEvents.Events.RequestSpread(), playerMultipliers.DamageMultiplier.Value, weaponBehaviour.AimingCamShakeMultiplier * weaponBehaviour.CrouchingCamShakeMultiplier);
+        }
 
         public void ReduceAmmo()
         {

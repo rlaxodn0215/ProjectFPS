@@ -50,6 +50,12 @@ public class BasicMovementBehaviour
     {
         if (!playerControl.IsMovementControllable || !playerControl.IsControllable || !inputManager.enabled || PauseMenu.isPaused)
         {
+            if (playerControl is PlayerControl concrete && concrete.IsRestricted(PlayerControl.ControlRestriction.Movement) &&
+                playerControl.IsControllable && !PauseMenu.isPaused)
+            {
+                if (!context.IsPlayerOnSlope) rb.AddForce(Vector3.down * Time.fixedDeltaTime * extraGravityMultiplier);
+                return; // Temporary input restrictions preserve gravity and external impulses.
+            }
             if (playerMovement.Grounded) CowsinsUtilities.SetLinearVelocity(rb, Vector3.zero);
             return;
         }

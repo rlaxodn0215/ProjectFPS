@@ -141,7 +141,7 @@ namespace EmeraldAI
                 yield return null;
             }
 
-            //Finish traveling the last bit so the bullet’s trail can get to the collision point
+            //Finish traveling the last bit so the bulletï¿½s trail can get to the collision point
             Vector3 startingPosition = transform.position;
             float t = 0f;
             bool complete = false;
@@ -275,7 +275,7 @@ namespace EmeraldAI
                 if (m_IDamageable != null)
                 {
                     bool IsCritHit = CurrentAbilityData.DamageSettings.GenerateCritHit();
-                    m_IDamageable.Damage(CurrentAbilityData.DamageSettings.GenerateDamage(IsCritHit), Owner.transform, CurrentAbilityData.DamageSettings.BaseDamageSettings.RagdollForce, IsCritHit);
+                    EmeraldDamageDispatch.Damage(m_IDamageable, CurrentAbilityData.DamageSettings.GenerateDamage(IsCritHit), Owner.transform, CurrentAbilityData.DamageSettings.BaseDamageSettings.RagdollForce, IsCritHit, EmeraldAttackKind.Projectile);
                     CurrentAbilityData.DamageSettings.DamageTargetOverTime(CurrentAbilityData, CurrentAbilityData.DamageSettings, Owner, Target);
                     m_AudioSource.Stop();
                 }

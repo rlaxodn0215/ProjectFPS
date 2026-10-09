@@ -25,6 +25,13 @@ namespace EmeraldAI
             BlockActionUpdate(EmeraldComponent, ActionClass);
         }
 
+        public bool TryReactToShot(EmeraldSystem system, ActionsClass state)
+        {
+            if (state.IsActive || !state.Enabled || !CanExecute(system, state)) return false;
+            SetBlockState(system, state, true);
+            return state.IsActive;
+        }
+
         /// <summary>
         /// Continuously updates to check for incoming attacks from the current target.
         /// </summary>
@@ -100,7 +107,7 @@ namespace EmeraldAI
                 EmeraldComponent.CombatComponent.AdjustCooldowns();
                 //Set the current mitigation amount and angle equal to those from this action
                 EmeraldComponent.CombatComponent.MitigationAmount = MitigationAmount;
-                EmeraldComponent.CombatComponent.MaxMitigationAngle = MaxBlockAngle;
+                EmeraldComponent.CombatComponent.MaxMitigationAngle = MaxBlockAngle / 2f;
                 EmeraldComponent.AnimationComponent.AttackTriggered = false;
                 EmeraldComponent.AIAnimator.ResetTrigger("Dodge Triggered"); //Stop dodge in case it was triggered at the same time as a block
                 EmeraldComponent.AIAnimator.ResetTrigger("Attack");

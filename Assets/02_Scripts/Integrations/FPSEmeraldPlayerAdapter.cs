@@ -9,7 +9,7 @@ namespace ProjectFPS.Integrations
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(PlayerStats), typeof(FactionExtension), typeof(TargetPositionModifier))]
-    public sealed class FPSEmeraldPlayerAdapter : MonoBehaviour, EmeraldAI.IDamageable, ICombat
+    public sealed class FPSEmeraldPlayerAdapter : MonoBehaviour, EmeraldAI.IDamageable, ICombat, IContextualDamageable
     {
         public bool Immortal;
         public UnityEvent OnTakeDamage = new UnityEvent();
@@ -18,6 +18,7 @@ namespace ProjectFPS.Integrations
         private WeaponController weapons;
         private TargetPositionModifier position;
         private bool deathNotified;
+        private FPSPlayerCombat combatState;
 
         public Transform LastAttacker { get; private set; }
 
@@ -47,6 +48,7 @@ namespace ProjectFPS.Integrations
             stats = GetComponent<PlayerStats>();
             weapons = GetComponent<WeaponController>();
             position = GetComponent<TargetPositionModifier>();
+            combatState = GetComponent<FPSPlayerCombat>();
         }
 
         private void OnEnable()
@@ -81,12 +83,15 @@ namespace ProjectFPS.Integrations
         }
 
         public void Damage(int DamageAmount, Transform AttackerTransform = null, int RagdollForce = 100, bool CriticalHit = false)
+            => Damage(DamageAmount, AttackerTransform, RagdollForce, CriticalHit, EmeraldAttackKind.Unknown);
+
+        public void Damage(int DamageAmount, Transform AttackerTransform, int RagdollForce, bool CriticalHit, EmeraldAttackKind kind)
         {
             if (Immortal || Stats.IsDead || DamageAmount <= 0) return;
             float before = Mathf.Max(0, Stats.health) + Mathf.Max(0, Stats.shield);
             var previousAttacker = LastAttacker;
             LastAttacker = AttackerTransform;
-            Stats.Damage(DamageAmount, CriticalHit);
+            DamageService.RequestDamage(Stats, DamageAmount, CriticalHit, new DamageContext(AttackerTransform, null, ConvertKind(kind)));
             float received = before - (Mathf.Max(0, Stats.health) + Mathf.Max(0, Stats.shield));
             if (received <= 0)
             {
@@ -103,8 +108,19 @@ namespace ProjectFPS.Integrations
             ? position.TransformSource.position + Vector3.up * position.PositionModifier
             : transform.position + Vector3.up;
         public bool IsAttacking() => weapons != null && !Stats.IsDead && (weapons.IsShooting || !weapons.IsMeleeAvailable);
-        public bool IsBlocking() => false;
-        public bool IsDodging() => false;
-        public void TriggerStun(float StunLength) { }
+        public bool IsBlocking() => combatState != null && combatState.IsBlocking;
+        public bool IsDodging() => combatState != null && combatState.IsDodging;
+        public void TriggerStun(float StunLength) { if (combatState != null) combatState.TriggerStun(StunLength); }
+        private static DamageKind ConvertKind(EmeraldAttackKind kind)
+        {
+            switch (kind)
+            {
+                case EmeraldAttackKind.Melee: return DamageKind.Melee;
+                case EmeraldAttackKind.Projectile: return DamageKind.Projectile;
+                case EmeraldAttackKind.Explosion: return DamageKind.Explosion;
+                case EmeraldAttackKind.Environmental: return DamageKind.Environmental;
+                default: return DamageKind.Unknown;
+            }
+        }
     }
 }
