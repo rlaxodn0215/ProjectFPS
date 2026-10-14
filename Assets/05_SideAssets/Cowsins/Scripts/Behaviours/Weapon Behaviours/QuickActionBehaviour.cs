@@ -29,6 +29,9 @@ namespace cowsins
         
         private Transform playerRoot;
 
+        // 부 공격시 랜동으로 소리 발생
+        private RandomImpactSound randomImpactSound;
+
         public QuickActionBehaviour(WeaponContext context)
         {
             this.context = context;
@@ -43,6 +46,9 @@ namespace cowsins
             this.settings = context.Settings;
             weaponBehaviour.IsMeleeAvailable = true;
             this.playerRoot = context.Transform.root;
+
+            // 소리 추가
+            randomImpactSound = settings.meleeObject.GetComponent<RandomImpactSound>();
         }
 
         public bool CanExecute()
@@ -124,6 +130,7 @@ namespace cowsins
             if (Physics.Raycast(ray, out RaycastHit hit, attackRange, settings.hitLayer))
             {
                 weaponEvents.Events.OnHit?.Invoke(hit.collider.gameObject.layer, 0f, hit, false);
+                randomImpactSound?.PlayHitSound(); // 소리 재생
             }
         }
     }

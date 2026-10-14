@@ -77,11 +77,22 @@ namespace cowsins
                 Quaternion.identity
             );
 
-            GameObject bulletHoleImpact = PoolManager.Instance.GetFromPool(
-                weaponReference.Weapon.bulletHoleImpact.GetBulletHoleForLayer(layer),
-                hitPoint,
-                Quaternion.identity
-            );
+            GameObject bulletHoleImpact = null;
+
+            if (weaponReference.Weapon != null)
+            {
+                bulletHoleImpact = PoolManager.Instance.GetFromPool(
+                    weaponReference.Weapon.bulletHoleImpact.GetBulletHoleForLayer(layer),
+                    hitPoint,
+                    Quaternion.identity
+                );
+            }
+
+            //GameObject bulletHoleImpact = PoolManager.Instance.GetFromPool(
+            //    weaponReference.Weapon.bulletHoleImpact.GetBulletHoleForLayer(layer),
+            //    hitPoint,
+            //    Quaternion.identity
+            //);
 
             if (h.collider == null) return;
 

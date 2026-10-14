@@ -44,12 +44,13 @@ namespace cowsins
         /// </summary>
         public void Hit(int layer, float damage, RaycastHit h, bool damageTarget)
         {
-            if (weapon == null || h.collider == null) return;
+            if (h.collider == null) return;
+            //if (weapon == null || h.collider == null) return;
 
             settings.userEvents.OnHit?.Invoke();
             weaponEvents.Events.OnInstantiateBulletHoleImpact?.Invoke(layer, h);
 
-            if (!damageTarget) return;
+            if (!damageTarget || weapon == null) return;
 
             var hitTransform = h.collider.transform;
             float finalDamage = damage * GetDistanceDamageReduction(hitTransform);
