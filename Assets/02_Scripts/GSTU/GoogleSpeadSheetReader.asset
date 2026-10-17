@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03884bc03a540eb43a1170ef79152350, type: 3}
+  m_Name: GoogleSpeadSheetReader
+  m_EditorClassIdentifier: Assembly-CSharp::GoogleSpeadSheetReader
+  spreadsheetId: 1bUnrREmJEmdHAAdKtFPuYAiTry0l-lvnv_vGD_8BcsA
+  accessMode: 1
+  generatedCodeFolder: Assets/01_Scripts/Data/Generated
+  dataFolder: Assets/04_Data
+  catalogFolder: Assets/04_Data/Catalogs
+  requestTimeoutSeconds: 30
+  worksheets:
+  - title: "\uC2DC\uD2B81"
+    sheetId: 0
+    rowCount: 8
+    columnCount: 26
+  imports: []

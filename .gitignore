@@ -34,6 +34,9 @@
 # Jetbrains Rider personal-layer settings
 *.DotSettings.user
 
+#Ignore GSTU data
+/[Aa]ssets/05_SideAssets/Google Sheets to Unity/Resources
+
 # Visual Studio cache directory
 .vs/
 
