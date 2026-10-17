@@ -22422,6 +22422,9 @@ MonoBehaviour:
   enemySpottedColor: {r: 1, g: 0, b: 0, a: 1}
   enemySpottedWidth: 5
   resizeSpeed: 15
+  useOutline: 1
+  outlineColor: {r: 0, g: 0, b: 0, a: 0.5}
+  outlineDistance: {x: 1, y: -1}
   crosshairEvents:
     OnEnemySpotted:
       m_PersistentCalls:
@@ -41576,19 +41579,22 @@ MonoBehaviour:
     canShootWhileDashing: 1
     allowGrapple: 1
     maxGrappleDistance: 50
-    grapplingHookMethod: 2
-    grappleRopeLength: 10
-    grappleCooldown: 1
+    highSpeedGrappleMaxSpeed: 50
+    highSpeedGrappleAcceleration: 100
+    highSpeedGrappleSteering: 30
+    grapplingHookMethod: 3
+    grappleRopeLength: 20
+    grappleCooldown: 0.1
     distanceToBreakGrapple: 2
     grappleForce: 60
     cameraInfluence: 20
-    combinedGrapplePullForce: 20
-    combinedGrappleMaxSpeed: 40
-    combinedGrappleReelSpeed: 6
-    combinedGrappleMinSwingSpeed: 10
-    grappleSpringForce: 18
+    combinedGrapplePullForce: 1000
+    combinedGrappleMaxSpeed: 10000
+    combinedGrappleReelSpeed: 20
+    combinedGrappleMinSwingSpeed: 1
+    grappleSpringForce: 300
     grappleDamper: 7
-    drawDuration: 0.2
+    drawDuration: 0.1
     ropeResolution: 20
     waveAmplitude: 1.4
     waveAmplitudeMitigation: 6

@@ -481,6 +481,16 @@ namespace cowsins
                                     EditorGUILayout.PropertyField(playerSettings.FindPropertyRelative("maxGrappleDistance"));
                                     EditorGUILayout.PropertyField(grapplingHookMethod);
 
+                                    if (method == PlayerMovementSettings.GrapplingHookMethod.HighSpeedPull)
+                                    {
+                                        EditorGUILayout.HelpBox("Hold Grapple to pull; release to preserve airborne momentum. No arrival slowdown or cooldown. Surface collision stops the approach.", MessageType.Info);
+                                        EditorGUILayout.PropertyField(playerSettings.FindPropertyRelative("highSpeedGrappleMaxSpeed"));
+                                        EditorGUILayout.PropertyField(playerSettings.FindPropertyRelative("highSpeedGrappleAcceleration"));
+                                        EditorGUILayout.PropertyField(playerSettings.FindPropertyRelative("highSpeedGrappleSteering"));
+                                    }
+                                    else
+                                    {
+
                                     if (method == PlayerMovementSettings.GrapplingHookMethod.Linear)
                                         EditorGUILayout.HelpBox("SUGGESTED VALUES: grappleForce = 100", MessageType.Info);
                                     else if (method == PlayerMovementSettings.GrapplingHookMethod.Swing)
@@ -512,6 +522,7 @@ namespace cowsins
                                     
                                     EditorGUILayout.PropertyField(playerSettings.FindPropertyRelative("grappleSpringForce"));
                                     EditorGUILayout.PropertyField(playerSettings.FindPropertyRelative("grappleDamper"));
+                                    }
                                     EditorGUILayout.PropertyField(playerSettings.FindPropertyRelative("drawDuration"));
                                     EditorGUILayout.PropertyField(playerSettings.FindPropertyRelative("ropeResolution"));
                                     EditorGUILayout.PropertyField(playerSettings.FindPropertyRelative("waveAmplitude"));

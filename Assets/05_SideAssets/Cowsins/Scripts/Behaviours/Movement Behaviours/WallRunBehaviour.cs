@@ -58,6 +58,11 @@ public class WallRunBehaviour
 
     public void FixedTick()
     {
+        if (context.GrapplingHook != null && context.GrapplingHook.PreservesMomentum)
+        {
+            if (playerMovement.IsWallRunning) Exit();
+            return;
+        }
         if (!CanExecute()) return;
 
         CheckWalls();

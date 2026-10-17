@@ -56,6 +56,14 @@ public class BasicMovementBehaviour
             return;
         }
 
+        // Grapple acceleration owns movement while attached; released momentum must
+        // not be overwritten by the walking-speed clamps below.
+        if (context.GrapplingHook != null && context.GrapplingHook.PreservesMomentum)
+        {
+            context.GrapplingHook.ApplySteering();
+            return;
+        }
+
         // Extra gravity should be skipped on slope
         if (!context.IsPlayerOnSlope)
             rb.AddForce(Vector3.down * Time.fixedDeltaTime * extraGravityMultiplier);

@@ -91,10 +91,15 @@ namespace cowsins
         #region Basic
         private void OnEnable() => Events.OnRespawn.AddListener(TeleportPlayer);
 
-        private void OnDisable() => Events.OnRespawn.RemoveListener(TeleportPlayer);
+        private void OnDisable()
+        {
+            Events.OnRespawn.RemoveListener(TeleportPlayer);
+            grapplingHookBehaviour?.Cancel();
+        }
 
         private void OnDestroy()
         {
+            grapplingHookBehaviour?.Dispose();
             cameraLookBehaviour?.Dispose();
             staminaBehaviour?.Dispose();
             jumpBehaviour?.Dispose();
@@ -121,12 +126,14 @@ namespace cowsins
         {
 
             groundDetectionBehaviour?.Tick();
+            grapplingHookBehaviour?.FrameTick();
             jumpBehaviour?.Tick();
             staminaBehaviour?.Tick();
         }
 
         private void FixedUpdate()
         {
+            grapplingHookBehaviour?.FixedTick();
             if (playerDependencies == null || playerDependencies.PlayerStats == null || playerDependencies.PlayerStats.IsDead) return;
 
             // Added Gravity, only if we are not climbing to prevent unvoluntary sliding
@@ -140,7 +147,9 @@ namespace cowsins
 
         private void UpdateVelocityState()
         {
-            Vector3 linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, playerSettings.maxSpeedAllowed);
+            float speedLimit = grapplingHookBehaviour != null && grapplingHookBehaviour.PreservesMomentum
+                ? grapplingHookBehaviour.MomentumSpeedLimit : playerSettings.maxSpeedAllowed;
+            Vector3 linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, speedLimit);
             rb.linearVelocity = linearVelocity;
             CurrentVelocityMagnitude = linearVelocity.magnitude;
             CurrentPlanarVelocityMagnitude = new Vector2(linearVelocity.x, linearVelocity.z).magnitude;
@@ -225,6 +234,7 @@ namespace cowsins
         #region Collisions
         void OnCollisionEnter(Collision collision)
         {
+            grapplingHookBehaviour?.HandleCollision(collision);
             if (collision.gameObject.CompareTag("Weapons"))
             {
                 Physics.IgnoreCollision(collision.collider, playerCapsuleCollider);
@@ -243,6 +253,7 @@ namespace cowsins
         public void TeleportPlayer(Vector3 position, Quaternion rotation, bool resetStamina, bool resetDashes)
         {
             if (rb == null || playerSettings == null) return;
+            grapplingHookBehaviour?.Cancel();
             rb.position = position;
             if (playerSettings.playerCam != null)
                 playerSettings.playerCam.rotation = rotation;

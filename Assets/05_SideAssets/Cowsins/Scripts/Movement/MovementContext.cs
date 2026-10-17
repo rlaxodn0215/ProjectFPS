@@ -26,6 +26,7 @@ public class MovementContext
     public RaycastHit SlopeHit;
 
     public bool HasJumped;
+    public GrapplingHookBehaviour GrapplingHook { get; set; }
     public float CoyoteTimer;
     public float CoyoteJumpTime;
 

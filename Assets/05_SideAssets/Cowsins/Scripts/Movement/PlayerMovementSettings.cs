@@ -36,7 +36,7 @@ namespace cowsins
         [System.Serializable]
         public enum GrapplingHookMethod
         {
-            Linear, Swing, Combined
+            Linear, Swing, Combined, HighSpeedPull
         }
 
         public enum LadderMovementMode
@@ -330,6 +330,10 @@ namespace cowsins
         [Tooltip("If true, allows the player to use a customizable grappling hook.")] public bool allowGrapple;
 
         [Tooltip("Maximum distance allowed for the player to begin a grapple action")] public float maxGrappleDistance = 50;
+
+        [Min(0.01f), Tooltip("HighSpeedPull maximum speed, including airborne momentum after release.")] public float highSpeedGrappleMaxSpeed = 50f;
+        [Min(0f), Tooltip("HighSpeedPull acceleration toward the anchor. Does not fade near the surface.")] public float highSpeedGrappleAcceleration = 100f;
+        [Min(0f), Tooltip("HighSpeedPull horizontal WASD steering acceleration.")] public float highSpeedGrappleSteering = 30f;
 
         [Tooltip("Defines the grappling hook's behavior: 'Linear' pulls the player directly to the point, while 'Swing' allows physics-based swinging.")] public GrapplingHookMethod grapplingHookMethod;
 

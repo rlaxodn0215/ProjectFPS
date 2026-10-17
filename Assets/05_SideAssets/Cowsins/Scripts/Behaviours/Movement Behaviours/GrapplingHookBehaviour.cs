@@ -34,6 +34,14 @@ public class GrapplingHookBehaviour
     private bool isGrappling;
     private float _initialDistance;
     private float _currentRopeLength;
+    private bool preserveReleasedMomentum;
+    private bool highSpeedAttachment;
+
+    public bool UsesHighSpeedPull => playerSettings.grapplingHookMethod == PlayerMovementSettings.GrapplingHookMethod.HighSpeedPull;
+    public bool IsHighSpeedAttached => highSpeedAttachment && isGrappling;
+    public bool PreservesMomentum => UsesHighSpeedPull &&
+        (IsHighSpeedAttached || (preserveReleasedMomentum && !playerMovement.Grounded));
+    public float MomentumSpeedLimit => Mathf.Max(0.01f, playerSettings.highSpeedGrappleMaxSpeed);
 
     public GrapplingHookBehaviour(MovementContext context)
     {
@@ -49,23 +57,33 @@ public class GrapplingHookBehaviour
         this.whatIsGround = context.WhatIsGround;
         this.CoroutineRunner = context.Transform.GetComponent<MonoBehaviour>();    
         this.playerCam = context.Camera;
+        context.GrapplingHook = this;
+        context.InputManager.OnStartGrapple += StartHighSpeedPull;
+        context.InputManager.OnStopGrapple += StopHighSpeedPull;
 
         if (!playerSettings.allowGrapple) Object.Destroy(grappleRenderer);
     }
     public void Enter()
     {
+        if (!playerSettings.allowGrapple || PauseMenu.isPaused || rb.isKinematic) return;
         if (!grappleEnabled || isGrappling || !playerControl.IsControllable || !playerControl.IsMovementControllable || weaponReference.MainCamera == null) return;
         RaycastHit hit;
 
         if (Physics.Raycast(weaponReference.MainCamera.transform.position, weaponReference.MainCamera.transform.forward, out hit, playerSettings.maxGrappleDistance, whatIsGround))
         {
             isGrappling = true;
+            highSpeedAttachment = UsesHighSpeedPull;
+            preserveReleasedMomentum = false;
             grapplePoint = hit.point;
 
             float distanceFromAnchor = Vector3.Distance(context.Transform.position, grapplePoint);
             bool isCombined = playerSettings.grapplingHookMethod == PlayerMovementSettings.GrapplingHookMethod.Combined;
 
-            if (!isCombined)
+            if (highSpeedAttachment)
+            {
+                joint = null;
+            }
+            else if (!isCombined)
             {
                 joint = context.Transform.gameObject.AddComponent<SpringJoint>();
                 joint.autoConfigureConnectedAnchor = false;
@@ -103,6 +121,8 @@ public class GrapplingHookBehaviour
 
     public void Tick() 
     {
+        // HighSpeedPull is updated centrally, independently of locomotion state.
+        if (UsesHighSpeedPull) return;
         UpdateGrappleRenderer();
 
         if (!isGrappling) return;
@@ -169,6 +189,9 @@ public class GrapplingHookBehaviour
     public void Exit() 
     {
         if (!isGrappling) return;
+        bool immediateRelease = highSpeedAttachment;
+        preserveReleasedMomentum = immediateRelease && !playerMovement.Grounded;
+        highSpeedAttachment = false;
         isGrappling = false;
         grappleEnabled = false;
 
@@ -179,12 +202,103 @@ public class GrapplingHookBehaviour
             cooldownCoroutine = null;
         }
 
-        cooldownCoroutine = CoroutineRunner.StartCoroutine(GrappleCooldownRoutine());
+        if (immediateRelease) EnableGrapple();
+        else cooldownCoroutine = CoroutineRunner.StartCoroutine(GrappleCooldownRoutine());
 
         grappleRenderer.positionCount = 0; // Reset the quality/resolution of the rope
         if (joint != null) UnityEngine.Object.Destroy(joint);
 
         playerSettings.events.OnStopGrapple?.Invoke();// Perform custom methods
+    }
+
+    private void StartHighSpeedPull()
+    {
+        if (UsesHighSpeedPull) Enter();
+    }
+
+    private void StopHighSpeedPull()
+    {
+        if (UsesHighSpeedPull) Exit();
+    }
+
+    public void FrameTick()
+    {
+        if (!UsesHighSpeedPull && !highSpeedAttachment) return;
+        if (!CanMaintainHighSpeedPull())
+        {
+            Cancel();
+            return;
+        }
+        // Release must also work if a locomotion state has removed its input listeners.
+        if (isGrappling && !InputManager.inputActions.GameControls.Grapple.IsPressed()) Exit();
+        if (playerMovement.Grounded) preserveReleasedMomentum = false;
+        if (!PauseMenu.isPaused) UpdateGrappleRenderer();
+    }
+
+    private bool CanMaintainHighSpeedPull()
+    {
+        return UsesHighSpeedPull && playerSettings.allowGrapple && !rb.isKinematic &&
+            context.InputManager != null && context.InputManager.isActiveAndEnabled &&
+            playerControl.IsControllable && playerControl.IsMovementControllable &&
+            !context.Dependencies.PlayerStats.IsDead &&
+            !playerMovement.IsClimbing && !playerMovement.IsDashing;
+    }
+
+    public void FixedTick()
+    {
+        if (!UsesHighSpeedPull) return;
+        if (!CanMaintainHighSpeedPull())
+        {
+            Cancel();
+            return;
+        }
+        if (PauseMenu.isPaused) return;
+        if (playerMovement.Grounded) preserveReleasedMomentum = false;
+        if (!IsHighSpeedAttached) return;
+
+        Vector3 toAnchor = grapplePoint - rb.position;
+        // No distance fade, spring, or minimum-distance stop: contacts stop the body.
+        rb.AddForce(toAnchor.normalized * Mathf.Max(0f, playerSettings.highSpeedGrappleAcceleration), ForceMode.Acceleration);
+    }
+
+    public void ApplySteering()
+    {
+        if (!PreservesMomentum || PauseMenu.isPaused) return;
+        Vector3 forward = Vector3.ProjectOnPlane(orientation.Forward, Vector3.up).normalized;
+        Vector3 right = Vector3.Cross(Vector3.up, forward);
+        Vector3 wishDirection = Vector3.ClampMagnitude(
+            forward * context.InputManager.Y + right * context.InputManager.X, 1f);
+        Vector3 velocity = CowsinsUtilities.GetLinearVelocity(rb);
+        velocity += wishDirection * Mathf.Max(0f, playerSettings.highSpeedGrappleSteering) * Time.fixedDeltaTime;
+        CowsinsUtilities.SetLinearVelocity(rb, Vector3.ClampMagnitude(velocity, MomentumSpeedLimit));
+    }
+
+    public void HandleCollision(Collision collision)
+    {
+        if (!IsHighSpeedAttached || collision.gameObject.CompareTag("Weapons")) return;
+        Vector3 pullDirection = (grapplePoint - rb.position).normalized;
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            if (Vector3.Dot(pullDirection, collision.GetContact(i).normal) < -0.01f)
+            {
+                // A real impact stops the approach; merely nearing the anchor never does.
+                CowsinsUtilities.SetLinearVelocity(rb, Vector3.zero);
+                return;
+            }
+        }
+    }
+
+    public void Cancel()
+    {
+        if (highSpeedAttachment) Exit();
+        preserveReleasedMomentum = false;
+    }
+
+    public void Dispose()
+    {
+        context.InputManager.OnStartGrapple -= StartHighSpeedPull;
+        context.InputManager.OnStopGrapple -= StopHighSpeedPull;
+        Cancel();
     }
 
     public void UpdateGrappleRenderer()
