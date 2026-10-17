@@ -46,6 +46,10 @@ namespace cowsins
 
         [Title("Speed"), SerializeField] private float resizeSpeed = 3f;
 
+        [Title("Outline Settings"), SerializeField] private bool useOutline = true;
+        [SerializeField] private Color outlineColor = new Color(0, 0, 0, 0.5f);
+        [SerializeField] private Vector2 outlineDistance = new Vector2(1, -1);
+
         [SerializeField, Title("Events", upMargin = 10)] private CrosshairEvents crosshairEvents;
 
         private IPlayerStatsProvider playerStatsProvider; // IPlayerStatsProvider is implemented in PlayerStats.cs
@@ -118,6 +122,14 @@ namespace cowsins
             obj.transform.SetParent(crosshairContainer, false);
             Image img = obj.AddComponent<Image>();
             img.color = color;
+
+            if (useOutline)
+            {
+                Outline outline = obj.AddComponent<Outline>();
+                outline.effectColor = outlineColor;
+                outline.effectDistance = outlineDistance;
+            }
+
             return img;
         }
 

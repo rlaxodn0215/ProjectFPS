@@ -65,10 +65,14 @@ namespace cowsins
 
         private IEnumerator HandleShooting(float spread)
         {
+            var control = playerDependencies.GetComponent<PlayerControl>();
+            uint revision = control != null ? control.AttackRevision : 0;
             if ((int)weapon.shootStyle == 1)
             {
                 yield return new WaitForSeconds(weapon.shootDelay);
             }
+
+            if (!CanCompleteShot(control, revision)) yield break;
 
             if (weapon.timeBetweenShots == 0)
             {
@@ -79,17 +83,22 @@ namespace cowsins
             // Avoid calling the while loop if we only want to shoot one bullet
             if (weapon.bulletsPerFire == 1)
             {
-                if (weapon == null || !CanFireNow()) yield break;
+                if (!CanCompleteShot(control, revision)) yield break;
                 if (ProjectileShoot(spread)) weaponEvents.Events.OnWeaponFired.Invoke(weapon);
             }
             else
             {
                 int i = 0;
+                bool emitted = false;
                 while (i < weapon.bulletsPerFire)
                 {
-                    if (weapon == null || !CanFireNow()) yield break;
+                    if (!CanCompleteShot(control, revision)) yield break;
 
-                    if (ProjectileShoot(spread) && (i == 0 || weapon.timeBetweenShots > 0)) weaponEvents.Events.OnWeaponFired.Invoke(weapon);
+                    if (ProjectileShoot(spread) && (!emitted || weapon.timeBetweenShots > 0))
+                    {
+                        emitted = true;
+                        weaponEvents.Events.OnWeaponFired.Invoke(weapon);
+                    }
                     if (weapon.timeBetweenShots > 0) yield return new WaitForSeconds(weapon.timeBetweenShots);
                     i++;
                 }
@@ -100,8 +109,6 @@ namespace cowsins
 
         private bool ProjectileShoot(float spread)
         {
-            onShoot?.Invoke();
-
             RaycastHit hit;
             Vector3 dir = CowsinsUtilities.GetSpreadDirection(spread, mainCamera.transform);
             Ray ray = new Ray(mainCamera.transform.position, dir);
@@ -113,6 +120,8 @@ namespace cowsins
                 return false;
             }
 
+            onShoot?.Invoke();
+            bool created = false;
             foreach (var p in firePoint)
             {
                 GameObject bulletGO = GameObject.Instantiate(weapon.projectile.gameObject, p.position, p.transform.rotation);
@@ -131,13 +140,17 @@ namespace cowsins
                 if (bulletGO.TryGetComponent<Rigidbody>(out Rigidbody rb)) rb.isKinematic = !weapon.projectileUsesGravity;
                 bullet.Damage = id.damage * multipliers.DamageMultiplier.Value;
                 bullet.Duration = weapon.bulletDuration;
-                weaponEvents.Events.OnProjectileCreated.Invoke(bulletGO, hit.collider != null ? hit.collider.transform : null);
+                created = true;
+                weaponEvents.Events.OnProjectileCreated.Invoke(bulletGO, hit.collider != null ? hit.transform : null);
             }
-            return firePoint.Length > 0;
+            return created;
         }
 
-        private bool CanFireNow() => playerDependencies.PlayerControl.IsControllable &&
-            playerDependencies.PlayerControl.ActionsControllable && playerDependencies.PlayerControl.ShootingControllable;
+        private bool CanCompleteShot(PlayerControl control, uint revision)
+            => weapon != null && id != null && playerDependencies.WeaponReference.Id == id &&
+               playerDependencies.PlayerStats?.IsDead != true && !PauseMenu.isPaused &&
+               playerDependencies.PlayerControl.IsControllable && playerDependencies.PlayerControl.ActionsControllable &&
+               playerDependencies.PlayerControl.ShootingControllable && (control == null || control.AttackRevision == revision);
 
         private IEnumerator AllowShootAfterDelay(float delay)
         {

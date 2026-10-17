@@ -67,10 +67,14 @@ namespace cowsins
 
         private IEnumerator HandleShooting(float spread)
         {
+            var control = playerDependencies.GetComponent<PlayerControl>();
+            uint revision = control != null ? control.AttackRevision : 0;
             if ((int)weapon.shootStyle == 1)
             {
                 yield return new WaitForSeconds(weapon.shootDelay);
             }
+
+            if (!CanCompleteShot(control, revision)) yield break;
 
             if (weapon.timeBetweenShots == 0)
             {
@@ -81,7 +85,7 @@ namespace cowsins
             // Avoid calling the while loop if we only want to shoot one bullet
             if (weapon.bulletsPerFire == 1)
             {
-                if (weapon == null || !CanFireNow()) yield break;
+                if (!CanCompleteShot(control, revision)) yield break;
                 HitscanShot(spread);
                 weaponEvents.Events.OnWeaponFired.Invoke(weapon);
             }
@@ -90,7 +94,7 @@ namespace cowsins
                 int i = 0;
                 while (i < weapon.bulletsPerFire)
                 {
-                    if (weapon == null || !CanFireNow()) yield break;
+                    if (!CanCompleteShot(control, revision)) yield break;
 
                     HitscanShot(spread);
                     if (i == 0 || weapon.timeBetweenShots > 0) weaponEvents.Events.OnWeaponFired.Invoke(weapon);
@@ -148,9 +152,6 @@ namespace cowsins
                 }
             }
         }
-
-        private bool CanFireNow() => playerDependencies.PlayerControl.IsControllable &&
-            playerDependencies.PlayerControl.ActionsControllable && playerDependencies.PlayerControl.ShootingControllable;
         private IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)
         {
             float time = 0;
@@ -167,6 +168,12 @@ namespace cowsins
             trail.transform.position = hit.point;
             PoolManager.Instance.ReturnToPool(trail.gameObject, prefab);
         }
+
+        private bool CanCompleteShot(PlayerControl control, uint revision)
+            => weapon != null && id != null && playerDependencies.WeaponReference.Id == id &&
+               playerDependencies.PlayerStats?.IsDead != true && !PauseMenu.isPaused &&
+               playerDependencies.PlayerControl.IsControllable && playerDependencies.PlayerControl.ActionsControllable &&
+               playerDependencies.PlayerControl.ShootingControllable && (control == null || control.AttackRevision == revision);
 
         private IEnumerator AllowShootAfterDelay(float delay)
         {

@@ -998,7 +998,7 @@ MonoBehaviour:
   cameraFOVManager: {fileID: 312116977156470357}
   cameraEffects: {fileID: 509610509608094595}
   weaponEffects: {fileID: 7594989027684225411}
-  uiManager: {fileID: 0}
+  uiManager: {fileID: 6746680657309544846}
   crosshair: {fileID: 8955822681782652578}
 --- !u!54 &4612824603642630889
 Rigidbody:
@@ -2892,11 +2892,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1411294435414788397, guid: 48487ed79b7a6b640af4e489a214b984, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 60
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1411294435414788397, guid: 48487ed79b7a6b640af4e489a214b984, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1411294435556392489, guid: 48487ed79b7a6b640af4e489a214b984, type: 3}
       propertyPath: showFPS
@@ -4341,6 +4341,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3447679243148551476, guid: 48487ed79b7a6b640af4e489a214b984, type: 3}
   m_PrefabInstance: {fileID: 8060481847101238352}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6746680657309544846 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3638226558656388574, guid: 48487ed79b7a6b640af4e489a214b984, type: 3}
+  m_PrefabInstance: {fileID: 8060481847101238352}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5ace7c8477e064da7d8ece5391eacd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8955822680134967312 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1411294434437418048, guid: 48487ed79b7a6b640af4e489a214b984, type: 3}

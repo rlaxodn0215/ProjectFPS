@@ -37,7 +37,6 @@ namespace cowsins
 
         public void StartGrapple()
         {
-            if (!_ctx.PlayerControlProvider.IsMovementControllable || !_ctx.PlayerControlProvider.ActionsControllable) return;
             if (!playerMovement.playerSettings.allowGrapple) return;
 
             playerMovement.grapplingHookBehaviour?.Enter();

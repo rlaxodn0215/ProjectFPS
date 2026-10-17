@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace cowsins
 {
     /// <summary>
@@ -11,9 +8,13 @@ namespace cowsins
         private static IDamageRouter router;
         private static int requestDepth;
 
+        private static bool pendingEnvironmental;
+        public static bool EnvironmentalContext
+        {
+            get => pendingEnvironmental || CurrentContext.Kind == DamageKind.Environmental;
+            set => pendingEnvironmental = value;
+        }
         public static DamageContext CurrentContext { get; private set; }
-
-        public static bool EnvironmentalContext { get; set; }
 
         public static IDamageRouter Router
         {
@@ -23,40 +24,26 @@ namespace cowsins
 
         public static void RequestDamage(IDamageable target, float damage, bool isHeadshot)
         {
-            RequestDamage(target, damage, isHeadshot,
-                new DamageContext(null, null, EnvironmentalContext ? DamageKind.Environmental : DamageKind.Unknown));
+            var context = pendingEnvironmental
+                ? new DamageContext(null, null, DamageKind.Environmental) : default;
+            pendingEnvironmental = false;
+            RequestDamage(target, damage, isHeadshot, context);
         }
 
         public static void RequestDamage(IDamageable target, float damage, bool isHeadshot, DamageContext context)
         {
-            var previousContext = CurrentContext;
-            bool previousEnvironmental = EnvironmentalContext;
+            var previous = CurrentContext;
+            bool previousEnvironmental = pendingEnvironmental;
             requestDepth++;
             CurrentContext = context;
-            EnvironmentalContext = context.Kind == DamageKind.Environmental;
+            pendingEnvironmental = false;
             try { Router.RequestDamage(target, damage, isHeadshot); }
             finally
             {
                 requestDepth--;
-                CurrentContext = previousContext;
-                EnvironmentalContext = requestDepth > 0 && previousEnvironmental;
+                CurrentContext = previous;
+                pendingEnvironmental = requestDepth > 0 && previousEnvironmental;
             }
-        }
-
-        /// <summary>Resolve child hitboxes to their owner, keeping the closest collider per character.</summary>
-        public static Dictionary<IDamageable, Collider> GatherExplosionTargets(IEnumerable<Collider> colliders, Vector3 origin)
-        {
-            var targets = new Dictionary<IDamageable, Collider>();
-            foreach (var collider in colliders)
-            {
-                if (collider == null) continue;
-                var target = CowsinsUtilities.GatherDamageableParent(collider.transform);
-                if (target == null || target.IsDead) continue;
-                if (!targets.TryGetValue(target, out var previous) ||
-                    (collider.ClosestPoint(origin) - origin).sqrMagnitude < (previous.ClosestPoint(origin) - origin).sqrMagnitude)
-                    targets[target] = collider;
-            }
-            return targets;
         }
 
         public static void Reset()
@@ -65,11 +52,11 @@ namespace cowsins
             if (requestDepth == 0)
             {
                 CurrentContext = default;
-                EnvironmentalContext = false;
+                pendingEnvironmental = false;
             }
         }
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetOnLoad() => Reset();
 
         private sealed class DefaultDamageRouter : IDamageRouter

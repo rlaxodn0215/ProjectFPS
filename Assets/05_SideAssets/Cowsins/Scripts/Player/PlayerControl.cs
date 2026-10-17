@@ -10,24 +10,38 @@ namespace cowsins
     public class PlayerControl : MonoBehaviour, IPlayerControlProvider
     {
         public bool IsControllable => controllable;
-        public bool IsMovementControllable => movementControllable && !IsRestricted(ControlRestriction.Movement);
+        public bool IsMovementControllable => movementControllable && (restrictions & ControlRestriction.Movement) == 0;
         public bool CameraControllable => cameraControllable && !IsRestricted(ControlRestriction.Camera);
-        public bool ActionsControllable => actionsControllable && !IsRestricted(ControlRestriction.Actions);
-        public bool ShootingControllable => shootingControllable && !IsRestricted(ControlRestriction.Shooting);
+        public bool ActionsControllable => actionsControllable && (restrictions & ControlRestriction.Actions) == 0;
+        public bool ShootingControllable => shootingControllable && (restrictions & ControlRestriction.Shooting) == 0;
 
         [Flags]
-        public enum ControlRestriction { Movement = 1, Camera = 2, Actions = 4, Shooting = 8 }
-        private readonly Dictionary<object, ControlRestriction> restrictions = new Dictionary<object, ControlRestriction>();
-        public void AddRestriction(object token, ControlRestriction restriction)
+        public enum ControlRestriction { None = 0, Movement = 1, Camera = 2, Actions = 4, Shooting = 8 }
+        private readonly Dictionary<object, ControlRestriction> restrictionTokens = new();
+        private ControlRestriction restrictions;
+        // Invalidates delayed attacks even if a restriction ends before their hit delay.
+        internal uint AttackRevision { get; private set; }
+        internal bool HasMovementRestriction => (restrictions & ControlRestriction.Movement) != 0;
+        public bool IsRestricted(ControlRestriction flags) => (restrictions & flags) != 0;
+
+        public void AddRestriction(object token, ControlRestriction flags)
         {
             if (token == null) throw new ArgumentNullException(nameof(token));
-            restrictions[token] = restriction;
+            if (restrictionTokens.TryGetValue(token, out var previous) && previous == flags) return;
+            restrictionTokens[token] = flags;
+            if ((flags & (ControlRestriction.Actions | ControlRestriction.Shooting)) != 0) AttackRevision++;
+            RefreshRestrictions();
         }
-        public void RemoveRestriction(object token) { if (token != null) restrictions.Remove(token); }
-        public bool IsRestricted(ControlRestriction restriction)
+
+        public void RemoveRestriction(object token)
         {
-            foreach (var value in restrictions.Values) if ((value & restriction) != 0) return true;
-            return false;
+            if (token != null && restrictionTokens.Remove(token)) RefreshRestrictions();
+        }
+
+        private void RefreshRestrictions()
+        {
+            restrictions = ControlRestriction.None;
+            foreach (var flags in restrictionTokens.Values) restrictions |= flags;
         }
 
         private bool controllable = true;
@@ -78,7 +92,7 @@ namespace cowsins
         /// <summary>
         /// Toggles the controllable state of the player.
         /// </summary>
-        public void ToggleControl() => controllable = !controllable;
+        public void ToggleControl() { controllable = !controllable; if (!controllable) AttackRevision++; }
 
         /// <summary>
         /// Checks if the game is paused or the player is dead before allowing the player to be controlled.
@@ -116,12 +130,12 @@ namespace cowsins
         /// <summary>
         /// Disallows player actions.
         /// </summary>
-        public void LoseActionsControl() => actionsControllable = false;
+        public void LoseActionsControl() { actionsControllable = false; AttackRevision++; }
 
         /// <summary>
         /// Toggles the actions controllable state of the player.
         /// </summary>
-        public void ToggleActionsControl() => actionsControllable = !actionsControllable;
+        public void ToggleActionsControl() { actionsControllable = !actionsControllable; if (!actionsControllable) AttackRevision++; }
 
         /***************************************** SHOOTING CONTROL *************************************************/
         
@@ -133,11 +147,11 @@ namespace cowsins
         /// <summary>
         /// Disallows shooting.
         /// </summary>
-        public void LoseShootingControl() => shootingControllable = false;
+        public void LoseShootingControl() { shootingControllable = false; AttackRevision++; }
 
         /// <summary>
         /// Toggles the shooting controllable state of the player.
         /// </summary>
-        public void ToggleShootingControl() => shootingControllable = !shootingControllable;
+        public void ToggleShootingControl() { shootingControllable = !shootingControllable; if (!shootingControllable) AttackRevision++; }
     }
 }

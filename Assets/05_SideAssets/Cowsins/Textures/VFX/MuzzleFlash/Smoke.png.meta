@@ -122,6 +122,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 218594
   packageName: FPS Engine
-  packageVersion: 1.6
-  assetPath: Assets/Cowsins/Textures/VFX/MuzzleFlash/Smoke.png
-  uploadId: 1000988
+  packageVersion: 1.6.1
+  assetPath: Assets/05_SideAssets/Cowsins/Textures/VFX/MuzzleFlash/Smoke.png
+  uploadId: 1019066

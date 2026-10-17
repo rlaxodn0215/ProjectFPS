@@ -24,7 +24,6 @@ namespace cowsins
 
 
         private bool projectileHasAlreadyHit = false; // Prevent from double hitting issues
-        private bool despawnRequested;
 
         private void Start()
         {
@@ -41,12 +40,21 @@ namespace cowsins
         {
             if (projectileHasAlreadyHit || other.gameObject.layer == LayerMask.NameToLayer("Effects")) return;
 
-            if (Player != null && other.transform.root == Player.root) return;
-            IDamageable damageable = CowsinsUtilities.GatherDamageableParent(other.transform);
-            if (damageable != null)
+            IDamageable damageable = other.GetComponent<IDamageable>();
+
+            if (other.CompareTag(CowsinsUtilities.CRITICAL_TAG))
             {
-                bool critical = other.CompareTag(CowsinsUtilities.CRITICAL_TAG);
-                DamageTarget(damageable, critical ? Damage * CriticalMultiplier : Damage, critical, other);
+                if (Player == null || other.transform.root != Player.root)
+                    DamageTarget(CowsinsUtilities.GatherDamageableParent(other.transform), Damage * CriticalMultiplier, true, other);
+            }
+            else if (other.CompareTag(CowsinsUtilities.BODY_SHOT_TAG))
+            {
+                if (Player == null || other.transform.root != Player.root)
+                    DamageTarget(CowsinsUtilities.GatherDamageableParent(other.transform), Damage, false, other);
+            }
+            else if (damageable != null && (Player == null || other.transform.root != Player.root))
+            {
+                DamageTarget(damageable, Damage, false, other);
             }
             else if (IsGroundOrObstacleLayer(other.gameObject.layer))
             {
@@ -58,9 +66,8 @@ namespace cowsins
         {
             if (target != null)
             {
+                DamageService.RequestDamage(target, dmg, isCritical, new DamageContext(Player, hitCollider, DamageKind.Projectile));
                 projectileHasAlreadyHit = true;
-                DamageService.RequestDamage(target, dmg, isCritical,
-                    new DamageContext(Player, hitCollider, DamageKind.Projectile));
                 DestroyProjectile();
             }
         }
@@ -72,10 +79,6 @@ namespace cowsins
 
         private void DestroyProjectile()
         {
-            if (!isActiveAndEnabled || despawnRequested) return;
-            despawnRequested = true;
-            projectileHasAlreadyHit = true;
-            CancelInvoke(nameof(DestroyProjectile));
             if (ExplosionOnHit)
             {
                 if (ExplosionVFX != null)
@@ -86,31 +89,35 @@ namespace cowsins
 
                 Collider[] colliders = Physics.OverlapSphere(transform.position, ExplosionRadius);
 
-                foreach (var entry in DamageService.GatherExplosionTargets(colliders, transform.position))
-                {
-                    var collider = entry.Value;
-                    bool isShooter = Player != null && collider.transform.root == Player.root;
-                    if (isShooter && !HurtsPlayer) continue;
-                    float distance = Vector3.Distance(collider.ClosestPoint(transform.position), transform.position);
-                    float distanceRatio = ExplosionRadius > 0 ? 1 - Mathf.Clamp01(distance / ExplosionRadius) : 0;
-                    DamageService.RequestDamage(entry.Key, Damage * distanceRatio, false,
-                        new DamageContext(Player, collider, DamageKind.Explosion));
-                }
+                // Deduplicate: one damage call per IDamageable (players have multiple hitbox colliders).
+                var damagedTargets = new System.Collections.Generic.HashSet<IDamageable>();
 
-                var shakenPlayers = new System.Collections.Generic.HashSet<PlayerMovement>();
-                var pushedBodies = new System.Collections.Generic.HashSet<Rigidbody>();
                 foreach (var collider in colliders)
                 {
-                    var playerMovement = collider.GetComponentInParent<PlayerMovement>();
-                    var rigidbody = collider.attachedRigidbody;
-                    if (playerMovement != null && shakenPlayers.Add(playerMovement))
+                    var damageable = collider.GetComponent<IDamageable>()
+                        ?? CowsinsUtilities.GatherDamageableParent(collider.transform);
+                    var playerMovement = collider.GetComponent<PlayerMovement>();
+                    var rigidbody = collider.GetComponent<Rigidbody>();
+
+                    if (damageable != null && damagedTargets.Add(damageable))
                     {
-                        CameraEffects cameraEffects = playerMovement.GetComponent<CameraEffects>();
-                        if (cameraEffects != null)
-                            cameraEffects.ExplosionShake(Vector3.Distance(cameraEffects.transform.position, transform.position));
+                        float distanceRatio = 1 - Mathf.Clamp01(Vector3.Distance(collider.transform.position, transform.position) / ExplosionRadius);
+                        float dmg = Damage * distanceRatio;
+
+                        bool isShooter = Player != null && collider.transform.root == Player.root;
+                        if (isShooter && !HurtsPlayer)
+                            continue;
+
+                        DamageService.RequestDamage(damageable, dmg, false, new DamageContext(Player, collider, DamageKind.Explosion));
                     }
 
-                    if (rigidbody != null && rigidbody.gameObject != gameObject && pushedBodies.Add(rigidbody))
+                    if (playerMovement != null)
+                    {
+                        CameraEffects cameraEffects = playerMovement.GetComponent<CameraEffects>();
+                        cameraEffects.ExplosionShake(Vector3.Distance(cameraEffects.transform.position, transform.position));
+                    }
+
+                    if (rigidbody != null && collider != this)
                     {
                         rigidbody.AddExplosionForce(ExplosionForce, transform.position, ExplosionRadius, 5, ForceMode.Force);
                     }

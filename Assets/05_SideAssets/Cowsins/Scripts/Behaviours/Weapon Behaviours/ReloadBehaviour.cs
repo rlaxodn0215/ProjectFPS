@@ -64,11 +64,7 @@ namespace cowsins
             }
         }
 
-        public void StartReload()
-        {
-            if (!context.Dependencies.PlayerControl.IsControllable || !context.Dependencies.PlayerControl.ActionsControllable) return;
-            activeReloadCoroutine = context.CoroutineRunner.StartCoroutine(reload());
-        }
+        public void StartReload() => activeReloadCoroutine = context.CoroutineRunner.StartCoroutine(reload());
         public void StopReload()
         {
             if(activeReloadCoroutine != null) 

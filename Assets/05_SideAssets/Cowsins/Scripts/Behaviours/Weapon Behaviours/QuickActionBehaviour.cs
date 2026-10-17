@@ -29,9 +29,6 @@ namespace cowsins
         
         private Transform playerRoot;
 
-        // 부 공격시 랜동으로 소리 발생
-        private RandomImpactSound randomImpactSound;
-
         public QuickActionBehaviour(WeaponContext context)
         {
             this.context = context;
@@ -46,9 +43,6 @@ namespace cowsins
             this.settings = context.Settings;
             weaponBehaviour.IsMeleeAvailable = true;
             this.playerRoot = context.Transform.root;
-
-            // 소리 추가
-            randomImpactSound = settings.meleeObject.GetComponent<RandomImpactSound>();
         }
 
         public bool CanExecute()
@@ -75,8 +69,14 @@ namespace cowsins
 
         private IEnumerator MeleeRoutine()
         {
+            var control = context.Dependencies.GetComponent<PlayerControl>();
+            uint revision = control != null ? control.AttackRevision : 0;
+            var initialId = id;
             yield return new WaitForSeconds(settings.meleeDelay);
-            if (!playerControl.IsControllable || !playerControl.ActionsControllable) { FinishMelee(); yield break; }
+            if (!playerControl.IsControllable || !playerControl.ActionsControllable || PauseMenu.isPaused ||
+                context.Dependencies.PlayerStats?.IsDead == true || id != initialId ||
+                (control != null && control.AttackRevision != revision))
+            { FinishMelee(); yield break; }
             Melee();
         }
 
@@ -115,12 +115,17 @@ namespace cowsins
             for (int i = 0; i < hits; i++)
             {
                 var c = meleeHitColliders[i];
-                if (c.transform.root == playerRoot) continue;
-                var damageable = CowsinsUtilities.GatherDamageableParent(c.transform);
-                if (damageable != null)
+                if (CowsinsUtilities.IsDamageableHitbox(c))
                 {
-                    DamageService.RequestDamage(damageable, dmg, false,
-                        new DamageContext(context.Dependencies.transform, c, DamageKind.QuickMelee));
+                    var parent = CowsinsUtilities.GatherDamageableParent(c.transform);
+                    if (parent != null)
+                        DamageService.RequestDamage(parent, dmg, false, new DamageContext(context.Dependencies.transform, c, DamageKind.QuickMelee));
+                    break;
+                }
+
+                if (c.TryGetComponent<IDamageable>(out var damageable))
+                {
+                    DamageService.RequestDamage(damageable, dmg, false, new DamageContext(context.Dependencies.transform, c, DamageKind.QuickMelee));
                     break;
                 }
             }
@@ -130,7 +135,6 @@ namespace cowsins
             if (Physics.Raycast(ray, out RaycastHit hit, attackRange, settings.hitLayer))
             {
                 weaponEvents.Events.OnHit?.Invoke(hit.collider.gameObject.layer, 0f, hit, false);
-                randomImpactSound?.PlayHitSound(); // 소리 재생
             }
         }
     }

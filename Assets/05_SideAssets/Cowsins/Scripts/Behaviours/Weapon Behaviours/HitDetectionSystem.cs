@@ -44,13 +44,12 @@ namespace cowsins
         /// </summary>
         public void Hit(int layer, float damage, RaycastHit h, bool damageTarget)
         {
-            if (h.collider == null) return;
-            //if (weapon == null || h.collider == null) return;
+            if (weapon == null || h.collider == null) return;
 
             settings.userEvents.OnHit?.Invoke();
             weaponEvents.Events.OnInstantiateBulletHoleImpact?.Invoke(layer, h);
 
-            if (!damageTarget || weapon == null) return;
+            if (!damageTarget) return;
 
             var hitTransform = h.collider.transform;
             float finalDamage = damage * GetDistanceDamageReduction(hitTransform);
@@ -61,22 +60,19 @@ namespace cowsins
                 settings.userEvents.OnCriticalHit?.Invoke();
                 var damageable = CowsinsUtilities.GatherDamageableParent(hitTransform);
                 if (damageable != null)
-                    DamageService.RequestDamage(damageable, finalDamage * weapon.criticalDamageMultiplier, true,
-                        new DamageContext(context.Dependencies.transform, h.collider, DamageKind.Hitscan));
+                    DamageService.RequestDamage(damageable, finalDamage * weapon.criticalDamageMultiplier, true, new DamageContext(context.Dependencies.transform, h.collider, DamageKind.Hitscan));
             }
             else if (hitTransform.CompareTag(CowsinsUtilities.BODY_SHOT_TAG))
             {
                 var damageable = CowsinsUtilities.GatherDamageableParent(hitTransform);
                 if (damageable != null)
-                    DamageService.RequestDamage(damageable, finalDamage, false,
-                        new DamageContext(context.Dependencies.transform, h.collider, DamageKind.Hitscan));
+                    DamageService.RequestDamage(damageable, finalDamage, false, new DamageContext(context.Dependencies.transform, h.collider, DamageKind.Hitscan));
             }
             else
             {
                 var damageable = CowsinsUtilities.GatherDamageableParent(hitTransform);
                 if (damageable != null)
-                    DamageService.RequestDamage(damageable, finalDamage, false,
-                        new DamageContext(context.Dependencies.transform, h.collider, DamageKind.Hitscan));
+                    DamageService.RequestDamage(damageable, finalDamage, false, new DamageContext(context.Dependencies.transform, h.collider, DamageKind.Hitscan));
             }
         }
 

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 
@@ -48,6 +48,8 @@ namespace cowsins
         private IEnumerator HandleMeleeShotCoroutine(float damageMultiplier, float shakeMultiplier)
         {
             canShoot = false;
+            var control = playerDependencies.GetComponent<PlayerControl>();
+            uint revision = control != null ? control.AttackRevision : 0;
 
             // Get the Animator component from the current weapon
             Animator animator = id.Animator;
@@ -63,9 +65,12 @@ namespace cowsins
                 delay = weapon.hitDelays[id.CurrentShotIndex];
 
             yield return new WaitForSeconds(delay);
-            if (!playerDependencies.PlayerControl.IsControllable || !playerDependencies.PlayerControl.ActionsControllable)
-            { canShoot = true; yield break; }
 
+            if (weapon == null || id == null || playerDependencies.WeaponReference.Id != id ||
+                playerDependencies.PlayerStats?.IsDead == true || PauseMenu.isPaused ||
+                !playerDependencies.PlayerControl.IsControllable || !playerDependencies.PlayerControl.ActionsControllable ||
+                !playerDependencies.PlayerControl.ShootingControllable || (control != null && control.AttackRevision != revision))
+            { canShoot = true; yield break; }
             Melee(weapon, 0, damageMultiplier);
             playerDependencies.StartCoroutine(AllowShootAfterDelay(weapon.attackRate));
 
@@ -84,12 +89,18 @@ namespace cowsins
 
             foreach (var c in col)
             {
-                if (c.transform.root == playerRoot) continue;
-                IDamageable damageable = CowsinsUtilities.GatherDamageableParent(c.transform);
+                if (CowsinsUtilities.IsDamageableHitbox(c))
+                {
+                    var parent = CowsinsUtilities.GatherDamageableParent(c.transform);
+                    if (parent != null)
+                        DamageService.RequestDamage(parent, dmg, false, new DamageContext(playerDependencies.transform, c, DamageKind.Melee));
+                    break;
+                }
+
+                IDamageable damageable = c.GetComponent<IDamageable>();
                 if (damageable != null)
                 {
-                    DamageService.RequestDamage(damageable, dmg, false,
-                        new DamageContext(playerDependencies.transform, c, DamageKind.Melee));
+                    DamageService.RequestDamage(damageable, dmg, false, new DamageContext(playerDependencies.transform, c, DamageKind.Melee));
                     break;
                 }
             }

@@ -12,13 +12,12 @@ namespace cowsins
 
         // SHOOTING
         public readonly UnityEvent OnShoot = new();
+        public readonly UnityEvent<Weapon_SO> OnWeaponFired = new();
+        public readonly UnityEvent<GameObject, Transform> OnProjectileCreated = new();
         public readonly UnityEvent<float> OnShootShake = new();
         public readonly UnityEvent<float> OnShootApplyFOV = new();
         public readonly UnityEvent OnShootSpawnEffects = new();
         public readonly UnityEvent OnShootHitscanProjectile = new();
-        // Completed shot: simultaneous pellets share one event, timed burst rounds each emit one.
-        public readonly UnityEvent<Weapon_SO> OnWeaponFired = new();
-        public readonly UnityEvent<GameObject, Transform> OnProjectileCreated = new();
 
         // Damage / Hit Detection
         public readonly UnityEvent<int, float, RaycastHit, bool> OnHit = new();

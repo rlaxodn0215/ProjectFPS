@@ -3749,6 +3749,9 @@ MonoBehaviour:
   enemySpottedColor: {r: 1, g: 0, b: 0, a: 1}
   enemySpottedWidth: 5
   resizeSpeed: 10
+  useOutline: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 0.5}
+  outlineDistance: {x: 1, y: -1}
   crosshairEvents:
     OnEnemySpotted:
       m_PersistentCalls:

@@ -109,7 +109,6 @@ namespace cowsins
         /// </summary>
         public void Damage(float _damage, bool isHeadshot)
         {
-            if (IsDead || float.IsNaN(_damage) || float.IsInfinity(_damage) || _damage == 0) return;
             if (player == null)
             {
                 player = playerDependencies.PlayerMovementState;
@@ -120,9 +119,10 @@ namespace cowsins
 
             // Ensure damage is a positive value
             float damage = Mathf.Abs(_damage);
-            var filter = GetComponent<IPlayerDamageFilter>();
-            if (filter != null) damage = filter.FilterDamage(damage, DamageService.CurrentContext);
-            if (damage <= 0 || float.IsNaN(damage) || float.IsInfinity(damage)) return;
+
+            foreach (var filter in GetComponents<IPlayerDamageFilter>())
+                damage = filter.FilterDamage(damage, DamageService.CurrentContext);
+            if (float.IsNaN(damage) || float.IsInfinity(damage) || damage <= 0) return;
 
             // Trigger damage event
             userEvents.OnDamage.Invoke();
