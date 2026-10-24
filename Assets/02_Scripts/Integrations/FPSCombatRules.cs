@@ -1,7 +1,7 @@
 using cowsins;
 using UnityEngine;
 
-namespace ProjectFPS.Integrations
+namespace ProjectFPS
 {
     public static class FPSCombatRules
     {

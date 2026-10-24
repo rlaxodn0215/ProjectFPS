@@ -1,25 +1,28 @@
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
-public class RandomImpactSound : MonoBehaviour
+namespace ProjectFPS
 {
-    [SerializeField] private AudioClip[] clips;
-
-    private AudioSource audioSource;
-
-    private void Awake()
+    [RequireComponent(typeof(AudioSource))]
+    public class RandomImpactSound : MonoBehaviour
     {
-        audioSource = GetComponent<AudioSource>();
-    }
+        [SerializeField] private AudioClip[] clips;
 
-    public void PlayHitSound()
-    {
-        if (clips == null || clips.Length == 0) return;
+        private AudioSource audioSource;
 
-        AudioClip clip = clips[Random.Range(0, clips.Length)];
-        if (clip != null)
+        private void Awake()
         {
-            audioSource.PlayOneShot(clip);
+            audioSource = GetComponent<AudioSource>();
+        }
+
+        public void PlayHitSound()
+        {
+            if (clips == null || clips.Length == 0) return;
+
+            AudioClip clip = clips[Random.Range(0, clips.Length)];
+            if (clip != null)
+            {
+                audioSource.PlayOneShot(clip);
+            }
         }
     }
 }

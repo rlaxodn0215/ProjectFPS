@@ -21326,7 +21326,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ec3a487834ab1d49aca832bd7c75ded, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RandomImpactSound
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectFPS.RandomImpactSound
   clips:
   - {fileID: 8300000, guid: 1fd1d29b04c21664cb86eb45523749f7, type: 3}
   - {fileID: 8300000, guid: e5edfb30cd388d3439c8a09755dd3856, type: 3}
@@ -48597,7 +48597,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6025675ed4d71942a7e28324d755512, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ProjectFPS.Integrations.FPSEmeraldPlayerAdapter
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectFPS.FPSEmeraldPlayerAdapter
   Immortal: 0
   OnTakeDamage:
     m_PersistentCalls:

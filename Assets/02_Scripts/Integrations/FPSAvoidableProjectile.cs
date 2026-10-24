@@ -1,7 +1,7 @@
 using EmeraldAI;
 using UnityEngine;
 
-namespace ProjectFPS.Integrations
+namespace ProjectFPS
 {
     [DisallowMultipleComponent]
     public sealed class FPSAvoidableProjectile : MonoBehaviour, IAvoidable

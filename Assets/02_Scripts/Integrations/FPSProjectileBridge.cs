@@ -2,7 +2,7 @@ using cowsins;
 using EmeraldAI;
 using UnityEngine;
 
-namespace ProjectFPS.Integrations
+namespace ProjectFPS
 {
     [DisallowMultipleComponent, RequireComponent(typeof(WeaponController))]
     public sealed class FPSProjectileBridge : MonoBehaviour

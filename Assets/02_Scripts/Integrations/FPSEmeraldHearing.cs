@@ -2,7 +2,7 @@ using EmeraldAI;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace ProjectFPS.Integrations
+namespace ProjectFPS
 {
     [DefaultExecutionOrder(100), DisallowMultipleComponent, RequireComponent(typeof(EmeraldSystem))]
     public sealed class FPSEmeraldHearing : MonoBehaviour

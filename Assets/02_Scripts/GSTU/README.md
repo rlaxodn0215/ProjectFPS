@@ -291,7 +291,7 @@ Assets/
 행 SO 파일 이름은 **Key** 기준입니다. SO의 이름과 `Name` 필드에는 시트의 Name 값이 반영됩니다.
 Sound는 데이터 SO 6개, Prefab은 1개가 생성되어야 합니다.
 Catalog 자산을 선택하면 저장된 참조 목록을 확인할 수 있습니다. 목록 순서는 시트의 데이터 행 순서입니다.
-생성 클래스의 네임스페이스는 `ProjectPang.GeneratedSheets`입니다.
+생성 클래스의 네임스페이스는 `ProjectFPS`입니다.
 
 ## 4. 데이터 변경과 문제 해결
 
@@ -376,7 +376,7 @@ Sound 시트 C1의 타입 이름과 Unity 프로젝트의 enum 정의를 확인�
 
 ```csharp
 using UnityEngine;
-using ProjectPang.GeneratedSheets;
+using ProjectFPS;
 
 public sealed class SoundCatalogExample : MonoBehaviour
 {

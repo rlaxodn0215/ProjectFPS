@@ -2,7 +2,7 @@ using cowsins;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace ProjectFPS.Integrations
+namespace ProjectFPS
 {
     [DisallowMultipleComponent, RequireComponent(typeof(PlayerStats), typeof(PlayerControl), typeof(PlayerMovement))]
     public sealed class FPSPlayerCombat : MonoBehaviour, IPlayerDamageFilter

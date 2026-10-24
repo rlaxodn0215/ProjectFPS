@@ -3,7 +3,7 @@ using EmeraldAI;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace ProjectFPS.Integrations
+namespace ProjectFPS
 {
     public enum FPSAllyCommand { Follow, GuardHere, MoveAndGuard, Attack }
     public enum FPSCommandFailure { None, Unavailable, NotOwned, InvalidTarget, Unreachable, PlayerRestricted }

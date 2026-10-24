@@ -2,7 +2,7 @@ using cowsins;
 using EmeraldAI;
 using UnityEngine;
 
-namespace ProjectFPS.Integrations
+namespace ProjectFPS
 {
     [DefaultExecutionOrder(100), DisallowMultipleComponent, RequireComponent(typeof(EmeraldSystem), typeof(EmeraldHealth))]
     public sealed class FPSEmeraldRewards : MonoBehaviour

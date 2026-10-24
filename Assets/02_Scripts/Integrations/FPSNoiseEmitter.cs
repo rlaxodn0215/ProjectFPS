@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using cowsins;
 using UnityEngine;
 
-namespace ProjectFPS.Integrations
+namespace ProjectFPS
 {
     public enum FPSNoiseKind { Gunshot, Footstep }
     public readonly struct FPSNoise

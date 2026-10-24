@@ -4,7 +4,7 @@ using EmeraldAI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace ProjectFPS.Integrations
+namespace ProjectFPS
 {
     [DisallowMultipleComponent, RequireComponent(typeof(PlayerStats), typeof(PlayerControl))]
     public sealed class FPSAllyCommandController : MonoBehaviour

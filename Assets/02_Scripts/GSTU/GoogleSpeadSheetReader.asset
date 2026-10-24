@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03884bc03a540eb43a1170ef79152350, type: 3}
   m_Name: GoogleSpeadSheetReader
-  m_EditorClassIdentifier: Assembly-CSharp::GoogleSpeadSheetReader
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectFPS.GoogleSpeadSheetReader
   spreadsheetId: 1bUnrREmJEmdHAAdKtFPuYAiTry0l-lvnv_vGD_8BcsA
   accessMode: 1
   generatedCodeFolder: Assets/01_Scripts/Data/Generated

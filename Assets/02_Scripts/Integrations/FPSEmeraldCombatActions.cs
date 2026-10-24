@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using EmeraldAI;
 using UnityEngine;
 
-namespace ProjectFPS.Integrations
+namespace ProjectFPS
 {
     [DefaultExecutionOrder(100), DisallowMultipleComponent, RequireComponent(typeof(EmeraldSystem))]
     public sealed class FPSEmeraldCombatActions : MonoBehaviour

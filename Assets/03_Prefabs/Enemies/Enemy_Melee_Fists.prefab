@@ -3956,7 +3956,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2c58a1db9954c049a0aec1331b8493d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ProjectFPS.Integrations.FPSEmeraldAIAdapter
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectFPS.FPSEmeraldAIAdapter
   ragdollForce: 40
   meleeStunSeconds: 1
 --- !u!1 &6503743023834681756

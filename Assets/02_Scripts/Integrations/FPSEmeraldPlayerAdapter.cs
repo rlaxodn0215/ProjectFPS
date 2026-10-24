@@ -5,7 +5,7 @@ using EmeraldAI.Utility;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace ProjectFPS.Integrations
+namespace ProjectFPS
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(PlayerStats), typeof(FactionExtension), typeof(TargetPositionModifier))]
