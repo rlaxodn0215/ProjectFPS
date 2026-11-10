@@ -205,6 +205,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 964023373172480991, guid: 76a162e8d8977f94dafea6d86dde4505, type: 3}
+      propertyPath: SoundProfileFoldout
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676413305690660234, guid: 76a162e8d8977f94dafea6d86dde4505, type: 3}
+      propertyPath: DamageSettingsFoldout
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676413305690660234, guid: 76a162e8d8977f94dafea6d86dde4505, type: 3}
+      propertyPath: WeaponType1SettingsFoldout
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676413305690660234, guid: 76a162e8d8977f94dafea6d86dde4505, type: 3}
+      propertyPath: CombatActionSettingsFoldout
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408705894054063651, guid: 76a162e8d8977f94dafea6d86dde4505, type: 3}
+      propertyPath: DetectionFoldout
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898267752383786911, guid: 76a162e8d8977f94dafea6d86dde4505, type: 3}
+      propertyPath: RigSettingsFoldout
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163249437739484009, guid: 76a162e8d8977f94dafea6d86dde4505, type: 3}
+      propertyPath: BehaviorSettingsFoldout
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5710777878682892397, guid: 76a162e8d8977f94dafea6d86dde4505, type: 3}
+      propertyPath: ItemsFoldout
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5710777878682892397, guid: 76a162e8d8977f94dafea6d86dde4505, type: 3}
+      propertyPath: WeaponsFoldout
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8574111622255828330, guid: 76a162e8d8977f94dafea6d86dde4505, type: 3}
+      propertyPath: AnimationProfileFoldout
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8819194478530379557, guid: 76a162e8d8977f94dafea6d86dde4505, type: 3}
       propertyPath: m_Name
       value: Enemy_Melee_Sword
