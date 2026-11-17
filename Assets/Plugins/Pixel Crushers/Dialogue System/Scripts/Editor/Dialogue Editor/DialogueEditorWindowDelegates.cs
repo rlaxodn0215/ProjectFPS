@@ -114,5 +114,23 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         /// </summary>
         public static event GlobalSearchAndReplaceDelegate customGlobalSearchAndReplace = null;
 
+        /// <summary>
+        /// Raises customGlobalSearch for other editors, such as the UI Toolkit database editor window.
+        /// </summary>
+        internal static void InvokeCustomGlobalSearch(DialogueDatabase database, string conversationTitle, string searchText, ref string result)
+        {
+            customGlobalSearch?.Invoke(database, conversationTitle, searchText, ref result);
+        }
+
+        internal static bool HasCustomGlobalSearchAndReplace { get { return customGlobalSearchAndReplace != null; } }
+
+        /// <summary>
+        /// Raises customGlobalSearchAndReplace for other editors, such as the UI Toolkit database editor window.
+        /// </summary>
+        internal static void InvokeCustomGlobalSearchAndReplace(DialogueDatabase database, string conversationTitle, string searchText, string replaceText)
+        {
+            customGlobalSearchAndReplace?.Invoke(database, conversationTitle, searchText, replaceText);
+        }
+
     }
 }

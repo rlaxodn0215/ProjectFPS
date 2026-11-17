@@ -1,0 +1,15 @@
+/* Dialogue Database Editor Window: colors for the editor's Dark theme. The conversation
+   canvas uses GraphView's own dark styles, so this file doesn't override them. */
+
+.ds-window-root {
+    --ds-border-color: #232323;
+    --ds-subtle-border-color: rgba(0, 0, 0, 0.35);
+    --ds-indent-rule-color: rgba(128, 128, 128, 0.5);
+    --ds-popup-border-color: rgba(0, 0, 0, 0.5);
+    --ds-conflict-color: #FF5959;
+    --ds-watermark-color: rgba(255, 255, 255, 0.2);
+    --ds-missing-color: #FF4040;
+    --ds-order-label-text-color: #FFFFFF;
+    --ds-order-label-background-color: rgba(38, 38, 38, 0.9);
+    --ds-selection-color: #4599FF;
+}

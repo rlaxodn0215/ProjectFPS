@@ -1,6 +1,6 @@
 ------------------------------
   Dialogue System for Unity  
-     Version 2.2.75.4
+        Version 2.3.1
         
   Copyright © Pixel Crushers
 ------------------------------
@@ -15,7 +15,8 @@ please contact us any time at support@pixelcrushers.com.
 
 Getting Started:
 ----------------
-o Follow the 5 minute quick start guide in the Getting Started section of the manual.
+o Follow the 5 minute quick start guide in the Getting Started section of the manual:
+  https://pixelcrushers.com/dialogue_system/manual2x/html/quick_start.html
 o Read the documentation and/or watch the tutorial videos.
 o Play the scene in the Demo folder. (Built-in RP or HDRP? See below.)
 o IMPORTANT NOTE FOR BUILT-IN RENDERING PIPELINE/HRDP:

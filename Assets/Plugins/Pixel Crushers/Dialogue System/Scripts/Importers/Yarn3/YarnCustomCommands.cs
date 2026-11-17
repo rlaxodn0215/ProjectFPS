@@ -25,9 +25,6 @@ namespace PixelCrushers.DialogueSystem.Yarn3
         // Data members used to implement Yarn's built-in functions
         private Dictionary<string, int> _visitedCount = new Dictionary<string, int>();
 
-        // Yarn's detour return stack. Each ID identifies a <<detour>> statement in the imported database.
-        private List<int> _detourStack = new List<int>();
-
         public Dialogue Dialogue { get; private set; } = new Dialogue(new MemoryVariableStore());
         public LineParser LineParser { get; private set; } = new LineParser();
         private static bool isRegistered = false;
@@ -95,10 +92,6 @@ namespace PixelCrushers.DialogueSystem.Yarn3
             Lua.RegisterFunction(BuiltInCommand.ClearAndAddStringFormatArg.LuaName(), this, SymbolExtensions.GetMethodInfo(() => ClearAndAddStringFormatArgument(0D, 0D, string.Empty)));
             Lua.RegisterFunction(BuiltInCommand.AddStringFormatArg.LuaName(), this, SymbolExtensions.GetMethodInfo(() => AddStringFormatArgument(0D, 0D, string.Empty)));
             Lua.RegisterFunction(BuiltInCommand.StopConversation.LuaName(), this, SymbolExtensions.GetMethodInfo(() => StopConversation()));
-            Lua.RegisterFunction(BuiltInCommand.PushDetour.LuaName(), this, SymbolExtensions.GetMethodInfo(() => PushDetour(0D)));
-            Lua.RegisterFunction(BuiltInCommand.IsDetourReturn.LuaName(), this, SymbolExtensions.GetMethodInfo(() => IsDetourReturn(0D)));
-            Lua.RegisterFunction(BuiltInCommand.PopDetour.LuaName(), this, SymbolExtensions.GetMethodInfo(() => PopDetour()));
-            Lua.RegisterFunction(BuiltInCommand.ClearDetours.LuaName(), this, SymbolExtensions.GetMethodInfo(() => ClearDetours()));
 
             // eval() function for smart variables:
             if (supportSmartVariables)
@@ -135,10 +128,6 @@ namespace PixelCrushers.DialogueSystem.Yarn3
             Lua.UnregisterFunction(BuiltInCommand.ClearAndAddStringFormatArg.LuaName());
             Lua.UnregisterFunction(BuiltInCommand.AddStringFormatArg.LuaName());
             Lua.UnregisterFunction(BuiltInCommand.StopConversation.LuaName());
-            Lua.UnregisterFunction(BuiltInCommand.PushDetour.LuaName());
-            Lua.UnregisterFunction(BuiltInCommand.IsDetourReturn.LuaName());
-            Lua.UnregisterFunction(BuiltInCommand.PopDetour.LuaName());
-            Lua.UnregisterFunction(BuiltInCommand.ClearDetours.LuaName());
 
             Lua.UnregisterFunction(nameof(eval));
         }
@@ -182,7 +171,6 @@ namespace PixelCrushers.DialogueSystem.Yarn3
         {
             // Debug.Log($"YarnCustomCommands::OnConversationStart() - {DialogueManager.instance.LastConversationStarted}");
             RecordVisited(DialogueManager.instance.lastConversationID, DialogueManager.instance.lastConversationStarted);
-            ClearDetours();
         }
 
         public virtual void OnLinkedConversationStart(Transform actor) 
@@ -268,17 +256,6 @@ namespace PixelCrushers.DialogueSystem.Yarn3
             if (!_stringFormatArgumentMap[cId].ContainsKey(dId)) _stringFormatArgumentMap[cId][dId] = new List<string>();
             _stringFormatArgumentMap[cId][dId].Add(arg);
         }
-
-        public void PushDetour(double detourID) => _detourStack.Add((int)detourID);
-
-        public bool IsDetourReturn(double detourID) => _detourStack.Count > 0 && _detourStack[_detourStack.Count - 1] == (int)detourID;
-
-        public void PopDetour()
-        {
-            if (_detourStack.Count > 0) _detourStack.RemoveAt(_detourStack.Count - 1);
-        }
-
-        public void ClearDetours() => _detourStack.Clear();
 
         public void StopConversation()
         {

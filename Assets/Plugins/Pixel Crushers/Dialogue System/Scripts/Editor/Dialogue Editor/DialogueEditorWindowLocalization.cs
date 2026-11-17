@@ -22,19 +22,8 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         #region Database Tab > Localization Foldout Variables
 
-        [Serializable]
-        private class LocalizationLanguages
-        {
-            public List<string> languages = new List<string>();
-            public List<string> extraEntryFields = new List<string>();
-            public List<string> extraQuestFields = new List<string>();
-            public List<string> extraItemFields = new List<string>();
-            public int importMainTextIndex = -1;
-            public string outputFolder;
-        }
-
         [SerializeField]
-        private LocalizationLanguages localizationLanguages = new LocalizationLanguages();
+        private DialogueDatabaseLocalizationImporter.LocalizationLanguages localizationLanguages = new DialogueDatabaseLocalizationImporter.LocalizationLanguages();
 
         private ReorderableList exportLanguageList = null;
         private ReorderableList exportLanguageExtraEntryFieldsList = null;
@@ -55,7 +44,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private bool exportLocalizationCreateNewFields = false;
 
         [SerializeField]
-        private bool exportIncludeEntriesWithoutText = false;
+        private bool exportIncludeEntriesWithoutText = true; // Matches the files exported before the option was fixed.
 
         [SerializeField]
         private string localizationKeyField = "Articy Id";
@@ -269,52 +258,11 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             EditorUtility.DisplayProgressBar("Finding Languages", "Scanning database. Please wait...", 0);
             try
             {
-                database.conversations.ForEach(conversation => conversation.dialogueEntries.ForEach(entry => FindLanguagesInFields(entry.fields, false)));
-                if (template != null) FindLanguagesInFields(template.dialogueEntryFields, false);
+                DialogueDatabaseLocalizationExporter.FindLanguages(database, template, localizationLanguages.languages);
             }
             finally
             {
                 EditorUtility.ClearProgressBar();
-            }
-        }
-
-        private void FindLanguagesInFields(List<Field> fields, bool isQuest)
-        {
-            for (int i = 0; i < fields.Count; i++)
-            {
-                var field = fields[i];
-                if (field.type == FieldType.Localization && !string.IsNullOrEmpty(field.title))
-                {
-                    // Don't add Dialogue Text:
-                    if (field.title.Equals("Dialogue Text")) break;
-
-                    // Assume it's Chat Mapper-style localized dialogue text, in which case
-                    // the language is the entire field title:
-                    string language = field.title;
-
-                    // If it's a different type of field, remove the prefix:
-                    for (int j = 0; j < LanguageFieldPrefixes.Length; j++)
-                    {
-                        var prefix = LanguageFieldPrefixes[j];
-                        if (field.title.StartsWith(prefix))
-                        {
-                            language = string.Empty; // Only want base language fields.
-                        }
-                        else if (isQuest)
-                        {
-                            // Handle "Entry X Language":
-                            Match match = Regex.Match(field.title, @"Entry [0-9]+ .*");
-                            if (match.Success)
-                            {
-                                language = string.Empty; // Only want base language fields.
-                            }
-                        }
-                    }
-                    if (!(string.IsNullOrEmpty(language) || localizationLanguages.languages.Contains(language)))
-                    {
-                        localizationLanguages.languages.Add(language);
-                    }
-                }
             }
         }
 
@@ -336,266 +284,24 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private bool ExportLocalizationFilesToFolder(string folderName)
         {
+            localizationLanguages.outputFolder = folderName;
+            var keyField = exportLocalizationKeyField ? localizationKeyField : null;
+            if (exportLocalizationKeyField && exportAssignFieldValues)
+            {
+                Undo.RegisterCompleteObjectUndo(database, "Assign Localization Keys");
+                if (DialogueDatabaseLocalizationExporter.AssignMissingKeyValues(database, keyField) > 0) SetDatabaseDirty("Assign Localization Keys");
+            }
+            var options = new DialogueDatabaseLocalizationExporter.Options()
+            {
+                useConversationTitle = exportLocalizationConversationTitle,
+                keyField = keyField,
+                includeBlankEntries = exportIncludeEntriesWithoutText,
+                sortMethod = localizationEntrySortMethod
+            };
             try
             {
-                localizationLanguages.outputFolder = folderName;
-                InitializeActorNameLookupCache();
-                var numLanguages = localizationLanguages.languages.Count;
-                for (int i = 0; i < numLanguages; i++)
-                {
-                    var progress = (float)i / (float)numLanguages;
-                    var language = localizationLanguages.languages[i];
-                    if (EditorUtility.DisplayCancelableProgressBar("Exporting Localization CSV", "Exporting CSV files for " + language, progress))
-                    {
-                        return false;
-                    }
-
-                    // Writes Actors_LN.csv file:
-                    var filename = localizationLanguages.outputFolder + "/Actors_" + language + ".csv";
-                    using (var file = new StreamWriter(filename, false, new UTF8Encoding(true)))
-                    {
-                        file.WriteLine(language);
-                        file.WriteLine("Name, Display Name, Translated Display Name");
-                        foreach (var a in database.actors)
-                        {
-                            var actorName = WrapCSVValue(a.Name);
-                            var displayName = WrapCSVValue(a.LookupValue("Display Name"));
-                            var translatedDisplayName = WrapCSVValue(a.LookupValue("Display Name " + language));
-                            file.WriteLine($"{actorName}, {displayName}, {translatedDisplayName}");
-                        }
-                        file.Close();
-                    }
-
-                    // Write Dialogue_LN.csv file:
-                    filename = localizationLanguages.outputFolder + "/Dialogue_" + language + ".csv";
-                    using (var file = new StreamWriter(filename, false, new UTF8Encoding(true)))
-                    {
-                        file.WriteLine(language);
-                        var orderedFields = new string[] { "Dialogue Text", language, "Menu Text", "Menu Text " + language, "Description" };
-                        var line = string.Format
-                        ("{0},{1},{2},{3},{4},{5},{6},{7}",
-                            (exportLocalizationConversationTitle ? "Conversation" : "Conversation ID"),
-                            "Entry ID",
-                            "Actor",
-                            "Original Text",
-                            "Translated Text [" + language + "]",
-                            "Original Menu",
-                            "Translated Menu [" + language + "]",
-                            "Description");
-                        foreach (string field in localizationLanguages.extraEntryFields)
-                        {
-                            if (string.IsNullOrEmpty(field)) continue;
-                            line += "," + field + "," + field + " [" + language + "]";
-                        }
-                        if (exportLocalizationKeyField)
-                        {
-                            line = localizationKeyField + "," + line;
-                        }
-                        file.WriteLine(line);
-                        foreach (var c in database.conversations)
-                        {
-                            var conversationTitle = c.Title;
-                            List<DialogueEntry> sortedEntries = new List<DialogueEntry>();
-                            switch (localizationEntrySortMethod)
-                            {
-                                default:
-                                case DialogueEntrySortMethod.No:
-                                    sortedEntries.AddRange(c.dialogueEntries);
-                                    break;
-                                case DialogueEntrySortMethod.DepthFirst:
-                                    sortedEntries = DepthFirstSortEntries(c.dialogueEntries);
-                                    break;
-                                case DialogueEntrySortMethod.BreadthFirst:
-                                    sortedEntries = BreadthFirstSortEntries(c.dialogueEntries);
-                                    break;
-                            }
-                            if (exportIncludeEntriesWithoutText)
-                            {
-                                sortedEntries.RemoveAll(x => string.IsNullOrEmpty(x.DialogueText) && string.IsNullOrEmpty(x.MenuText));
-                            }
-                            foreach (var de in sortedEntries)
-                            {
-                                var fields = new List<string>();
-                                foreach (string s in orderedFields)
-                                {
-                                    var f = de.fields.Find(x => x.title == s);
-                                    fields.Add((f != null) ? f.value : string.Empty);
-                                }
-                                foreach (var field in localizationLanguages.extraEntryFields)
-                                {
-                                    if (string.IsNullOrEmpty(field)) continue;
-                                    fields.Add(Field.LookupValue(de.fields, field));
-                                    fields.Add(Field.LookupValue(de.fields, field + " " + language));
-                                }
-                                var sb = new StringBuilder();
-                                if (exportLocalizationKeyField)
-                                {
-                                    var field = Field.Lookup(de.fields, localizationKeyField);
-                                    if (field == null)
-                                    {
-                                        field = new Field(localizationKeyField, GetNewKeyFieldValue(), FieldType.Text);
-                                        de.fields.Add(field);
-                                    }
-                                    else if (string.IsNullOrEmpty(field.value))
-                                    {
-                                        field.value = GetNewKeyFieldValue();
-                                    }
-                                    sb.AppendFormat("{0},", WrapCSVValue(field.value));
-                                }
-                                sb.AppendFormat("{0},{1},{2}",
-                                    (exportLocalizationConversationTitle ? WrapCSVValue(conversationTitle) : c.id.ToString()),
-                                    de.id,
-                                    WrapCSVValue(LookupActorName(de.ActorID)));
-                                foreach (string value in fields)
-                                    sb.AppendFormat(",{0}", WrapCSVValue(value));
-                                file.WriteLine(sb.ToString());
-                            }
-                        }
-                        file.Close();
-                    }
-
-                    // Write Quests_LN.csv file:
-                    int numItems = 0;
-                    int numQuests = 0;
-                    int maxEntryCount = 0;
-                    foreach (var item in database.items)
-                    {
-                        if (item.IsItem)
-                        {
-                            numItems++;
-                        }
-                        else
-                        {
-                            numQuests++;
-                            maxEntryCount = Mathf.Max(maxEntryCount, item.LookupInt("Entry Count"));
-                        }
-                    }
-                    if (numQuests > 0)
-                    {
-                        filename = localizationLanguages.outputFolder + "/Quests_" + language + ".csv";
-                        using (var file = new StreamWriter(filename, false, new UTF8Encoding(true)))
-                        {
-                            file.WriteLine(language);
-                            var sb = new StringBuilder();
-                            sb.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}",
-                                "Name",
-                                "Display Name",
-                                "Translated Display Name [" + language + "]",
-                                "Group",
-                                "Translated Group [" + language + "]",
-                                "Description",
-                                "Translated Description [" + language + "]",
-                                "Success Description",
-                                "Translated Success Description [" + language + "]",
-                                "Failure Description",
-                                "Translated Failure Description [" + language + "]");
-                            foreach (string field in localizationLanguages.extraQuestFields)
-                            {
-                                if (string.IsNullOrEmpty(field)) continue;
-                                sb.AppendFormat(",{0},{1} [{2}]", field, field, language);
-                            }
-                            for (int j = 0; j < maxEntryCount; j++)
-                            {
-                                sb.AppendFormat(",{0},{1}",
-                                    "Entry " + (j + 1),
-                                    "Translated Entry [" + (j + 1) + "]");
-                            }
-                            file.WriteLine(sb.ToString());
-                            foreach (var item in database.items)
-                            {
-                                if (item.IsItem) continue;
-                                var quest = item;
-                                sb = new StringBuilder();
-
-                                // Main quest fields:
-                                sb.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}",
-                                    WrapCSVValue(quest.Name),
-                                    WrapCSVValue(quest.LookupValue("Display Name")),
-                                    WrapCSVValue(quest.LookupValue("Display Name " + language)),
-                                    WrapCSVValue(quest.LookupValue("Group")),
-                                    WrapCSVValue(quest.LookupValue("Group " + language)),
-                                    WrapCSVValue(quest.LookupValue("Description")),
-                                    WrapCSVValue(quest.LookupValue("Description " + language)),
-                                    WrapCSVValue(quest.LookupValue("Success Description")),
-                                    WrapCSVValue(quest.LookupValue("Success Description " + language)),
-                                    WrapCSVValue(quest.LookupValue("Failure Description")),
-                                    WrapCSVValue(quest.LookupValue("Failure Description " + language)));
-
-                                // Extra quest fields:
-                                foreach (string field in localizationLanguages.extraQuestFields)
-                                {
-                                    if (string.IsNullOrEmpty(field)) continue;
-                                    sb.AppendFormat(",{0},{1}", quest.LookupValue(field), quest.LookupValue(field + " " + language));
-                                }
-
-                                // Quest entry fields:
-                                var entryCount = quest.LookupInt("Entry Count");
-                                for (int j = 0; j < maxEntryCount; j++)
-                                {
-                                    if (j < entryCount)
-                                    {
-                                        sb.AppendFormat(",{0},{1}",
-                                            WrapCSVValue(quest.LookupValue("Entry " + (j + 1))),
-                                            WrapCSVValue(quest.LookupValue("Entry " + (j + 1) + " " + language)));
-                                    }
-                                    else
-                                    {
-                                        sb.Append(",,");
-                                    }
-                                }
-                                file.WriteLine(sb.ToString());
-                            }
-                            file.Close();
-                        }
-                    }
-
-                    // Write Items_LN.csv file:
-                    if (numItems > 0)
-                    {
-                        filename = localizationLanguages.outputFolder + "/Items_" + language + ".csv";
-                        using (var file = new StreamWriter(filename, false, new UTF8Encoding(true)))
-                        {
-                            file.WriteLine(language);
-                            var sb = new StringBuilder();
-                            sb.AppendFormat("{0},{1},{2},{3},{4}",
-                                "Name",
-                                "Display Name",
-                                "Translated Display Name [" + language + "]",
-                                "Description",
-                                "Translated Description [" + language + "]");
-                            foreach (string field in localizationLanguages.extraItemFields)
-                            {
-                                if (string.IsNullOrEmpty(field)) continue;
-                                sb.AppendFormat(",{0},{1} [{2}]", field, field, language);
-                            }
-                            file.WriteLine(sb.ToString());
-                            foreach (var item in database.items)
-                            {
-                                if (!item.IsItem) continue;
-                                sb = new StringBuilder();
-
-                                // Main item fields:
-                                sb.AppendFormat("{0},{1},{2},{3},{4}",
-                                    WrapCSVValue(item.Name),
-                                    WrapCSVValue(item.LookupValue("Display Name")),
-                                    WrapCSVValue(item.LookupValue("Display Name " + language)),
-                                    WrapCSVValue(item.LookupValue("Description")),
-                                    WrapCSVValue(item.LookupValue("Description " + language)));
-
-                                // Extra item fields:
-                                foreach (string field in localizationLanguages.extraItemFields)
-                                {
-                                    if (string.IsNullOrEmpty(field)) continue;
-                                    sb.AppendFormat(",{0},{1}", item.LookupValue(field), item.LookupValue(field + " " + language));
-                                }
-                                file.WriteLine(sb.ToString());
-                            }
-                            file.Close();
-                        }
-                    }
-                }
-
-                return true;
+                return DialogueDatabaseLocalizationExporter.Export(database, folderName, localizationLanguages, options,
+                    (language, progress) => EditorUtility.DisplayCancelableProgressBar("Exporting Localization CSV", "Exporting CSV files for " + language, progress));
             }
             finally
             {
@@ -603,159 +309,20 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             }
         }
 
+        // The sorting code is in DialogueEntrySorter, shared with the UI Toolkit editor's exports.
         private List<DialogueEntry> DepthFirstSortEntries(List<DialogueEntry> entries)
         {
-            var sorted = new List<DialogueEntry>();
-            var unprocessed = new List<DialogueEntry>(entries);
-            var start = entries.Find(x => x.id == 0);
-            if (start == null) return unprocessed;
-            SortDepthFirstRecursive(start, sorted, unprocessed);
-            DepthFirstSortOrphans(entries, sorted, unprocessed);
-            return sorted;
-        }
-
-        private void DepthFirstSortOrphans(List<DialogueEntry> allEntries, List<DialogueEntry> sorted, List<DialogueEntry> unprocessed)
-        {
-            var orphanRootNodes = GetOrphanRootNodes(allEntries, unprocessed);
-            foreach (var orphanRootNode in orphanRootNodes)
-            {
-                SortDepthFirstRecursive(orphanRootNode, sorted, unprocessed);
-            }
-            sorted.AddRange(unprocessed);
-        }
-
-        private void SortDepthFirstRecursive(DialogueEntry entry, List<DialogueEntry> sorted, List<DialogueEntry> unprocessed)
-        {
-            if (entry == null) return;
-            unprocessed.Remove(entry);
-            if (!sorted.Contains(entry)) sorted.Add(entry);
-            foreach (var link in entry.outgoingLinks)
-            {
-                if (link.destinationConversationID != entry.conversationID) continue;
-                var child = unprocessed.Find(x => x.id == link.destinationDialogueID);
-                if (child == null) continue;
-                SortDepthFirstRecursive(child, sorted, unprocessed);
-            }
+            return DialogueEntrySorter.DepthFirstSortEntries(entries);
         }
 
         private List<DialogueEntry> BreadthFirstSortEntries(List<DialogueEntry> entries)
         {
-            var sorted = new List<DialogueEntry>();
-            var unprocessed = new List<DialogueEntry>(entries);
-            var start = entries.Find(x => x.id == 0);
-            if (start == null) return unprocessed;
-            BreadthFirstSortTree(start, sorted, unprocessed);
-            BreadthFirstSortOrphans(entries, sorted, unprocessed);
-            return sorted;
-        }
-
-        private void BreadthFirstSortOrphans(List<DialogueEntry> allEntries, List<DialogueEntry> sorted, List<DialogueEntry> unprocessed)
-        {
-            var orphanRootNodes = GetOrphanRootNodes(allEntries, unprocessed);
-            foreach (var orphanRootNode in orphanRootNodes)
-            {
-                BreadthFirstSortTree(orphanRootNode, sorted, unprocessed);
-            }
-            sorted.AddRange(unprocessed);
-        }
-
-        private void BreadthFirstSortTree(DialogueEntry start, List<DialogueEntry> sorted, List<DialogueEntry> unprocessed)
-        {
-            var queued = new Queue<DialogueEntry>();
-            queued.Enqueue(start);
-            while (queued.Count > 0)
-            {
-                var entry = queued.Dequeue();
-                unprocessed.Remove(entry);
-                if (!sorted.Contains(entry)) sorted.Add(entry);
-                foreach (var link in entry.outgoingLinks)
-                {
-                    if (link.destinationConversationID != entry.conversationID) continue;
-                    var child = unprocessed.Find(x => x.id == link.destinationDialogueID);
-                    if (child == null) continue;
-                    queued.Enqueue(child);
-                }
-            }
-        }
-
-        // Find unprocessed nodes that aren't in the <START> node's conversation tree but
-        // are at the root of their own "orphan" tree. Return a list of these nodes sorted
-        // by their horizontal canvas position.
-        private List<DialogueEntry> GetOrphanRootNodes(List<DialogueEntry> allEntries, List<DialogueEntry> unprocessed)
-        {
-            var orphanRootNodes = new List<DialogueEntry>();
-            foreach (var entry in unprocessed)
-            {
-                if (!DoesAnythingLinkToThisEntry(entry, allEntries))
-                {
-                    orphanRootNodes.Add(entry);
-                }
-            }
-            orphanRootNodes.Sort((a, b) => a.canvasRect.x.CompareTo(b.canvasRect.x));
-            return orphanRootNodes;
-        }
-
-        private bool DoesAnythingLinkToThisEntry(DialogueEntry entry, List<DialogueEntry> allEntries)
-        {
-            foreach (var potentialParent in allEntries)
-            {
-                foreach (var link in potentialParent.outgoingLinks)
-                {
-                    if (link.destinationConversationID == entry.conversationID &&
-                        link.destinationDialogueID == entry.id)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        private string GetNewKeyFieldValue()
-        {
-            var s = Guid.NewGuid().ToString();
-            var pos = s.IndexOf('-');
-            return (pos == -1) ? s : s.Substring(0, pos);
-        }
-
-        private string WrapCSVValue(string s)
-        {
-            if (string.IsNullOrEmpty(s)) return string.Empty;
-            string s2 = s.Contains("\n") ? s.Replace("\n", "\\n") : s;
-            if (s2.Contains("\r")) s2 = s2.Replace("\r", "\\r");
-            if (s2.Contains(",") || s2.Contains("\""))
-            {
-                return "\"" + s2.Replace("\"", "\"\"") + "\"";
-            }
-            else
-            {
-                return s2;
-            }
-        }
-
-        private Dictionary<int, string> actorNameCache = new Dictionary<int, string>();
-
-        private void InitializeActorNameLookupCache()
-        {
-            actorNameCache = new Dictionary<int, string>();
-        }
-
-        private string LookupActorName(int actorID)
-        {
-            if (!actorNameCache.ContainsKey(actorID))
-            {
-                var actor = database.GetActor(actorID);
-                actorNameCache.Add(actorID, (actor != null) ? actor.Name : "Not Assigned");
-            }
-            return actorNameCache[actorID];
+            return DialogueEntrySorter.BreadthFirstSortEntries(entries);
         }
 
         #endregion
 
         #region Import Section
-
-        private Dictionary<string, int> conversationIDCache = new Dictionary<string, int>();
-        private Conversation lastCachedConversation = null;
 
         private void ImportLocalizationFiles()
         {
@@ -769,388 +336,26 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         public void ImportLocalizationFilesFromFolder(string folderName)
         {
+            DialogueDatabaseLocalizationImporter.ImportResult result;
+            Undo.RegisterCompleteObjectUndo(database, "Import Localization");
             try
             {
-                localizationLanguages.outputFolder = folderName;
-                conversationIDCache.Clear();
-                lastCachedConversation = null;
-                var numLanguages = localizationLanguages.languages.Count;
-                for (int i = 0; i < numLanguages; i++)
-                {
-                    var progress = (float)i / (float)numLanguages;
-                    var language = localizationLanguages.languages[i];
-                    var alsoImportMainText = localizationLanguages.importMainTextIndex == i;
-                    if (EditorUtility.DisplayCancelableProgressBar("Importing Localization CSV", "Importing CSV files for " + language, progress))
-                    {
-                        return;
-                    }
-
-                    // Read actors CSV file:
-                    var filename = localizationLanguages.outputFolder + "/Actors_" + language + ".csv";
-                    var lines = ReadCSV(filename);
-                    CombineMultilineCSVSourceLines(lines);
-                    for (int j = 2; j < lines.Count; j++)
-                    {
-                        var columns = GetCSVColumnsFromLine(lines[j]);
-                        if (columns.Count < 3)
-                        {
-                            Debug.LogError(filename + ":" + (j + 1) + " Invalid line: " + lines[j]);
-                        }
-                        else
-                        {
-                            var actorName = columns[0].Trim();
-                            var actorDisplayName = columns[1].Trim();
-                            var translatedName = columns[2].Trim();
-                            var actor = database.GetActor(actorName);
-                            if (actor == null)
-                            {
-                                Debug.LogError(filename + ": No actor in database is named '" + actorName + "'.");
-                                continue;
-                            }
-                            Field.SetValue(actor.fields, "Display Name " + language, translatedName, FieldType.Localization);
-                            if (alsoImportMainText && !string.IsNullOrEmpty(actorDisplayName))
-                            {
-                                Field.SetValue(actor.fields, "Display Name", actorDisplayName);
-                            }
-                        }
-                    }
-
-                    // Read dialogue CSV file:
-                    filename = localizationLanguages.outputFolder + "/Dialogue_" + language + ".csv";
-                    lines = ReadCSV(filename);
-                    CombineMultilineCSVSourceLines(lines);
-                    for (int j = 2; j < lines.Count; j++)
-                    {
-                        var columns = GetCSVColumnsFromLine(lines[j]);
-                        if (columns.Count < 7)
-                        {
-                            Debug.LogError(filename + ":" + (j + 1) + " Invalid line: " + lines[j]);
-                        }
-                        else
-                        {
-                            // Peel key field value off front if exporting key fields:
-                            string keyFieldValue = null;
-                            if (exportLocalizationKeyField)
-                            {
-                                keyFieldValue = columns[0];
-                                columns.RemoveAt(0);
-                            }
-
-                            // Get conversation ID:
-                            int conversationID = 0;
-                            if (exportLocalizationConversationTitle)
-                            {
-                                var conversationTitle = columns[0];
-                                if (!conversationIDCache.ContainsKey(conversationTitle))
-                                {
-                                    var conversation = database.GetConversation(columns[0]);
-                                    if (conversation == null)
-                                    {
-                                        Debug.LogError(filename + ":" + (j + 1) + " Database doesn't contain conversation '" + columns[0] + "'.");
-                                        continue;
-                                    }
-                                    conversationIDCache[conversationTitle] = conversation.id;
-                                }
-                                conversationID = conversationIDCache[conversationTitle];
-                            }
-                            else
-                            {
-                                conversationID = Tools.StringToInt(columns[0]);
-                            }
-
-                            var entryID = Tools.StringToInt(columns[1]);
-                            //columns[2] is Actor. Ignore it.
-                            DialogueEntry entry = null;
-                            if (exportLocalizationKeyField)
-                            {
-                                // Find entry by key field:
-                                if (lastCachedConversation == null || lastCachedConversation.id != conversationID)
-                                {
-                                    lastCachedConversation = database.GetConversation(conversationID);
-                                }
-                                entry = lastCachedConversation.dialogueEntries.Find(x => Field.LookupValue(x.fields, localizationKeyField) == keyFieldValue);
-                            }
-                            else
-                            {
-                                // Find entry by ID:
-                                entry = database.GetDialogueEntry(conversationID, entryID);
-                                if (entry == null)
-                                {
-                                    Debug.LogError(filename + ":" + (j + 1) + " Database doesn't contain conversation " + conversationID + " dialogue entry " + entryID);
-                                }
-                            }
-
-                            // If we found the entry, update its fields:
-                            if (entry != null)
-                            {
-                                Field.SetValue(entry.fields, language, columns[4], FieldType.Localization);
-                                Field.SetValue(entry.fields, "Menu Text " + language, columns[6], FieldType.Localization);
-
-                                // Check if we also need to import updated main text.
-                                if (alsoImportMainText)
-                                {
-                                    entry.DialogueText = columns[3];
-                                    entry.MenuText = columns[5];
-                                }
-
-                                // Extra entry fields:
-                                for (int k = 0; k < localizationLanguages.extraEntryFields.Count; k++)
-                                {
-                                    var field = localizationLanguages.extraEntryFields[k];
-                                    int columnIndex = 8 + (k * 2) + 1;
-                                    if (string.IsNullOrEmpty(field)) continue;
-
-                                    if (!exportLocalizationCreateNewFields &&
-                                        !Field.FieldExists(entry.fields, field) &&
-                                        string.IsNullOrEmpty(columns[columnIndex - 1]))
-                                    {
-                                        continue;
-                                    }
-
-                                    Field.SetValue(entry.fields, field + " " + language, columns[columnIndex], FieldType.Localization);
-
-                                    if (alsoImportMainText)
-                                    {
-                                        Field.SetValue(entry.fields, field, columns[columnIndex - 1]);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    // Read quests CSV file:
-                    filename = localizationLanguages.outputFolder + "/Quests_" + language + ".csv";
-                    if (File.Exists(filename))
-                    {
-                        lines = ReadCSV(filename);
-                        CombineMultilineCSVSourceLines(lines);
-                        for (int j = 2; j < lines.Count; j++)
-                        {
-                            var columns = GetCSVColumnsFromLine(lines[j]);
-                            if (columns.Count < 11)
-                            {
-                                Debug.LogError(filename + ":" + (j + 1) + " Invalid line: " + lines[j]);
-                            }
-                            else
-                            {
-                                var quest = database.GetItem(columns[0]);
-                                if (quest == null)
-                                {
-                                    // Skip if quest is not present.
-                                }
-                                else
-                                {
-                                    var displayName = columns[1];
-                                    var translatedDisplayName = columns[2];
-                                    if (!string.IsNullOrEmpty(translatedDisplayName))
-                                    {
-                                        if (!quest.FieldExists("Display Name")) Field.SetValue(quest.fields, "Display Name", displayName);
-                                        Field.SetValue(quest.fields, "Display Name " + language, translatedDisplayName, FieldType.Localization);
-                                    }
-                                    var group = columns[3];
-                                    var translatedGroup = columns[4];
-                                    var needToAddGroup = !quest.FieldExists("Group") && (!string.IsNullOrEmpty(group) || !string.IsNullOrEmpty(translatedGroup));
-                                    if (quest.FieldExists("Group") && string.IsNullOrEmpty(quest.LookupValue("Group")) && !string.IsNullOrEmpty(group)) needToAddGroup = true;
-                                    if (needToAddGroup) Field.SetValue(quest.fields, "Group", group);
-                                    if (quest.FieldExists("Group")) Field.SetValue(quest.fields, "Group " + language, translatedGroup, FieldType.Localization);
-                                    Field.SetValue(quest.fields, "Description " + language, columns[6], FieldType.Localization);
-                                    Field.SetValue(quest.fields, "Success Description " + language, columns[8], FieldType.Localization);
-                                    Field.SetValue(quest.fields, "Failure Description " + language, columns[10], FieldType.Localization);
-
-                                    // Extra quest fields:
-                                    int numExtraQuestFields = 0;
-                                    for (int k = 0; k < localizationLanguages.extraQuestFields.Count; k++)
-                                    {
-                                        var field = localizationLanguages.extraQuestFields[k];
-                                        if (string.IsNullOrEmpty(field)) continue;
-
-                                        int columnIndex = 11 + (k * 2) + 1;
-                                        numExtraQuestFields++;
-
-                                        if (!exportLocalizationCreateNewFields &&
-                                            !Field.FieldExists(quest.fields, field) &&
-                                            string.IsNullOrEmpty(columns[columnIndex - 1]))
-                                        {
-                                            continue;
-                                        }
-
-                                        Field.SetValue(quest.fields, field + " " + language, columns[columnIndex]);
-
-                                        if (alsoImportMainText)
-                                        {
-                                            Field.SetValue(quest.fields, field, columns[columnIndex - 1]);
-                                        }
-                                    }
-
-                                    // Quest entry fields:
-                                    var entryCount = quest.LookupInt("Entry Count");
-                                    for (int k = 0; k < entryCount; k++)
-                                    {
-                                        var index = 12 + (2 * numExtraQuestFields) + (k * 2);
-                                        Field.SetValue(quest.fields, "Entry " + (k + 1) + " " + language, columns[index], FieldType.Localization);
-                                    }
-
-                                    // Check if we need to also import main text:
-                                    if (alsoImportMainText)
-                                    {
-                                        if (quest.FieldExists("Display Name")) Field.SetValue(quest.fields, "Display Name", displayName);
-                                        if (quest.FieldExists("Group")) Field.SetValue(quest.fields, "Group", group, FieldType.Text);
-                                        Field.SetValue(quest.fields, "Description", columns[5], FieldType.Text);
-                                        Field.SetValue(quest.fields, "Success Description", columns[7], FieldType.Text);
-                                        Field.SetValue(quest.fields, "Failure Description", columns[9], FieldType.Text);
-                                        for (int k = 0; k < entryCount; k++)
-                                        {
-                                            Field.SetValue(quest.fields, "Entry " + (k + 1), columns[11 + 2 * k], FieldType.Text);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    // Read items CSV file:
-                    filename = localizationLanguages.outputFolder + "/Items_" + language + ".csv";
-                    if (File.Exists(filename))
-                    {
-                        lines = ReadCSV(filename);
-                        CombineMultilineCSVSourceLines(lines);
-                        for (int j = 2; j < lines.Count; j++)
-                        {
-                            var columns = GetCSVColumnsFromLine(lines[j]);
-                            if (columns.Count < 5)
-                            {
-                                Debug.LogError(filename + ":" + (j + 1) + " Invalid line: " + lines[j]);
-                            }
-                            else
-                            {
-                                var item = database.GetItem(columns[0]);
-                                if (item == null)
-                                {
-                                    // Skip if item is not present.
-                                }
-                                else
-                                {
-                                    var displayName = columns[1];
-                                    var translatedDisplayName = columns[2];
-                                    if (!string.IsNullOrEmpty(translatedDisplayName))
-                                    {
-                                        if (!item.FieldExists("Display Name")) Field.SetValue(item.fields, "Display Name", displayName);
-                                        Field.SetValue(item.fields, "Display Name " + language, translatedDisplayName, FieldType.Localization);
-                                    }
-                                    Field.SetValue(item.fields, "Description " + language, columns[4], FieldType.Localization);
-
-                                    // Extra item fields:
-                                    int numExtraItemFields = 0;
-                                    for (int k = 0; k < localizationLanguages.extraItemFields.Count; k++)
-                                    {
-                                        var field = localizationLanguages.extraItemFields[k];
-                                        if (string.IsNullOrEmpty(field)) continue;
-
-                                        int columnIndex = 4 + (k * 2) + 1;
-                                        numExtraItemFields++;
-
-                                        if (!exportLocalizationCreateNewFields &&
-                                            !Field.FieldExists(item.fields, field) &&
-                                            string.IsNullOrEmpty(columns[columnIndex - 1]))
-                                        {
-                                            continue;
-                                        }
-
-                                        Field.SetValue(item.fields, field + " " + language, columns[columnIndex], FieldType.Localization);
-
-                                        if (alsoImportMainText)
-                                        {
-                                            Field.SetValue(item.fields, field, columns[columnIndex - 1]);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                result = new DialogueDatabaseLocalizationImporter().ImportLocalizationFilesFromFolder(database, folderName, localizationLanguages,
+                    exportLocalizationConversationTitle, exportLocalizationCreateNewFields,
+                    exportLocalizationKeyField ? localizationKeyField : null,
+                    (language, progress) => EditorUtility.DisplayCancelableProgressBar("Importing Localization CSV", "Importing CSV files for " + language, progress));
             }
             finally
             {
                 EditorUtility.ClearProgressBar();
+                SetDatabaseDirty("Import Localization");
             }
-            EditorUtility.DisplayDialog("Imported Localization CSV", "The CSV files have been imported back into your dialogue database.", "OK");
+            if (!result.canceled)
+            {
+                var warnings = (result.warnings > 0) ? string.Format("\n\n{0} problem{1} logged to the Console.", result.warnings, (result.warnings == 1) ? " was" : "s were") : string.Empty;
+                EditorUtility.DisplayDialog("Imported Localization CSV", "The CSV files have been imported back into your dialogue database." + warnings, "OK");
+            }
             Reset();
-        }
-
-        private List<string> GetCSVColumnsFromLine(string line)
-        {
-            Regex csvSplit = new Regex("(?:^|,)(\"(?:[^\"]+|\"\")*\"|[^,]*)");
-            List<string> values = new List<string>();
-            foreach (Match match in csvSplit.Matches(line))
-            {
-                values.Add(UnwrapCSVValue(match.Value.TrimStart(',')));
-            }
-            return values;
-        }
-
-        private List<string> ReadCSV(string filename)
-        {
-            var lines = new List<string>();
-            StreamReader sr = new StreamReader(filename, new UTF8Encoding(true));
-            string line;
-            while ((line = sr.ReadLine()) != null)
-            {
-                lines.Add(line.TrimEnd());
-            }
-            sr.Close();
-            return lines;
-        }
-
-        /// <summary>
-        /// Combines lines that are actually a multiline CSV row. This also helps prevent the 
-        /// CSV-splitting regex from hanging due to catastrophic backtracking on unterminated quotes.
-        /// </summary>
-        private void CombineMultilineCSVSourceLines(List<string> sourceLines)
-        {
-            int lineNum = 0;
-            int safeguard = 0;
-            int MaxIterations = 999999;
-            while ((lineNum < sourceLines.Count) && (safeguard < MaxIterations))
-            {
-                safeguard++;
-                string line = sourceLines[lineNum];
-                if (line == null)
-                {
-                    sourceLines.RemoveAt(lineNum);
-                }
-                else
-                {
-                    bool terminated = true;
-                    char previousChar = (char)0;
-                    for (int i = 0; i < line.Length; i++)
-                    {
-                        char currentChar = line[i];
-                        bool isQuote = (currentChar == '"') && (previousChar != '\\');
-                        if (isQuote) terminated = !terminated;
-                        previousChar = currentChar;
-                    }
-                    if (terminated || (lineNum + 1) >= sourceLines.Count)
-                    {
-                        if (!terminated) sourceLines[lineNum] = line + '"';
-                        lineNum++;
-                    }
-                    else
-                    {
-                        sourceLines[lineNum] = line + "\\n" + sourceLines[lineNum + 1];
-                        sourceLines.RemoveAt(lineNum + 1);
-                    }
-                }
-            }
-        }
-
-        string UnwrapCSVValue(string s)
-        {
-            string s2 = s.Replace("\\n", "\n").Replace("\\r", "\r");
-            if (s2.StartsWith("\"") && s2.EndsWith("\""))
-            {
-                s2 = s2.Substring(1, s2.Length - 2).Replace("\"\"", "\"");
-            }
-            return s2;
         }
 
         #endregion

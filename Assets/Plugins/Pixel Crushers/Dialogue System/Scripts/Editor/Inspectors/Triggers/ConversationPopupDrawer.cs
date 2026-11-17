@@ -69,7 +69,7 @@ namespace PixelCrushers.DialogueSystem
                         var conversation = EditorTools.selectedDatabase.GetConversation(prop.stringValue);
                         if (conversation != null)
                         {
-                            DialogueEditorWindow.OpenDialogueEntry(EditorTools.selectedDatabase, conversation.id, conversation.GetFirstDialogueEntry().id);
+                            DialogueEditorBridge.OpenDialogueEntry(EditorTools.selectedDatabase, conversation.id, conversation.GetFirstDialogueEntry().id);
                             GUIUtility.ExitGUI();
                         }
                     }
@@ -129,13 +129,13 @@ namespace PixelCrushers.DialogueSystem
             titlesDatabase = EditorTools.selectedDatabase;
             var foundCurrent = false;
             var list = new List<string>();
-            var lowercaseFilter = string.IsNullOrEmpty(filter) ? string.Empty : filter.ToLower();
             if (titlesDatabase != null && titlesDatabase.conversations != null)
             {
                 for (int i = 0; i < titlesDatabase.conversations.Count; i++)
                 {
                     var title = titlesDatabase.conversations[i].Title;
-                    if (!string.IsNullOrEmpty(filter) && !title.ToLower().Contains(filter)) continue;
+                    if (!string.IsNullOrEmpty(filter) &&
+                        (string.IsNullOrEmpty(title) || title.IndexOf(filter, System.StringComparison.OrdinalIgnoreCase) < 0)) continue;
                     list.Add(title);
                     if (string.Equals(currentConversation, title))
                     {

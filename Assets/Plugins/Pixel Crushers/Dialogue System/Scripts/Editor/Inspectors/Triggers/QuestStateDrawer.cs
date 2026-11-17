@@ -74,6 +74,7 @@ namespace PixelCrushers.DialogueSystem
                 case 4: return QuestState.Abandoned;
                 case 5: return QuestState.Grantable;
                 case 6: return QuestState.ReturnToNPC;
+                case 7: return QuestState.Done;
             }
         }
 

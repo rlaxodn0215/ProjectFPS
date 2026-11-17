@@ -436,9 +436,20 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
+        /// <summary>
+        /// If set, AddNewVariable calls this instead of adding the variable to the
+        /// database directly, such as to add it through a SerializedObject with Undo.
+        /// </summary>
+        public System.Action<string, FieldType> addVariableHandler = null;
+
         public void AddNewVariable(string newVariableName, FieldType newVariableType)
         {
             if (string.IsNullOrWhiteSpace(newVariableName)) return;
+            if (addVariableHandler != null)
+            {
+                addVariableHandler(newVariableName, newVariableType);
+                return;
+            }
             if (database == null) return;
             if (database.GetVariable(newVariableName) != null) return;
             var template = Template.FromDefault();

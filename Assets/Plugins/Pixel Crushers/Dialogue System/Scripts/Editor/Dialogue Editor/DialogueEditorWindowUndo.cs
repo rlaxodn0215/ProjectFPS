@@ -103,38 +103,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private void MakeAutoBackup()
         {
-            if (database == null) return;
-            try
-            {
-                var path = AssetDatabase.GetAssetPath(database);
-                if (path.EndsWith("(Auto-Backup).asset"))
-                {
-                    Debug.Log("Dialogue Editor: Not creating an auto-backup. You're already editing the auto-backup file.");
-                    return;
-                }
-                var backupPath = Path.GetDirectoryName(path) + "/" + Path.GetFileNameWithoutExtension(path) + " (Auto-Backup).asset";
-                if (!string.IsNullOrEmpty(autoBackupFolder))
-                {
-                    backupPath = autoBackupFolder + "/" + Path.GetFileNameWithoutExtension(path) + " (Auto-Backup).asset";
-                }
-                if (debug) Debug.Log("Dialogue Editor: Making auto-backup " + backupPath);
-                EditorUtility.DisplayProgressBar("Dialogue Editor Auto-Backup", "Creating auto-backup " + Path.GetFileNameWithoutExtension(backupPath), 0);
-                AssetDatabase.DeleteAsset(backupPath);
-                AssetDatabase.CopyAsset(path, backupPath);
-                AssetDatabase.Refresh();
-#if !(UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9)
-                var importer = AssetImporter.GetAtPath(backupPath);
-                if (importer != null && !string.IsNullOrEmpty(importer.assetBundleName))
-                {
-                    importer.assetBundleVariant = string.Empty;
-                    importer.assetBundleName = string.Empty;
-                }
-#endif
-            }
-            finally
-            {
-                EditorUtility.ClearProgressBar();
-            }
+            DialogueDatabaseAutoBackup.MakeBackup(database, autoBackupFolder);
         }
 
     }

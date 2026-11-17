@@ -34,12 +34,7 @@ namespace PixelCrushers.DialogueSystem
 
         protected void RequireDialogueEditorWindow(DialogueDatabase database)
         {
-            if (PixelCrushers.DialogueSystem.DialogueEditor.DialogueEditorWindow.instance == null)
-            {
-                var win = PixelCrushers.DialogueSystem.DialogueEditor.DialogueEditorWindow.OpenDialogueEditorWindow();
-                win.SelectObject(database);
-            }
-
+            DialogueEditor.DialogueDatabaseEditorWindow.Open(database);
         }
     }
 

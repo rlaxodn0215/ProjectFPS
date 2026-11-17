@@ -21,10 +21,6 @@ namespace PixelCrushers.DialogueSystem.Yarn3
         StartConversation,
         StopConversation,
         PlaySequence,
-        PushDetour,
-        IsDetourReturn,
-        PopDetour,
-        ClearDetours,
 
         // User defined command (or typo)
         Unknown,
@@ -46,10 +42,6 @@ namespace PixelCrushers.DialogueSystem.Yarn3
             { BuiltInCommand.ClearAndAddStringFormatArg, "ds_clr_add_fmt_arg" },
             { BuiltInCommand.AddStringFormatArg, "ds_add_fmt_arg" },
             { BuiltInCommand.StopConversation, "ds_stp_cnv" },
-            { BuiltInCommand.PushDetour, "ds_push_detour" },
-            { BuiltInCommand.IsDetourReturn, "ds_is_detour_return" },
-            { BuiltInCommand.PopDetour, "ds_pop_detour" },
-            { BuiltInCommand.ClearDetours, "ds_clr_detours" },
         };
 
         private static HashSet<BuiltInCommand> _yarnCommands = new HashSet<BuiltInCommand>() { BuiltInCommand.Stop, BuiltInCommand.Wait };
@@ -451,9 +443,7 @@ namespace PixelCrushers.DialogueSystem.Yarn3
         ShortcutOptionList,
         IfBlock,
         IfClause,
-        Group,
-        Detour,
-        Return
+        Group
     }
 
     public static partial class StatementTypeExt
@@ -463,10 +453,8 @@ namespace PixelCrushers.DialogueSystem.Yarn3
             StatementType.Call,
             StatementType.Command,
             StatementType.Declare,
-            StatementType.Detour,
             StatementType.Jump,
             StatementType.Line,
-            StatementType.Return,
             StatementType.Set,
         };
 

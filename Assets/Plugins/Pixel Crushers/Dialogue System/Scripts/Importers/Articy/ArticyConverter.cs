@@ -13,6 +13,9 @@ namespace PixelCrushers.DialogueSystem.Articy
     /// This class does the actual work of converting ArticyData (version-independent 
     /// articy:draft data) into a dialogue database.
     /// </summary>
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public class ArticyConverter
     {
 

@@ -3,7 +3,6 @@
 using System;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -38,9 +37,7 @@ namespace PixelCrushers.DialogueSystem.Yarn3
         private Yarn3ImporterPrefs _prefs;
         private string _currentFilename;
         private int _currentNodeNumberInFile;
-        private int _currentOnceIndexInNode;
         private ConversationNode _currentNode;
-        private IfClause _whenOnceClause; // Wraps the node's body if it has a 'when: once' header.
         private Stack<BlockStatement> _blockStatementStack = new Stack<BlockStatement>();
         private YarnStatement _currentStatement;
         private bool _isConditionalLineStatement = false;
@@ -231,7 +228,6 @@ namespace PixelCrushers.DialogueSystem.Yarn3
             if (_prefs.debug) Debug.Log($"YarnProjectListener::EnterNode()");
             _currentNode = new ConversationNode(System.IO.Path.GetFileNameWithoutExtension(_currentFilename), _currentNodeNumberInFile);
             _currentNodeNumberInFile++;
-            _currentOnceIndexInNode = 0;
             EnterBlockStatement(_currentNode);
         }
 
@@ -275,23 +271,6 @@ namespace PixelCrushers.DialogueSystem.Yarn3
             if (_prefs.debug) Debug.Log($"YarnProjectListener::EnterHeader_when_expression()");
             if (context.always != null) _currentNode.SetWhenTimes(WhenTimes.Always);
             else if (context.once != null) _currentNode.SetWhenTimes(WhenTimes.Once);
-
-            if (context.once != null && _whenOnceClause == null)
-            {
-                // Build the clause now so a 'when: once if expr' expression is added to its conditions.
-                // It wraps the node's statements in EnterBody.
-                _whenOnceClause = IfClause.CreateIf();
-                _currentStatement = _whenOnceClause;
-                var onceVariable = GenerateOnceVariableName();
-                PushOnceCondition(onceVariable, context.expression() != null);
-                AddOnceSetStatement(_whenOnceClause, onceVariable);
-            }
-        }
-
-        public override void ExitHeader_when_expression([NotNull] Header_when_expressionContext context)
-        {
-            if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitHeader_when_expression()");
-            _currentStatement = _currentNode;
         }
 
         public override void EnterWhen_header([NotNull] When_headerContext context)
@@ -303,22 +282,11 @@ namespace PixelCrushers.DialogueSystem.Yarn3
         public override void EnterBody(PixelCrushersYarnSpinnerParser.BodyContext context)
         {
             if (_prefs.debug) Debug.Log($"YarnProjectListener::EnterBody()");
-            if (_whenOnceClause != null)
-            {
-                EnterBlockStatement(new IfBlock());
-                EnterBlockStatement(_whenOnceClause);
-            }
         }
 
         public override void ExitBody(PixelCrushersYarnSpinnerParser.BodyContext context)
         {
             if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitBody()");
-            if (_whenOnceClause != null)
-            {
-                ExitBlockStatement();
-                ExitBlockStatement();
-                _whenOnceClause = null;
-            }
         }
 
         public override void EnterStatement(PixelCrushersYarnSpinnerParser.StatementContext context)
@@ -360,73 +328,35 @@ namespace PixelCrushers.DialogueSystem.Yarn3
             if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitLine_formatted_text()");
         }
 
-        public override void EnterLineCondition([NotNull] LineConditionContext context)
-        {
-            if (_prefs.debug) Debug.Log($"YarnProjectListener::EnterLineCondition()");
-            _isConditionalLineStatement = true;
-        }
+        //public override void EnterLineOnceCondition([NotNull] LineOnceConditionContext context)
+        //{
+        //    if (_prefs.debug) Debug.Log($"YarnProjectListener::EnterLineOnceCondition()");
+        //}        
 
-        public override void ExitLineCondition([NotNull] LineConditionContext context)
-        {
-            if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitLineCondition()");
-            _isConditionalLineStatement = false;
-        }
+        //public override void ExitLineOnceCondition([NotNull] LineOnceConditionContext context)
+        //{
+        //    if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitLineOnceCondition()");
+        //}
 
-        public override void EnterLineOnceCondition([NotNull] LineOnceConditionContext context)
-        {
-            if (_prefs.debug) Debug.Log($"YarnProjectListener::EnterLineOnceCondition()");
-            var onceVariable = GenerateOnceVariableName();
-            ((LineStatement)_currentStatement).OnceVariable = onceVariable;
-            _isConditionalLineStatement = true;
-            PushOnceCondition(onceVariable, context.expression() != null);
-        }
-
-        public override void ExitLineOnceCondition([NotNull] LineOnceConditionContext context)
-        {
-            if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitLineOnceCondition()");
-            _isConditionalLineStatement = false;
-        }
-
-        // A once statement is treated as an if statement that tests a generated variable:
-        //  <<if not $once_var>> <<set $once_var = true>> ... <<else>> ... <<endif>>
         public override void EnterOnce_statement([NotNull] Once_statementContext context)
         {
             if (_prefs.debug) Debug.Log($"YarnProjectListener::EnterOnce_statement()");
-            EnterBlockStatement(new IfBlock());
         }
 
         public override void ExitOnce_statement([NotNull] Once_statementContext context)
         {
             if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitOnce_statement()");
-            ExitBlockStatement();
         }
 
         public override void EnterOnce_primary_clause([NotNull] Once_primary_clauseContext context)
         {
             if (_prefs.debug) Debug.Log($"YarnProjectListener::EnterOnce_primary_clause()");
-            var ifClause = IfClause.CreateIf();
-            EnterBlockStatement(ifClause);
-            var onceVariable = GenerateOnceVariableName();
-            PushOnceCondition(onceVariable, context.expression() != null);
-            AddOnceSetStatement(ifClause, onceVariable);
+            _currentNode.Once = true;
         }
 
         public override void ExitOnce_primary_clause([NotNull] Once_primary_clauseContext context)
         {
             if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitOnce_primary_clause()");
-            ExitBlockStatement();
-        }
-
-        public override void EnterOnce_alternate_clause([NotNull] Once_alternate_clauseContext context)
-        {
-            if (_prefs.debug) Debug.Log($"YarnProjectListener::EnterOnce_alternate_clause()");
-            EnterBlockStatement(IfClause.CreateElse());
-        }
-
-        public override void ExitOnce_alternate_clause([NotNull] Once_alternate_clauseContext context)
-        {
-            if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitOnce_alternate_clause()");
-            ExitBlockStatement();
         }
 
         // Handle group blocks (=>) that select a line randomly from a group:
@@ -480,6 +410,20 @@ namespace PixelCrushers.DialogueSystem.Yarn3
             if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitHashtag()");
         }
 
+        //public override void EnterLine_condition(PixelCrushersYarnSpinnerParser.Line_conditionContext context)
+        //{
+        //    if (_prefs.debug) Debug.Log($"YarnProjectListener::EnterLine_condition()");
+
+        //    _isConditionalLineStatement = true;
+        //}
+
+        //public override void ExitLine_condition(PixelCrushersYarnSpinnerParser.Line_conditionContext context)
+        //{
+        //    _isConditionalLineStatement = false;
+        //    // if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitLine_condition() - Current block type: {CurrentBlockStatement.Type}");
+        //    if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitLine_condition()");
+        //}
+
         public override void EnterExpParens(PixelCrushersYarnSpinnerParser.ExpParensContext context)
         {
             if (_prefs.debug) Debug.Log($"YarnProjectListener::EnterExpParens() - stmt type: {_currentStatement.Type}");
@@ -511,9 +455,15 @@ namespace PixelCrushers.DialogueSystem.Yarn3
         public override void ExitExpComparison(PixelCrushersYarnSpinnerParser.ExpComparisonContext context)
         {
             if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitExpComparison()");
-            // A comparison makes a declared variable smart only if it's in the declare statement's own
-            // expression, not in a later line condition or other expression in the same block.
-            if (_currentStatement is DeclareStatement declareStmt) declareStmt.SmartExpression = prevExpr;
+            for (int i = CurrentBlockStatement.Statements.Count - 1; i >= 0; i--)
+            {
+                var stmt = CurrentBlockStatement.Statements[i];
+                if (stmt is DeclareStatement declareStmt)
+                {
+                    declareStmt.SmartExpression = prevExpr;
+                    break;
+                }
+            };            
         }
 
         public override void EnterExpNegative(PixelCrushersYarnSpinnerParser.ExpNegativeContext context)
@@ -992,45 +942,6 @@ namespace PixelCrushers.DialogueSystem.Yarn3
             if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitJumpToExpression()");
         }
 
-        public override void EnterDetourToNodeName(PixelCrushersYarnSpinnerParser.DetourToNodeNameContext context)
-        {
-            if (_prefs.debug) Debug.Log($"YarnProjectListener::EnterDetourToNodeName()");
-            _yarnProject.HasDetours = true;
-            _currentStatement = new DetourStatement(context.ID().GetText());
-            CurrentBlockStatement.AddStatement(_currentStatement);
-        }
-
-        public override void ExitDetourToNodeName(PixelCrushersYarnSpinnerParser.DetourToNodeNameContext context)
-        {
-            if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitDetourToNodeName()");
-        }
-
-        public override void EnterDetourToExpression(PixelCrushersYarnSpinnerParser.DetourToExpressionContext context)
-        {
-            if (_prefs.debug) Debug.Log($"YarnProjectListener::EnterDetourToExpression()");
-
-            var errMsg = $"Node '{_currentNode.Name}' line: {context.Start.Line}: Detour statements with expressions are not supported by the Dialogue System: {context.GetText()}";
-            if (_prefs.debug) Debug.LogError(errMsg);
-            throw new Exception(errMsg);
-        }
-
-        public override void ExitDetourToExpression(PixelCrushersYarnSpinnerParser.DetourToExpressionContext context)
-        {
-            if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitDetourToExpression()");
-        }
-
-        public override void EnterReturn_statement(PixelCrushersYarnSpinnerParser.Return_statementContext context)
-        {
-            if (_prefs.debug) Debug.Log($"YarnProjectListener::EnterReturn_statement()");
-            _currentStatement = new ReturnStatement();
-            CurrentBlockStatement.AddStatement(_currentStatement);
-        }
-
-        public override void ExitReturn_statement(PixelCrushersYarnSpinnerParser.Return_statementContext context)
-        {
-            if (_prefs.debug) Debug.Log($"YarnProjectListener::ExitReturn_statement()");
-        }
-
         // NOTE: This is copied from the YarnSpinner 2.x github repo: YarnSpinner.Compiler/Compiler.cs:1331 - Compiler::GetLineIDTag()
         // private PixelCrushersYarnSpinnerParser.HashtagContext GetLineId(PixelCrushersYarnSpinnerParser.HashtagContext[] hashtagContexts)
         private PixelCrushersYarnSpinnerParser.HashtagContext GetLineId(PixelCrushersYarnSpinnerParser.HashtagContext[] hashtagContexts)
@@ -1078,37 +989,6 @@ namespace PixelCrushers.DialogueSystem.Yarn3
             // Assert.IsNull(_currentStatement);
             _blockStatementStack.Pop();
             if (!_currentStatement.Type.IsConversation()) _currentStatement = _blockStatementStack.Peek();
-        }
-
-        // The name uses the once statement's position in the node, not its line number,
-        // so editing other lines in the file doesn't reset a player's saved once state.
-        private string GenerateOnceVariableName()
-        {
-            var name = $"Yarn.Once.{_currentNode.Filename}.{_currentNode.GetConversationNameWithNodeNumber()}.{_currentOnceIndexInNode}";
-            _currentOnceIndexInNode++;
-
-            // The writer's Lua references must match the table index that DialogueLua generates from this name.
-            name = Regex.Replace(name, @"[^\w.]", "_");
-            _yarnProject.AddOnceVariable(name);
-            return name;
-        }
-
-        // Pushes "not $once_var" onto the current statement's conditions. If the once statement has an
-        // 'if' expression, the parser pushes it next, resulting in: "not $once_var and (expression)".
-        private void PushOnceCondition(string onceVariable, bool hasExpression)
-        {
-            if (hasExpression) CreateAndPushOperatorToken("and", 2);
-            CreateAndPushOperatorToken("not", 1);
-            CreateAndPushToken(new VariableToken(onceVariable));
-            if (hasExpression) CreateAndPushOperatorToken("()", 1);
-        }
-
-        private void AddOnceSetStatement(IfClause ifClause, string onceVariable)
-        {
-            var setStatement = new SetStatement(onceVariable);
-            setStatement.Expression.PushToken(new VariableToken(onceVariable));
-            setStatement.Expression.PushToken(new BoolToken(true));
-            ifClause.AddStatement(setStatement);
         }
 
         private void CreateAndPushOperatorToken(string tokenStr, int argCnt)

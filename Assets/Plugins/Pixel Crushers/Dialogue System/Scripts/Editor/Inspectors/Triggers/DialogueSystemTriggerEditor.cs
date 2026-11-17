@@ -556,12 +556,15 @@ namespace PixelCrushers.DialogueSystem
                                 if (specifyEntryID)
                                 {
                                     // Draw entry ID picker:
-                                    if (barkEntryPicker == null)
+                                    if (barkEntryPicker == null || barkEntryPicker.conversationTitle != barkConversationProperty.stringValue)
                                     {
+                                        var previousFilter = (barkEntryPicker != null) ? barkEntryPicker.filter : string.Empty;
                                         barkEntryPicker = new DialogueEntryPicker(barkConversationProperty.stringValue);
+                                        barkEntryPicker.filter = previousFilter;
                                     }
                                     if (barkEntryPicker.isValid)
                                     {
+                                        barkEntryPicker.DoLayoutFilter();
                                         entryIDProperty.intValue = Mathf.Max(0, barkEntryPicker.DoLayout("Entry ID", entryIDProperty.intValue));
                                     }
                                     else
@@ -636,12 +639,15 @@ namespace PixelCrushers.DialogueSystem
                         if (specifyEntryID)
                         {
                             // Draw entry ID picker:
-                            if (entryPicker == null)
+                            if (entryPicker == null || entryPicker.conversationTitle != conversationProperty.stringValue)
                             {
+                                var previousFilter = (entryPicker != null) ? entryPicker.filter : string.Empty;
                                 entryPicker = new DialogueEntryPicker(conversationProperty.stringValue);
+                                entryPicker.filter = previousFilter;
                             }
                             if (entryPicker.isValid)
                             {
+                                entryPicker.DoLayoutFilter();
                                 entryIDProperty.intValue = Mathf.Max(0, entryPicker.DoLayout("Entry ID", entryIDProperty.intValue));
                             }
                             else

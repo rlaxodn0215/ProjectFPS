@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: a9df95b6425a1c449a57f903b702adbf
+AssetOrigin:
+  serializedVersion: 1
+  productId: 11672
+  packageName: Dialogue System for Unity
+  packageVersion: 2.3.1
+  assetPath: Assets/Plugins/Pixel Crushers/Dialogue System/Scripts/Editor/Dialogue
+    Database Editor Window/LuaWizardPopup.cs
+  uploadId: 1052010

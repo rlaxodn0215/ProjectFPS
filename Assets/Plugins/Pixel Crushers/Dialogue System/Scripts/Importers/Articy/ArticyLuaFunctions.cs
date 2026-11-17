@@ -14,6 +14,9 @@ namespace PixelCrushers.DialogueSystem.Articy
     /// Dialogue Manager GameObject.
     /// </summary>
     [AddComponentMenu("")] // Use wrapper.
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public class ArticyLuaFunctions : Saver
     {
         private static bool s_registered = false;

@@ -3,6 +3,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using PixelCrushers.DialogueSystem.DialogueEditor;
 
 namespace PixelCrushers.DialogueSystem
 {
@@ -15,11 +16,21 @@ namespace PixelCrushers.DialogueSystem
     {
 
         private DialogueDatabase database = null;
+        private Conversation conversation = null;
         private string[] entryTexts = null;
         private Dictionary<int, int> idToIndex = new Dictionary<int, int>();
         private Dictionary<int, int> indexToId = new Dictionary<int, int>();
         private bool usePicker = true;
+        private bool showFilter = false;
+        private string filter = string.Empty;
         private static string currentConversationTitle;
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            showFilter = (attribute as DialogueEntryPopupAttribute).showFilter;
+            return base.GetPropertyHeight(property, label) +
+                (showFilter ? EditorGUIUtility.singleLineHeight : 0);
+        }
 
         public override void OnGUI(Rect position, SerializedProperty prop, GUIContent label)
         {
@@ -29,6 +40,7 @@ namespace PixelCrushers.DialogueSystem
 
             // Show database field if specified:
             if (EditorTools.selectedDatabase == null) EditorTools.SetInitialDatabaseIfNull();
+            showFilter = (attribute as DialogueEntryPopupAttribute).showFilter;
 
             // Set up titles array:
             var conversationProp = FindConversationProperty(prop);
@@ -37,13 +49,43 @@ namespace PixelCrushers.DialogueSystem
                 currentConversationTitle = conversationProp.stringValue;
                 entryTexts = null;
             }
-            if (entryTexts == null) UpdateDialogueEntryList(conversationProp, prop);
+            if (database != EditorTools.selectedDatabase) entryTexts = null;
+
+            // Filter:
+            if (showFilter)
+            {
+                var filterLabelWidth = 48;
+                var openButtonWidth = 48;
+                EditorGUI.LabelField(new Rect(position.x, position.y, filterLabelWidth, EditorGUIUtility.singleLineHeight), "Filter:");
+                EditorGUI.BeginChangeCheck();
+                filter = EditorGUI.TextField(new Rect(position.x + filterLabelWidth, position.y, position.width - filterLabelWidth - openButtonWidth, EditorGUIUtility.singleLineHeight), filter);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    entryTexts = null; // Need to update filtered entry list.
+                }
+                var wasEnabled = GUI.enabled;
+                GUI.enabled = wasEnabled && conversation != null && database != null;
+                if (GUI.Button(new Rect(position.x + position.width - openButtonWidth, position.y, openButtonWidth, EditorGUIUtility.singleLineHeight), "Open"))
+                {
+                    var entry = conversation.GetDialogueEntry(prop.intValue) ?? conversation.GetFirstDialogueEntry();
+                    if (entry != null)
+                    {
+                        DialogueEditorBridge.OpenDialogueEntry(database, conversation.id, entry.id);
+                        GUIUtility.ExitGUI();
+                    }
+                }
+                GUI.enabled = wasEnabled;
+                position.y += EditorGUIUtility.singleLineHeight;
+                position.height -= EditorGUIUtility.singleLineHeight;
+            }
+
+            if (entryTexts == null) UpdateDialogueEntryList(conversationProp, prop.intValue, filter);
 
             // Update current index:
             var currentIndex = GetIndex(prop.intValue);
 
             // Draw popup or plain text field:
-            var rect = new Rect(position.x, position.y, position.width - 30, position.height);
+            var rect = new Rect(position.x, position.y, position.width - 30, EditorGUIUtility.singleLineHeight);
             if (usePicker)
             {
                 var newIndex = EditorGUI.Popup(rect, currentIndex, entryTexts);
@@ -59,7 +101,7 @@ namespace PixelCrushers.DialogueSystem
             }
 
             // Radio button toggle between popup and plain text field:
-            rect = new Rect(position.x + position.width - 22, position.y, 22, position.height);
+            rect = new Rect(position.x + position.width - 22, position.y, 22, EditorGUIUtility.singleLineHeight);
             var newToggleValue = EditorGUI.Toggle(rect, usePicker, EditorStyles.radioButton);
             if (newToggleValue != usePicker)
             {
@@ -93,23 +135,28 @@ namespace PixelCrushers.DialogueSystem
                 prop.serializedObject.FindProperty("_ConversationTitle");
         }
 
-        public void UpdateDialogueEntryList(SerializedProperty conversationProp, SerializedProperty prop)
+        public void UpdateDialogueEntryList(SerializedProperty conversationProp, int currentID, string filter)
         {
             database = EditorTools.selectedDatabase;
-            var conversation = (conversationProp == null || database == null || database.items == null) ? null
+            conversation = (conversationProp == null || database == null || database.conversations == null) ? null
                 : database.conversations.Find(x => x.Title == conversationProp.stringValue);
             var list = new List<string>();
+            idToIndex = new Dictionary<int, int>();
+            indexToId = new Dictionary<int, int>();
             if (conversation != null)
             {
                 list.Add("(None)");
-                idToIndex = new Dictionary<int, int>();
-                indexToId = new Dictionary<int, int>();
+                var hasFilter = !string.IsNullOrEmpty(filter);
+                var index = 1;
                 for (int i = 0; i < conversation.dialogueEntries.Count; i++)
                 {
                     var entry = conversation.dialogueEntries[i];
-                    list.Add("[" + entry.id + "] " + ((entry.id == 0) ? "<START>" : entry.subtitleText).Replace("/", "\u2215"));
-                    idToIndex.Add(entry.id, i + 1);
-                    indexToId.Add(i + 1, entry.id);
+                    if (entry == null || idToIndex.ContainsKey(entry.id)) continue;
+                    if (hasFilter && entry.id != currentID && !DialogueEntryPicker.MatchesFilter(entry, filter)) continue;
+                    list.Add("[" + entry.id + "] " + ((entry.id == 0) ? "<START>" : entry.subtitleText).Replace("/", "∕"));
+                    idToIndex.Add(entry.id, index);
+                    indexToId.Add(index, entry.id);
+                    index++;
                 }
             }
             entryTexts = list.ToArray();

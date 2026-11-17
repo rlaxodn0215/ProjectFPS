@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 29aa48f1a0a59cb4d939bd754d025ed3
+AssetOrigin:
+  serializedVersion: 1
+  productId: 11672
+  packageName: Dialogue System for Unity
+  packageVersion: 2.3.1
+  assetPath: Assets/Plugins/Pixel Crushers/Dialogue System/Scripts/Editor/Dialogue
+    Database Editor Window/DialogueDatabaseEditorWindowTemplate.cs
+  uploadId: 1052010

@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 6b427a155f2d03c40afc8fbcc7662c98
+AssetOrigin:
+  serializedVersion: 1
+  productId: 11672
+  packageName: Dialogue System for Unity
+  packageVersion: 2.3.1
+  assetPath: Assets/Plugins/Pixel Crushers/Dialogue System/Scripts/Editor/Dialogue
+    Database Editor Window/SpellCheckDictionary.cs
+  uploadId: 1052010

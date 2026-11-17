@@ -57,8 +57,10 @@ namespace PixelCrushers.DialogueSystem
         {
             instance = this;
             if (instances != null) instances.Add(this);
+#if !UNITY_2022_1_OR_NEWER
             EditorApplication.projectWindowItemOnGUI -= OnProjectWindowItemOnGUI;
             EditorApplication.projectWindowItemOnGUI += OnProjectWindowItemOnGUI;
+#endif
         }
 
         private void OnDisable()
@@ -69,12 +71,16 @@ namespace PixelCrushers.DialogueSystem
                 instances.Remove(this);
                 if (instances.Count > 0) instance = instances[0];
             }
+#if !UNITY_2022_1_OR_NEWER
             EditorApplication.projectWindowItemOnGUI -= OnProjectWindowItemOnGUI;
+#endif
             if (DialogueEditor.DialogueEditorWindow.instance != null) DialogueEditor.DialogueEditorWindow.instance.ResetLuaWizards();
         }
 
+#if !UNITY_2022_1_OR_NEWER
         /// <summary>
         /// Checks for double-clicks on the dialogue database to open the editor window.
+        /// In Unity 2022.1+, DialogueDatabaseEditorWindow opens database assets instead.
         /// </summary>
         /// <param name="guid">GUID.</param>
         /// <param name="selectionRect">Selection rect.</param>
@@ -85,6 +91,7 @@ namespace PixelCrushers.DialogueSystem
                 OpenDialogueEditorWindow();
             }
         }
+#endif
 
         /// <summary>
         /// Draws the inspector GUI. Provides extra features such a button to 
@@ -113,22 +120,36 @@ namespace PixelCrushers.DialogueSystem
         private void DrawExtraFeatures()
         {
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("Edit...", EditorStyles.miniButton, GUILayout.Width(80))) OpenDialogueEditorWindow();
+            if (GUILayout.Button(new GUIContent("Editor...", "Open database in editor window."),
+                EditorStyles.miniButton, GUILayout.Width(128)))
+            {
+                OpenDialogueDatabaseEditorWindow();
+            }
             GUILayout.FlexibleSpace();
             EditorGUI.BeginDisabledGroup(refreshSource == RefreshSource.None);
             var clickedReconvert = GUILayout.Button("Reconvert...", EditorStyles.miniButton, GUILayout.Width(80));
             EditorGUI.EndDisabledGroup();
             refreshSource = (RefreshSource)EditorGUILayout.EnumPopup(refreshSource, GUILayout.Width(100));
             EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button(new GUIContent("Legacy Editor...", "Open database in legacy editor window."),
+                EditorStyles.miniButton, GUILayout.Width(128)))
+            {
+                OpenLegacyDialogueEditorWindow();
+            }
+            if (GUILayout.Button(new GUIContent("Reset Position", "Reset position of legacy editor window."),
+                EditorStyles.miniButton, GUILayout.Width(100)))
+            {
+                DialogueEditor.DialogueEditorWindow.ResetPosition();
+            }
+            EditorGUILayout.EndHorizontal();
+
             EditorWindowTools.DrawHorizontalLine();
             if (GUI.changed)
             {
                 EditorUtility.SetDirty(target);
                 PrefabUtility.RecordPrefabInstancePropertyModifications(target);
-            }
-            if (GUILayout.Button("Reset Position", EditorStyles.miniButton, GUILayout.Width(100)))
-            {
-                DialogueEditor.DialogueEditorWindow.ResetPosition();
             }
             showDefaultInspector = EditorGUILayout.ToggleLeft("Show Default Inspector", showDefaultInspector);
             if (clickedReconvert)
@@ -150,9 +171,14 @@ namespace PixelCrushers.DialogueSystem
             EditorGUI.EndDisabledGroup();
         }
 
-        private void OpenDialogueEditorWindow()
+        private void OpenLegacyDialogueEditorWindow()
         {
             PixelCrushers.DialogueSystem.DialogueEditor.DialogueEditorWindow.OpenDialogueEditorWindow();
+        }
+
+        private void OpenDialogueDatabaseEditorWindow()
+        {
+            PixelCrushers.DialogueSystem.DialogueEditor.DialogueDatabaseEditorWindow.OpenDialogueDatabaseEditorWindow();
         }
 
         private void ReconvertDatabase()

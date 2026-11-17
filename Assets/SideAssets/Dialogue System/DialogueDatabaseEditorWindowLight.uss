@@ -1,0 +1,31 @@
+/* Dialogue Database Editor Window: colors for the editor's Light theme. Also gives the
+   conversation canvas a light grid and dark ports and edges, like the IMGUI editor. */
+
+.ds-window-root {
+    --ds-border-color: #999999;
+    --ds-subtle-border-color: rgba(0, 0, 0, 0.25);
+    --ds-indent-rule-color: rgba(96, 96, 96, 0.5);
+    --ds-popup-border-color: rgba(0, 0, 0, 0.35);
+    --ds-conflict-color: #C41E1E;
+    --ds-watermark-color: rgba(0, 0, 0, 0.25);
+    --ds-missing-color: #C00000;
+    --ds-order-label-text-color: #1E1E1E;
+    --ds-order-label-background-color: rgba(240, 240, 240, 0.9);
+    --ds-selection-color: #2F7FD8;
+}
+
+.ds-window-root GridBackground {
+    --grid-background-color: #C2C2C2;
+    --line-color: rgba(0, 0, 0, 0.1);
+    --thick-line-color: rgba(0, 0, 0, 0.22);
+}
+
+.ds-window-root .port {
+    --port-color: #4A4A4A;
+}
+
+.ds-window-root .edge {
+    --edge-color: #4A4A4A;
+    --ghost-edge-color: rgba(74, 74, 74, 0.5);
+    --selected-edge-color: #2F7FD8;
+}

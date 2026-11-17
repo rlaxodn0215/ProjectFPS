@@ -11,14 +11,7 @@ namespace PixelCrushers.DialogueSystem
     public class QuestConditionDrawer : PropertyDrawer
     {
 
-        private string currentQuestName;
-        private string[] questEntryNames = null;
         private bool useEntryPicker = true;
-
-        private void OnEnable()
-        {
-            currentQuestName = string.Empty;
-        }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
@@ -69,29 +62,36 @@ namespace PixelCrushers.DialogueSystem
             EditorGUI.PropertyField(questStateRect, questState, GUIContent.none, false);
 
             var checkQuestEntry = property.FindPropertyRelative("checkQuestEntry");
-            checkQuestEntry.boolValue = EditorGUI.ToggleLeft(checkQuestEntryRect, "Check Quest Entry State", checkQuestEntry.boolValue);
+            EditorGUI.BeginChangeCheck();
+            var newCheckQuestEntry = EditorGUI.ToggleLeft(checkQuestEntryRect, "Check Quest Entry State", checkQuestEntry.boolValue);
+            if (EditorGUI.EndChangeCheck()) checkQuestEntry.boolValue = newCheckQuestEntry;
             if (checkQuestEntry.boolValue)
             {
-                Rect questEntryRect = new Rect(position.x, position.y + 2 * EditorGUIUtility.singleLineHeight, questNameWidth, EditorGUIUtility.singleLineHeight);
-                Rect questEntryStateRect = new Rect(questNameRect.x + questNameRect.width + 2, position.y + 2 * EditorGUIUtility.singleLineHeight, questStateWidth, EditorGUIUtility.singleLineHeight);
+                float lineY = position.y + 2 * EditorGUIUtility.singleLineHeight;
+                float lineH = EditorGUIUtility.singleLineHeight;
+                const float toggleWidth = 18f;
+                Rect questEntryRect = new Rect(position.x, lineY, questNameWidth - toggleWidth - 2, lineH);
+                Rect toggleRect = new Rect(questEntryRect.xMax + 2, lineY, toggleWidth, lineH);
+                Rect questEntryStateRect = new Rect(questNameRect.xMax + 2, lineY, questStateWidth, lineH);
                 var questEntryNumber = property.FindPropertyRelative("entryNumber");
 
-                if (questName.stringValue != currentQuestName)
-                {
-                    currentQuestName = questName.stringValue;
-                    questEntryNames = null;
-                }
-                if (questEntryNames == null) UpdateQuestEntryNames(currentQuestName);
-
-                // Update current index:
-                var currentIndex = questEntryNumber.intValue;
-
                 // Draw popup or plain text field:
-                var rect = new Rect(position.x, position.y, position.width - 30, position.height);
                 if (useEntryPicker)
                 {
-                    var newIndex = EditorGUI.Popup(questEntryRect, currentIndex, questEntryNames);
-                    if ((newIndex != currentIndex) && (0 <= newIndex && newIndex < questEntryNames.Length))
+                    // Rebuild every time (cheap) so the list always reflects the current database and quest.
+                    // If the stored entry number is out of range, append a placeholder so the popup shows it
+                    // instead of drawing blank.
+                    var currentIndex = questEntryNumber.intValue;
+                    var entryNames = GetQuestEntryNames(questName.stringValue);
+                    int validCount = entryNames.Count;
+                    int popupIndex = currentIndex;
+                    if (currentIndex < 0 || currentIndex >= validCount)
+                    {
+                        entryNames.Add(currentIndex + ". (missing)");
+                        popupIndex = entryNames.Count - 1;
+                    }
+                    var newIndex = EditorGUI.Popup(questEntryRect, popupIndex, entryNames.ToArray());
+                    if ((newIndex != popupIndex) && (0 <= newIndex && newIndex < validCount))
                     {
                         questEntryNumber.intValue = newIndex;
                         GUI.changed = true;
@@ -99,19 +99,18 @@ namespace PixelCrushers.DialogueSystem
                 }
                 else
                 {
-                    EditorGUI.PropertyField(rect, questEntryNumber, GUIContent.none, true);
+                    EditorGUI.BeginChangeCheck();
+                    var newEntryNumber = EditorGUI.IntField(questEntryRect, questEntryNumber.intValue);
+                    if (EditorGUI.EndChangeCheck()) questEntryNumber.intValue = newEntryNumber;
                 }
 
                 // Radio button toggle between popup and plain text field:
-                rect = new Rect(position.x + position.width - 22, position.y, 22, position.height);
-                var newToggleValue = EditorGUI.Toggle(questEntryRect, useEntryPicker, EditorStyles.radioButton);
+                var newToggleValue = EditorGUI.Toggle(toggleRect, useEntryPicker, EditorStyles.radioButton);
                 if (newToggleValue != useEntryPicker)
                 {
                     useEntryPicker = newToggleValue;
                     if (useEntryPicker && (EditorTools.selectedDatabase == null)) EditorTools.selectedDatabase = EditorTools.FindInitialDatabase();
-                    questEntryNames = null;
                 }
-                //---Was: EditorGUI.PropertyField(questEntryRect, property.FindPropertyRelative("entryNumber"), GUIContent.none);
 
                 EditorGUI.PropertyField(questEntryStateRect, property.FindPropertyRelative("questEntryState"), GUIContent.none);
             }
@@ -151,16 +150,12 @@ namespace PixelCrushers.DialogueSystem
             return (0 <= questNameIndex && questNameIndex < questNames.Length) ? questNames[questNameIndex] : string.Empty;
         }
 
-        private void UpdateQuestEntryNames(string questName)
+        private List<string> GetQuestEntryNames(string questName)
         {
-            var database = EditorTools.selectedDatabase;
-            if (database == null)
-            {
-                questEntryNames = new string[0];
-                return;
-            }
-            var quest = database.items.Find(x => x.Name == questName);
             var list = new List<string>();
+            var database = EditorTools.selectedDatabase;
+            if (database == null || database.items == null) return list;
+            var quest = database.items.Find(x => x.Name == questName);
             if (quest != null)
             {
                 list.Add("(None)");
@@ -170,7 +165,7 @@ namespace PixelCrushers.DialogueSystem
                     list.Add(i + ". " + quest.LookupValue("Entry " + i));
                 }
             }
-            questEntryNames = list.ToArray();
+            return list;
         }
 
     }

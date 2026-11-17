@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 53b77a2509b132b4da1c6e79573c8c9b
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 12385, guid: 0000000000000000e000000000000000, type: 0}
+  disableValidation: 0
+  unsupportedSelectorAction: 0
+AssetOrigin:
+  serializedVersion: 1
+  productId: 11672
+  packageName: Dialogue System for Unity
+  packageVersion: 2.3.1
+  assetPath: Assets/SideAssets/Dialogue System/DialogueDatabaseEditorWindowLight.uss
+  uploadId: 1052010

@@ -1,7 +1,10 @@
 fileFormatVersion: 2
 guid: b3211798ba9323e49a18e1dc5cd40fae
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 4037089100735402091
+    second: Continue Triangle Down_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -108,7 +111,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Continue Triangle Down_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b605fefc52f960830800000000000000
+      internalID: 4037089100735402091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Continue Triangle Down_0: 4037089100735402091
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
@@ -129,7 +154,7 @@ AssetOrigin:
   serializedVersion: 1
   productId: 11672
   packageName: Dialogue System for Unity
-  packageVersion: 2.2.75.4
+  packageVersion: 2.3.1
   assetPath: Assets/Plugins/Pixel Crushers/Dialogue System/Prefabs/Art/Textures/JRPG/Continue
     Triangle Down.png
-  uploadId: 1043252
+  uploadId: 1052010

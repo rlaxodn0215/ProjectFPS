@@ -5,6 +5,15 @@
 //---
 // We use this code to ensure lexer compatibility with Yarn.
 
+// NOTE: If you want to remove "warning CS8632: The annotation for nullable reference types
+// should only be used in code within a '#nullable' annotations context", uncomment the
+// compiler directive below. Since the Dialogue System is compatible with older Unity versions
+// that don't support the #nullable directive, we need to keep it commented out by default.
+// However, if you're using Unity 2022+ you can uncomment the line below to remove the
+// warning.
+
+//#nullable enable
+
 namespace PixelCrushers.DialogueSystem.Yarn3
 {
     using Antlr4.Runtime;
@@ -77,7 +86,7 @@ namespace PixelCrushers.DialogueSystem.Yarn3
         /// Holds the last observed token from the stream.
         /// Used to see if a line is blank or not.
         /// </summary>
-        private IToken lastToken;
+        private IToken? lastToken;
 
         /// <summary>
         /// Holds the line number of the last seen indent-tracking content. Lets
@@ -149,9 +158,9 @@ namespace PixelCrushers.DialogueSystem.Yarn3
         }
 
         /// <inheritdoc/>
-        public override IToken NextToken()
+        public override IToken? NextToken()
         {
-            IToken tokenToReturn;
+            IToken? tokenToReturn;
             if (this.HitEOF && this.pendingTokens.Count > 0)
             {
                 // We have hit the EOF, but we have tokens still pending.

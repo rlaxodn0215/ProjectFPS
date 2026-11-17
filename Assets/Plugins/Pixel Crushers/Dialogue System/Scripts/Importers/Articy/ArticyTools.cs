@@ -14,6 +14,9 @@ namespace PixelCrushers.DialogueSystem.Articy
     /// <summary>
     /// This static utility class contains tools for working with Articy data.
     /// </summary>
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public static class ArticyTools
     {
 

@@ -1,7 +1,10 @@
 fileFormatVersion: 2
 guid: dd04b2931b2d1114aab1360bfee69ea4
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -7602484110388258870
+    second: btn6_normal_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -108,7 +111,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: btn6_normal_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 93
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac791c53bfc8e7690800000000000000
+      internalID: -7602484110388258870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      btn6_normal_0: -7602484110388258870
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
@@ -129,6 +154,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 11672
   packageName: Dialogue System for Unity
-  packageVersion: 2.2.75.4
+  packageVersion: 2.3.1
   assetPath: Assets/Plugins/Pixel Crushers/Dialogue System/Prefabs/Art/Textures/Wheel/btn6_normal.png
-  uploadId: 1043252
+  uploadId: 1052010

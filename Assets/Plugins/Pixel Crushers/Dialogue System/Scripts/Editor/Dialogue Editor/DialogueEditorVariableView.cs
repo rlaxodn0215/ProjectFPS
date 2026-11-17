@@ -76,7 +76,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             }
         }
 
-        private const string ShowGroupsPrefsKey = "PixelCrushers.DialogueSystem.VariableViewer.ShowGroups";
+        internal const string ShowGroupsPrefsKey = "PixelCrushers.DialogueSystem.VariableViewer.ShowGroups";
 
         private delegate Variable CreateNewVariableDelegate(string group);
 

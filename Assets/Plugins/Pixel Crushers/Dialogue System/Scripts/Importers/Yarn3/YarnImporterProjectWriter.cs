@@ -37,10 +37,6 @@ namespace PixelCrushers.DialogueSystem.Yarn3
             public const string Call = "Call Function";
             public const string Command = "Run Command";
             public const string Jump = "Jump to Conversation";
-            public const string Detour = "Detour to Conversation";
-            public const string DetourReturn = "Detour Return";
-            public const string DetourEnd = "Detour End";
-            public const string Return = "Return";
             public const string FormatLine = "Format Line";
             public const string Line = "Line";
             public const string Stop = "Stop";
@@ -76,11 +72,6 @@ namespace PixelCrushers.DialogueSystem.Yarn3
             public const string StoreVariable = "Store Variable: name: {0}";
             public const string SmartVariable = "Smart Variable: name: {0} (value determined at runtime)";
             public const string UnreachableEntry = "Unreachable Entry after Jump to conversation: {0}";
-            public const string UnreachableEntryAfterReturn = "Unreachable Entry after Return";
-            public const string Detour = "Detour to Conversation {0}";
-            public const string DetourReturn = "Detour Return from Conversation {0}";
-            public const string DetourEnd = "Detour End: Return to the entry after the active detour";
-            public const string Return = "Return from Detour";
         }
 
         public static class EntrySequence
@@ -161,14 +152,8 @@ $@"local {RunCommandRuntimeArgumentList} = {Lua.EvaluateYarnExpression}({{1}})
         private Template _template;
         private Actor _playerActor = null;
         private Actor _defaultNpcActor = null;
+        private bool _hasLoggedInfoAboutOnceConversation = false;
         private List<string> _smartVariableNames = new List<string>();
-
-        // A node can be the destination of many detours, and can be written before or after them,
-        // so the links that return from each node are created after all entries have been written.
-        private Dictionary<int, DialogueEntry> _conversationExitEntries = new Dictionary<int, DialogueEntry>();
-        private Dictionary<int, DialogueEntry> _detourEndEntries = new Dictionary<int, DialogueEntry>();
-        private List<(Conversation destination, DialogueEntry returnEntry)> _detourReturns = new List<(Conversation, DialogueEntry)>();
-        private int _nextDetourID = 1;
 
         // Holds current conversation while we're building the DialogueDatabase tree
         private Conversation _currentConversation;
@@ -330,20 +315,9 @@ $@"local {RunCommandRuntimeArgumentList} = {Lua.EvaluateYarnExpression}({{1}})
             // First, use all DeclareStatements to create entries in the global lua var table
             foreach (var stmt in sortedDeclareStmts) CreateLuaGlobalVariable(stmt);
 
-            // Create these before handling SetStatements, or the SetStatements that mark
-            // once content as played would create them as text variables.
-            foreach (var onceVariable in _yarnProject.OnceVariables) CreateOnceVariable(onceVariable);
-
             // After we've gone through all DeclareStatements, if there any SetStatements with
             // variables that have not been declared, create them and default their type/value to empty strings.
             foreach (var stmt in sortedSetStmts) CreateLuaGlobalVariable(stmt);
-        }
-
-        private void CreateOnceVariable(string variableName)
-        {
-            if (_dialogueDb.GetVariable(variableName) != null) return;
-            var luaVar = _template.CreateVariable(_template.GetNextVariableID(_dialogueDb), variableName, "False", FieldType.Boolean);
-            _dialogueDb.variables.Add(luaVar);
         }
 
         private void CreateLuaGlobalVariable(SetStatement setStmt)
@@ -365,12 +339,6 @@ $@"local {RunCommandRuntimeArgumentList} = {Lua.EvaluateYarnExpression}({{1}})
                             _smartVariableNames.Add(dsVariable.Name);
                         }
                     }
-                    else if (GetDeclaredValue(declareStmt, out var declaredType, out var declaredValue))
-                    {
-                        // Variables are kept between imports, but a literal value in the Yarn script takes precedence.
-                        dsVariable.InitialValue = declaredValue; // Resets the type to text, so set the type after.
-                        dsVariable.Type = declaredType;
-                    }
                 }
                 return;
             }
@@ -382,44 +350,29 @@ $@"local {RunCommandRuntimeArgumentList} = {Lua.EvaluateYarnExpression}({{1}})
             // We can only confidently determine the variable type if this is a DeclareStatement
             if (setStmt.Type.IsDeclare())
             {
-                GetDeclaredValue((DeclareStatement)setStmt, out fieldType, out luaVarValue);
+                // Grab the first expression token on the stack, that's the value used to initialize the var.
+                // It also will tell us the type.
+                var valueToken = setStmt.Expression.StackCopy.Pop();
+                switch (valueToken.Type)
+                {
+                    case ExpressionTokenType.Bool:
+                        fieldType = FieldType.Boolean;
+                        luaVarValue = ((BoolToken)valueToken).Value.ToString();
+                        break;
+                    case ExpressionTokenType.Number:
+                        fieldType = FieldType.Number;
+                        luaVarValue = ((NumberToken)valueToken).Value.ToString();
+                        break;
+                    case ExpressionTokenType.Text:
+                        fieldType = FieldType.Text;
+                        luaVarValue = ((StringToken)valueToken).Value;
+                        break;
+                }
+                ;
             }
 
             var luaVar = _template.CreateVariable(_template.GetNextVariableID(_dialogueDb), setStmt.Variable, luaVarValue, fieldType);
             _dialogueDb.variables.Add(luaVar);
-        }
-
-        // Gets the type and value to initialize a declared variable with. Returns true if the declared
-        // value is a literal, or false if it can only be determined by evaluating the expression at runtime.
-        private bool GetDeclaredValue(DeclareStatement stmt, out FieldType fieldType, out string value)
-        {
-            // Grab the first expression token on the stack, that's the value used to initialize the var.
-            // It also will tell us the type. The last token on the stack is the variable itself.
-            var tokens = stmt.Expression.StackCopy.ToArray();
-            var valueToken = tokens[0];
-            var isNegative = tokens.Length == 3 && tokens[1] is OperatorToken op && op.Value.IsUnaryMinus();
-            var isSingleValue = tokens.Length == 2 || isNegative;
-
-            fieldType = FieldType.Text;
-            value = string.Empty;
-            switch (valueToken.Type)
-            {
-                case ExpressionTokenType.Bool:
-                    fieldType = FieldType.Boolean;
-                    value = ((BoolToken)valueToken).Value.ToString();
-                    return tokens.Length == 2;
-                case ExpressionTokenType.Number:
-                    fieldType = FieldType.Number;
-                    var number = ((NumberToken)valueToken).Value;
-                    value = (isNegative ? -number : number).ToString();
-                    return isSingleValue;
-                case ExpressionTokenType.Text:
-                    fieldType = FieldType.Text;
-                    value = ((StringToken)valueToken).Value;
-                    return tokens.Length == 2;
-                default:
-                    return false;
-            }
         }
 
         private void FixSmartVariables()
@@ -668,36 +621,31 @@ $@"local {RunCommandRuntimeArgumentList} = {Lua.EvaluateYarnExpression}({{1}})
             foreach (var convoNode in sortedConvoNodes)
             {
                 CreateAndAddDialogueEntries(convoNode); // Also sets _currentConversation.
-            }
-            LinkDetourReturns();
-        }
-
-        private void LinkDetourReturns()
-        {
-            foreach (var detourReturn in _detourReturns)
-            {
-                var link = CreateLink(GetDetourEndEntry(detourReturn.destination), detourReturn.returnEntry);
-                link.isConnector = true;
-            }
-
-            foreach (var detourEnd in _detourEndEntries)
-            {
-                CreateLink(_conversationExitEntries[detourEnd.Key], detourEnd.Value);
+                if (convoNode.Once)
+                {
+                    PrependConditionalOnceNode(_currentConversation);
+                    if (!_hasLoggedInfoAboutOnceConversation)
+                    {
+                        _hasLoggedInfoAboutOnceConversation = true;
+                        Debug.Log("Yarn project has conversation(s) that play only once. Ensure Dialogue Manager's 'Include SimStatus' is ticked to support this in the Dialogue System.");
+                    }
+                }
             }
         }
 
-        // The group that a node ends in if it's a detour destination or has a <<return>>. Each Detour Return
-        // entry linked from it checks the detour stack, so only the entry for the active detour is followed.
-        // If no detour is active, the conversation ends here.
-        private DialogueEntry GetDetourEndEntry(Conversation conversation)
+        // Puts a node between <START> and its links that checks SimStatus.
+        private void PrependConditionalOnceNode(Conversation conversation)
         {
-            if (!_detourEndEntries.TryGetValue(conversation.id, out var detourEndEntry))
-            {
-                detourEndEntry = CreateDialogueEntry(conversation, EntryTitle.DetourEnd, EntryDescription.DetourEnd);
-                detourEndEntry.isGroup = true;
-                _detourEndEntries.Add(conversation.id, detourEndEntry);
-            }
-            return detourEndEntry;
+            var entry = _template.CreateDialogueEntry(_template.GetNextDialogueEntryID(conversation), conversation.id, "<<once>>");
+            conversation.dialogueEntries.Add(entry);
+            entry.ActorID = DefaultNpcActorId;
+            entry.ConversantID = DefaultNpcActorId;
+            entry.Sequence = "Continue()";
+            entry.conditionsString = "Dialog[thisID].SimStatus ~= \"WasDisplayed\"";
+            var startEntry = conversation.GetFirstDialogueEntry();
+            entry.outgoingLinks = new List<Link>(startEntry.outgoingLinks);
+            startEntry.outgoingLinks.Clear();
+            startEntry.outgoingLinks.Add(new Link(conversation.id, startEntry.id, conversation.id, entry.id));
         }
 
         // The basic gist of all of these CreateAndAddDialogueEntries methods is that each statement type has a single entrance
@@ -723,25 +671,14 @@ $@"local {RunCommandRuntimeArgumentList} = {Lua.EvaluateYarnExpression}({{1}})
                     nextDlgEntry = CreateAndAddDialogueEntries((JumpStatement)stmt, previousEntry);
                     break;
 
-                case StatementType.Detour:
-                    nextDlgEntry = CreateAndAddDialogueEntries((DetourStatement)stmt, previousEntry);
-                    break;
-
-                case StatementType.Return:
-                    nextDlgEntry = CreateAndAddDialogueEntries((ReturnStatement)stmt, previousEntry);
-                    break;
-
                 case StatementType.Line:
                     nextDlgEntry = CreateAndAddDialogueEntries((LineStatement)stmt, previousEntry);
                     break;
 
                 case StatementType.Declare:
-                    // A literal value is already the variable's initial value. An entry would reset
-                    // the variable each time the conversation passes through this statement.
-                    if (!GetDeclaredValue((DeclareStatement)stmt, out _, out _))
-                    {
-                        nextDlgEntry = CreateAndAddDialogueEntries((DeclareStatement)stmt, previousEntry);
-                    }
+                    //!!!
+                    nextDlgEntry = previousEntry;
+                    nextDlgEntry = CreateAndAddDialogueEntries((DeclareStatement)stmt, previousEntry);
                     break;
 
                 case StatementType.Set:
@@ -787,21 +724,11 @@ $@"local {RunCommandRuntimeArgumentList} = {Lua.EvaluateYarnExpression}({{1}})
                 string.Empty);
             endGroupEntry.isGroup = true;
 
-            // Add the children. A line whose condition is false must block so it isn't a randomizer
-            // candidate. Passing through would make the entry after the group a candidate instead.
+            // Add the children:
             foreach (var childStmt in groupBlock.Statements)
             {
-                var child = (childStmt is LineStatement lineStmt)
-                    ? CreateAndAddDialogueEntries(lineStmt, randomizerEntry, "Block")
-                    : CreateAndAddDialogueEntries(childStmt, randomizerEntry);
+                var child = CreateAndAddDialogueEntries(childStmt, randomizerEntry);
                 CreateLink(child, endGroupEntry);
-            }
-
-            // This link allows the group to fall through if the conditions of all of its children fail.
-            if (groupBlock.Statements.All(childStmt => childStmt.HasConditions))
-            {
-                var fallbackLink = CreateLink(randomizerEntry, endGroupEntry);
-                fallbackLink.priority = ConditionPriority.BelowNormal;
             }
 
             return endGroupEntry;
@@ -823,7 +750,6 @@ $@"local {RunCommandRuntimeArgumentList} = {Lua.EvaluateYarnExpression}({{1}})
             // START entry already exists, it's created when the conversation is created.
             var previousEntry = _currentConversation.dialogueEntries[0];
             foreach (var stmt in convoNode.Statements) previousEntry = CreateAndAddDialogueEntries(stmt, previousEntry);
-            _conversationExitEntries[_currentConversation.id] = previousEntry;
         }
 
         private DialogueEntry CreateAndAddDialogueEntries(CallStatement stmt, DialogueEntry previousEntry)
@@ -853,101 +779,40 @@ $@"local {RunCommandRuntimeArgumentList} = {Lua.EvaluateYarnExpression}({{1}})
                 string.Format(YarnImporterProjectWriter.EntryDescription.Jump, stmt.Destination));
             // callEntry.userScript = GenerateLuaCommandCall(stmt);
             // jumpEntry.userScript = GenerateLuaExpression(stmt.Expression).Pop();
-
-            // A jump abandons any active detours, so the jump destination's end doesn't return from them.
-            if (_yarnProject.HasDetours) jumpEntry.userScript = $"{BuiltInCommand.ClearDetours.LuaName()}()";
             jumpEntry.Sequence = EntrySequence.ContinueDialogue;
             CreateLink(previousEntry, jumpEntry);
 
-            LinkToConversationStart(jumpEntry, stmt.Destination, "jump");
-
-            // It is perfectly legal to put unreachable statements in a Yarn node right after a <<jump DestinationConversation>> statement.
-            // To make sure those statements are represented in the Dialogue Database, an unreachable parent node is used.
-            // This behaves just like a Stop node, where its conditionsString is always false.
-            return CreateUnreachableEntry(jumpEntry, string.Format(YarnImporterProjectWriter.EntryDescription.UnreachableEntry, stmt.Destination));
-        }
-
-        private Conversation LinkToConversationStart(DialogueEntry entry, string destination, string linkType)
-        {
-            var dstConvo = _dialogueDb.GetConversation(destination);
+            var dstConvo = _dialogueDb.GetConversation(stmt.Destination);
             if (dstConvo == null)
             {
-                Debug.LogWarning($"Dialogue System: Yarn import error: Conversation '{destination}' doesn't exist in database.");
+                Debug.LogWarning($"Dialogue System: Yarn import error: Conversation '{stmt.Destination}' doesn't exist in database.");
             }
             else if (dstConvo.dialogueEntries.Count == 0)
             {
-                Debug.LogWarning($"Dialogue System: Yarn import error: Conversation '{destination}' doesn't have a <START> entry to create a {linkType} link to.");
-                return null;
+                Debug.LogWarning($"Dialogue System: Yarn import error: Conversation '{stmt.Destination}' doesn't have a <START> entry to create a jump link to.");
             }
             else
             {
                 var dstStartEntry = dstConvo.dialogueEntries[0];
                 if (string.IsNullOrEmpty(dstStartEntry.Sequence) || dstStartEntry.Sequence == "None()") dstStartEntry.Sequence = "Continue()";
-                var link = CreateLink(entry, dstStartEntry);
-                link.isConnector = true;
+                var jumpLink = CreateLink(jumpEntry, dstStartEntry);
+                jumpLink.isConnector = true;
             }
-            return dstConvo;
-        }
 
-        private DialogueEntry CreateUnreachableEntry(DialogueEntry previousEntry, string description)
-        {
+            // It is perfectly legal to put unreachable statements in a Yarn node right after a <<jump DestinationConversation>> statement.
+            // To make sure those statements are represented in the Dialogue Database, an unreachable parent node is used.
+            // This behaves just like a Stop node, where its conditionsString is always false.
             var unreachableCodeEntry = CreateDialogueEntry(
                 _currentConversation,
                 YarnImporterProjectWriter.EntryTitle.UnreachableEntry,
-                description);
+                string.Format(YarnImporterProjectWriter.EntryDescription.UnreachableEntry, stmt.Destination));
 
             unreachableCodeEntry.conditionsString = "false";
-            var unreachableLink = CreateLink(previousEntry, unreachableCodeEntry);
+            var unreachableLink = CreateLink(jumpEntry, unreachableCodeEntry);
             unreachableLink.priority = ConditionPriority.BelowNormal;
             // previousEntry = unreachableCodeEntry;
 
             return unreachableCodeEntry;
-        }
-
-        // Detours need a return stack because a node's end returns to whichever detour went to it, and that
-        // can be any of several places. A detour pushes its ID, and its Detour Return entry pops it.
-        private DialogueEntry CreateAndAddDialogueEntries(DetourStatement stmt, DialogueEntry previousEntry)
-        {
-            var detourID = _nextDetourID++;
-
-            var detourEntry = CreateDialogueEntry(
-                _currentConversation,
-                YarnImporterProjectWriter.EntryTitle.Detour,
-                string.Format(YarnImporterProjectWriter.EntryDescription.Detour, stmt.Destination));
-            detourEntry.userScript = $"{BuiltInCommand.PushDetour.LuaName()}({detourID})";
-            detourEntry.Sequence = EntrySequence.ContinueDialogue;
-            CreateLink(previousEntry, detourEntry);
-
-            var returnEntry = CreateDialogueEntry(
-                _currentConversation,
-                YarnImporterProjectWriter.EntryTitle.DetourReturn,
-                string.Format(YarnImporterProjectWriter.EntryDescription.DetourReturn, stmt.Destination));
-            returnEntry.conditionsString = $"{BuiltInCommand.IsDetourReturn.LuaName()}({detourID})";
-            returnEntry.falseConditionAction = "Block";
-            returnEntry.userScript = $"{BuiltInCommand.PopDetour.LuaName()}()";
-            returnEntry.Sequence = EntrySequence.ContinueDialogue;
-
-            var dstConvo = LinkToConversationStart(detourEntry, stmt.Destination, "detour");
-            if (dstConvo != null) _detourReturns.Add((dstConvo, returnEntry));
-
-            // This link allows the detour to fall through if its destination has nothing to play.
-            var fallbackLink = CreateLink(detourEntry, returnEntry);
-            fallbackLink.priority = ConditionPriority.BelowNormal;
-
-            return returnEntry;
-        }
-
-        private DialogueEntry CreateAndAddDialogueEntries(ReturnStatement stmt, DialogueEntry previousEntry)
-        {
-            var returnEntry = CreateDialogueEntry(
-                _currentConversation,
-                YarnImporterProjectWriter.EntryTitle.Return,
-                YarnImporterProjectWriter.EntryDescription.Return);
-            returnEntry.Sequence = EntrySequence.ContinueDialogue;
-            CreateLink(previousEntry, returnEntry);
-            CreateLink(returnEntry, GetDetourEndEntry(_currentConversation));
-
-            return CreateUnreachableEntry(returnEntry, YarnImporterProjectWriter.EntryDescription.UnreachableEntryAfterReturn);
         }
 
         private DialogueEntry CreateAndAddDialogueEntries(CommandStatement stmt, DialogueEntry previousEntry)
@@ -1016,7 +881,7 @@ $@"local {RunCommandRuntimeArgumentList} = {Lua.EvaluateYarnExpression}({{1}})
 
         private bool IsAppendSequence(string name) => name == "appSeq" || name == "appendSequence";
 
-        private DialogueEntry CreateAndAddDialogueEntries(LineStatement stmt, DialogueEntry previousEntry, string falseConditionAction = "Passthrough")
+        private DialogueEntry CreateAndAddDialogueEntries(LineStatement stmt, DialogueEntry previousEntry)
         {
             if (_prefs.debug) Debug.Log($"YarnProjectWriter::CreateDialogueEntries(LineStatement) - line id: {stmt.LineId}");
 
@@ -1029,21 +894,15 @@ $@"local {RunCommandRuntimeArgumentList} = {Lua.EvaluateYarnExpression}({{1}})
                     string.Format(YarnImporterProjectWriter.EntryDescription.FormatLine, stmt.LineId, _currentConversation.Title));
 
                 fmtLineEntry.Sequence = EntrySequence.ContinueDialogue;
-                if (stmt.HasConditions)
-                {
-                    // The format entry leads only to the line, so it must follow the line's condition.
-                    fmtLineEntry.conditionsString = GenerateLuaExpression(stmt.Conditions).Pop();
-                    fmtLineEntry.falseConditionAction = falseConditionAction;
-                }
                 CreateLink(previousEntry, fmtLineEntry);
                 previousEntry = fmtLineEntry;
             }
 
-            var lineEntry = CreateAndAddDialogueEntry(stmt, previousEntry, falseConditionAction);
+            var lineEntry = CreateAndAddDialogueEntry(stmt, previousEntry);
             return lineEntry;
         }
 
-        private DialogueEntry CreateAndAddDialogueEntry(LineStatement stmt, DialogueEntry previousEntry, string falseConditionAction = "Passthrough")
+        private DialogueEntry CreateAndAddDialogueEntry(LineStatement stmt, DialogueEntry previousEntry)
         {
             // if (_prefs.debug) Debug.Log($"YarnProjectWriter::CreateAndAddDialogueEntry(LineStatement) - line id: {stmt.LineId}");
 
@@ -1065,13 +924,7 @@ $@"local {RunCommandRuntimeArgumentList} = {Lua.EvaluateYarnExpression}({{1}})
             if (stmt.HasConditions)
             {
                 lineEntry.conditionsString = GenerateLuaExpression(stmt.Conditions).Pop();
-                lineEntry.falseConditionAction = falseConditionAction;
-            }
-
-            // The script only runs when the line is shown or, for an option, when it's selected.
-            if (!string.IsNullOrEmpty(stmt.OnceVariable))
-            {
-                lineEntry.userScript = $"{FormatLuaVariableTableAccess(stmt.OnceVariable)} = true";
+                lineEntry.falseConditionAction = "Passthrough";
             }
 
             if (stmt.HasExpression)

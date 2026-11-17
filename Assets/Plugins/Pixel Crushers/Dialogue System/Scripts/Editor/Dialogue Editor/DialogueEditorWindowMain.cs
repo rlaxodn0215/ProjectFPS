@@ -70,9 +70,9 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private const string GarbageCollectFrequencyKey = "PixelCrushers.DialogueSystem.DialogueEditor.garbageCollectFrequency";
         private const string ShowNodeEditorKey = "PixelCrushers.DialogueSystem.DialogueEditor.ShowNodeEditor";
         private const string ShowDatabaseNameKey = "PixelCrushers.DialogueSystem.DialogueEditor.ShowDatabaseName";
-        private const string SyncOnOpenKey = "PixelCrushers.DialogueSystem.DialogueEditor.SyncOnOpen";
-        private const string AutoBackupKey = "PixelCrushers.DialogueSystem.DialogueEditor.AutoBackupFrequency";
-        private const string AutoBackupFolderKey = "PixelCrushers.DialogueSystem.DialogueEditor.AutoBackupFolder";
+        internal const string SyncOnOpenKey = "PixelCrushers.DialogueSystem.DialogueEditor.SyncOnOpen";
+        internal const string AutoBackupKey = "PixelCrushers.DialogueSystem.DialogueEditor.AutoBackupFrequency";
+        internal const string AutoBackupFolderKey = "PixelCrushers.DialogueSystem.DialogueEditor.AutoBackupFolder";
         private const string TrimWhitespaceAroundPipesKey = "PixelCrushers.DialogueSystem.DialogueEditor.TrimWhitespaceAroundPipes";
         private const string HideMenuTextKey = "PixelCrushers.DialogueSystem.DialogueEditor.HideMenuText";
         private const string LocalizationLanguagesKey = "PixelCrushers.DialogueSystem.DialogueEditor.LocalizationLanguages";
@@ -82,7 +82,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private const float RuntimeUpdateFrequency = 0.5f;
         private float timeSinceLastRuntimeUpdate = 0;
 
-        private const float DefaultAutoBackupFrequency = 600;
+        internal const float DefaultAutoBackupFrequency = 600;
         private float autoBackupFrequency = DefaultAutoBackupFrequency;
         private float timeForNextAutoBackup = 0;
         private string autoBackupFolder = string.Empty;
@@ -208,7 +208,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             timeForNextAutoBackup = Time.realtimeSinceStartup + autoBackupFrequency;
             trimWhitespaceAroundPipes = EditorPrefs.GetBool(TrimWhitespaceAroundPipesKey, true);
             hideMenuText = EditorPrefs.GetBool(HideMenuTextKey, false);
-            if (EditorPrefs.HasKey(LocalizationLanguagesKey)) localizationLanguages = JsonUtility.FromJson<LocalizationLanguages>(EditorPrefs.GetString(LocalizationLanguagesKey));
+            if (EditorPrefs.HasKey(LocalizationLanguagesKey)) localizationLanguages = JsonUtility.FromJson<DialogueDatabaseLocalizationImporter.LocalizationLanguages>(EditorPrefs.GetString(LocalizationLanguagesKey));
             if (EditorPrefs.HasKey(SequencerDragDropCommandsKey)) SequenceEditorTools.RestoreDragDropCommands(EditorPrefs.GetString(SequencerDragDropCommandsKey));
             if (EditorPrefs.HasKey(DialogueEditorPrefsKey)) prefs = JsonUtility.FromJson<DialogueEditorPrefs>(EditorPrefs.GetString(DialogueEditorPrefsKey));
             if (prefs == null) prefs = new DialogueEditorPrefs();

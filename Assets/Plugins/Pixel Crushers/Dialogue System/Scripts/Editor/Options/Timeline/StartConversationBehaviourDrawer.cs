@@ -17,6 +17,8 @@ namespace PixelCrushers.DialogueSystem
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             int fieldCount = 7;
+            var jumpToSpecificEntryProp = property.FindPropertyRelative(nameof(StartConversationBehaviour.jumpToSpecificEntry));
+            if (jumpToSpecificEntryProp != null && jumpToSpecificEntryProp.boolValue) fieldCount += 2; // Filter + Entry ID.
             return fieldCount * EditorGUIUtility.singleLineHeight + 2;
         }
 
@@ -44,12 +46,16 @@ namespace PixelCrushers.DialogueSystem
             if (jumpToSpecificEntryProp.boolValue)
             {
                 singleFieldRect.y += EditorGUIUtility.singleLineHeight;
-                if (entryPicker == null)
+                if (entryPicker == null || entryPicker.conversationTitle != conversationProp.stringValue)
                 {
+                    var previousFilter = (entryPicker != null) ? entryPicker.filter : string.Empty;
                     entryPicker = new DialogueEntryPicker(conversationProp.stringValue);
+                    entryPicker.filter = previousFilter;
                 }
                 if (entryPicker.isValid)
                 {
+                    entryPicker.DrawFilter(singleFieldRect);
+                    singleFieldRect.y += EditorGUIUtility.singleLineHeight;
                     entryIDProp.intValue = entryPicker.Draw(singleFieldRect, "Entry ID", entryIDProp.intValue);
                 }
                 else

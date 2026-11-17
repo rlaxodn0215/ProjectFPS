@@ -1,0 +1,70 @@
+/* Dialogue Database Editor Window: shared rules. Colors come from the --ds-* variables
+   that DialogueDatabaseEditorWindowDark.uss and DialogueDatabaseEditorWindowLight.uss
+   define, so only those two files differ between the editor's Dark and Light themes. */
+
+.ds-asset-row {
+    margin-top: 1px;
+    margin-bottom: 1px;
+    margin-left: 1px;
+    margin-right: 1px;
+    border-width: 1px;
+    border-color: var(--ds-border-color);
+}
+
+.ds-asset-row__type {
+    border-right-width: 1px;
+    border-right-color: var(--ds-border-color);
+}
+
+.ds-box {
+    border-width: 1px;
+    border-color: var(--ds-border-color);
+    border-radius: 3px;
+}
+
+.ds-bordered {
+    border-width: 1px;
+    border-color: var(--ds-subtle-border-color);
+}
+
+.ds-separator-right {
+    border-right-width: 1px;
+    border-right-color: var(--ds-subtle-border-color);
+}
+
+.ds-indent-rule {
+    border-left-width: 2px;
+    border-left-color: var(--ds-indent-rule-color);
+}
+
+.ds-conflict {
+    color: var(--ds-conflict-color);
+}
+
+.ds-popup-root {
+    border-width: 1px;
+    border-color: var(--ds-popup-border-color);
+}
+
+/* Conversation canvas */
+
+.ds-watermark {
+    color: var(--ds-watermark-color);
+}
+
+.ds-watermark--missing {
+    color: var(--ds-missing-color);
+}
+
+.ds-edge-order-label {
+    color: var(--ds-order-label-text-color);
+    background-color: var(--ds-order-label-background-color);
+}
+
+.ds-entry-group {
+    border-color: rgba(0, 0, 0, 0);
+}
+
+.ds-entry-group.ds-entry-group--selected {
+    border-color: var(--ds-selection-color);
+}

@@ -41,7 +41,7 @@ namespace PixelCrushers.DialogueSystem
             set { EditorPrefs.SetBool(ShowOnStartEditorPrefsKey, value); }
         }
 
-        [MenuItem("Tools/Pixel Crushers/Dialogue System/Welcome Window", false, -2)]
+        [MenuItem("Tools/Pixel Crushers/Dialogue System/Welcome Window", false, -5)]
         public static WelcomeWindow ShowWindow()
         {
             var window = GetWindow<WelcomeWindow>(false, "Welcome");
@@ -167,7 +167,7 @@ namespace PixelCrushers.DialogueSystem
                 {
                     if (GUILayout.Button(new GUIContent("Dialogue\nEditor", "Open the Dialogue Editor window"), quickButtonGuiStyle, GUILayout.Width(ButtonWidth), ButtonHeightLayout))
                     {
-                        PixelCrushers.DialogueSystem.DialogueEditor.DialogueEditorWindow.OpenDialogueEditorWindow();
+                        PixelCrushers.DialogueSystem.DialogueEditor.DialogueDatabaseEditorWindow.OpenDialogueDatabaseEditorWindow();
                     }
                     if (GUILayout.Button(new GUIContent("Dialogue\nManager\nWizard", "Configure a Dialogue Manager, the component that coordinates all Dialogue System activity"), quickButtonGuiStyle, GUILayout.Width(ButtonWidth), ButtonHeightLayout))
                     {

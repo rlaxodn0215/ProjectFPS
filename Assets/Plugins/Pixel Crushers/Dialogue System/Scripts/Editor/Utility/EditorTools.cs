@@ -157,26 +157,12 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        //---No longer used, now that we allow a full color palette:
-        //public static string[] StylesColorStrings = new string[]
-        //{
-        //    "Aqua", "Blue", "Gray", "Green", "Orange", "Red", "Yellow"
-        //};
-
         // Node style colors:
-#if UNITY_2019_3_OR_NEWER // Use lighter colors for Pro in 2019.3+:
         public static Color NodeColor_Orange_Dark = new Color(1f, 0.5f, 0);
-        public static Color NodeColor_Gray_Dark = new Color(0.9f, 0.9f, 0.9f);
-        public static Color NodeColor_Blue_Dark = new Color(0.4f, 0.6f, 1f);
-        public static Color NodeColor_Green_Dark = new Color(0, 1f, 0);
-        public static Color NodeColor_Red_Dark = new Color(1f, 0.1f, 0.1f);
-#else
-        public static Color NodeColor_Orange_Dark = new Color(0.875f, 0.475f, 0);
         public static Color NodeColor_Gray_Dark = new Color(0.33f, 0.33f, 0.33f);
         public static Color NodeColor_Blue_Dark = new Color(0.22f, 0.38f, 0.64f);
         public static Color NodeColor_Green_Dark = new Color(0, 0.6f, 0);
         public static Color NodeColor_Red_Dark = new Color(0.7f, 0.1f, 0.1f);
-#endif
 
         public static Color NodeColor_Orange_Light = new Color(1f, 0.7f, 0.4f);
         public static Color NodeColor_Gray_Light = new Color(0.7f, 0.7f, 0.7f);

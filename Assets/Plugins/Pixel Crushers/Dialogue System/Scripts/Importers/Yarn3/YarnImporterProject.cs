@@ -183,21 +183,9 @@ namespace PixelCrushers.DialogueSystem.Yarn3
         public JumpStatement(string destNode) : base(StatementType.Jump) => Destination = destNode;
     }
 
-    public class DetourStatement : BasicStatement
-    {
-        public string Destination { get; private set; }
-        public DetourStatement(string destNode) : base(StatementType.Detour) => Destination = destNode;
-    }
-
-    public class ReturnStatement : BasicStatement
-    {
-        public ReturnStatement() : base(StatementType.Return) { }
-    }
-
     public class LineStatement : BasicStatement
     {
         public string LineId { get; private set; }
-        public string OnceVariable { get; set; } // Set if line has a <<once>> condition.
         public IReadOnlyDictionary<string, string> Hashtags = new Dictionary<string, string>();
         public LineStatement(string lineId) : base(StatementType.Line) => LineId = lineId;
         public void SetLineId(string lineId) => LineId = lineId;
@@ -265,6 +253,7 @@ namespace PixelCrushers.DialogueSystem.Yarn3
         public string Filename { get; protected set; }
         public string When { get; protected set; }
         public WhenTimes WhenTimes { get; protected set; } = WhenTimes.Undefined;
+        public bool Once { get; set; } = false; // True if node is wrapped in <<once>> tag.
         public IReadOnlyDictionary<string, string> Header { get; protected set; } = new Dictionary<string, string>();
 
         public ConversationNode(string filename, int nodeNumber) : base(StatementType.Conversation)
@@ -365,12 +354,9 @@ namespace PixelCrushers.DialogueSystem.Yarn3
 
         private Dictionary<string, ConversationNode> _nodes = new Dictionary<string, ConversationNode>();
         private Dictionary<string, IReadOnlyList<YarnLocalizedString>> _localizedStringTable = new Dictionary<string, IReadOnlyList<YarnLocalizedString>>();
-        private List<string> _onceVariables = new List<string>();
 
         public IReadOnlyDictionary<string, ConversationNode> Nodes { get => _nodes; }
         public IReadOnlyDictionary<string, YarnLocalizedString> LocalizedStringTable { get; private set; }
-        public IReadOnlyList<string> OnceVariables { get => _onceVariables; }
-        public bool HasDetours { get; set; } // True if any node has a <<detour>> statement.
 
         private Yarn3ImporterPrefs _prefs;
 
@@ -379,8 +365,6 @@ namespace PixelCrushers.DialogueSystem.Yarn3
             _prefs = prefs;
             LocalizedStringTable = localizedStringTable;
         }
-
-        public void AddOnceVariable(string variableName) => _onceVariables.Add(variableName);
 
         public void ReplaceNodeList(List<ConversationNode> nodes)
         {

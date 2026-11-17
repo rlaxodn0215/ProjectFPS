@@ -150,8 +150,10 @@ namespace PixelCrushers.DialogueSystem
                 sb.Append(c);
             }
             var s = sb.ToString();
-            return new List<string>(Enumerable.Range(0, s.Length / MaxLineLength)
-                .Select(i => s.Substring(i * MaxLineLength, MaxLineLength))).ToArray();
+            // Round up so the last, shorter line isn't dropped.
+            var lineCount = (s.Length + MaxLineLength - 1) / MaxLineLength;
+            return Enumerable.Range(0, lineCount)
+                .Select(i => s.Substring(i * MaxLineLength, System.Math.Min(MaxLineLength, s.Length - i * MaxLineLength))).ToArray();
         }
 
         //private static void ExportTextFields(DialogueDatabase database, StreamWriter file)

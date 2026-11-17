@@ -14,9 +14,12 @@ namespace PixelCrushers.DialogueSystem.Articy.Articy_3_1
     /// <summary>
     /// This static utility class contains tools to convert articy:draft 2.4/3.0 XML data into
     /// a schema-independent ArticyData object. This is also fully compatible with articy:draft 3,
-	/// since 3.0.7's updated schema only adds the "String" GlobalVariableType, which was added
-	/// to the Dialogue System's articy 2.4 schema already.
+    /// since 3.0.7's updated schema only adds the "String" GlobalVariableType, which was added
+    /// to the Dialogue System's articy 2.4 schema already.
     /// </summary>
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public static class Articy_3_1_Tools
     {
 

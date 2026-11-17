@@ -14,7 +14,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
     public partial class DialogueEditorWindow : EditorWindow
     {
 
-        [MenuItem("Tools/Pixel Crushers/Dialogue System/Dialogue Editor", false, -1)]
+        [MenuItem("Tools/Pixel Crushers/Dialogue System/Dialogue Editor (Legacy)...", false, -2)]
         public static DialogueEditorWindow OpenDialogueEditorWindow()
         {
             var window = GetWindow<DialogueEditorWindow>("Dialogue");

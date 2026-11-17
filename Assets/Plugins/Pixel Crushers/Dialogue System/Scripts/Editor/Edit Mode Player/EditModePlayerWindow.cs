@@ -74,9 +74,12 @@ namespace PixelCrushers.DialogueSystem
             foreach (var link in entry.outgoingLinks)
             {
                 var linkedEntry = database.GetDialogueEntry(link);
+                if (linkedEntry == null) continue; // Broken link.
                 linkedEntries.Add(linkedEntry);
                 var isPlayerLine = playerActorIDs.Contains(linkedEntry.ActorID);
-                var buttonText = actorNames[linkedEntry.ActorID] + ": " + (isPlayerLine ? linkedEntry.responseButtonText : linkedEntry.subtitleText);
+                string actorName;
+                if (!actorNames.TryGetValue(linkedEntry.ActorID, out actorName)) actorName = "(No Actor)";
+                var buttonText = actorName + ": " + (isPlayerLine ? linkedEntry.responseButtonText : linkedEntry.subtitleText);
                 var tooltip = linkedEntry.conditionsString;
                 if (!string.IsNullOrEmpty(tooltip)) buttonText += $"\n[{linkedEntry.conditionsString}]";
                 linkedEntryButtonTexts.Add(buttonText);
@@ -98,7 +101,7 @@ namespace PixelCrushers.DialogueSystem
                 GUILayout.FlexibleSpace();
                 if (GUILayout.Button(EditLabel))
                 {
-                    DialogueEditorWindow.OpenDialogueEntry(database, currentEntry.conversationID, currentEntry.id);
+                    DialogueEditorBridge.OpenDialogueEntry(database, currentEntry.conversationID, currentEntry.id);
                 }
                 GUILayout.EndHorizontal();
                 EditorGUI.BeginDisabledGroup(true);

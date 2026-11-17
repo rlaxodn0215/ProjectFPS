@@ -14,6 +14,9 @@ namespace PixelCrushers.DialogueSystem.Articy.Articy_4_0
     /// This static utility class contains tools to convert articy:draft 4.0 XML data into
     /// a schema-independent ArticyData object.
     /// </summary>
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public static class Articy_4_0_Tools
     {
 

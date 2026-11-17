@@ -42,8 +42,11 @@ namespace PixelCrushers
         private static GUIContent[] ToolbarLabels = new GUIContent[]
             { new GUIContent("Languages"), new GUIContent("Fields") };
 
+        // Serialized as an object reference (not an instance/entity ID) so it survives
+        // domain reloads without version-specific ID APIs, which matters when this code
+        // is compiled into a DLL for multiple Unity versions.
         [SerializeField]
-        private EntityIdWrapper m_textTableInstanceID = EntityIdWrapper.None;
+        private TextTable m_textTable;
 
         [SerializeField]
         private Vector2 m_languageListScrollPosition;
@@ -74,8 +77,6 @@ namespace PixelCrushers
 
         [SerializeField]
         private bool m_matchCase = false;
-
-        private TextTable m_textTable;
 
         private bool m_needRefreshLists = true;
         private ReorderableList m_languageList = null;
@@ -116,9 +117,9 @@ namespace PixelCrushers
             titleContent.text = "Text Table";
             m_needRefreshLists = true;
             Undo.undoRedoPerformed += Repaint;
-            if (m_textTableInstanceID.isValid)
+            if (m_textTable != null)
             {
-                Selection.activeObject = MoreEditorUtility.InstanceIDToObject(m_textTableInstanceID);
+                Selection.activeObject = m_textTable;
             }
             m_toolbarSelection = EditorPrefs.GetInt(ToolbarSelectionPrefsKey, 0);
             if (EditorPrefs.HasKey(SearchBarPrefsKey))
@@ -157,9 +158,10 @@ namespace PixelCrushers
                 SelectTextTable(Selection.activeObject as TextTable);
                 Repaint();
             }
-            else if (m_textTable == null && m_textTableInstanceID.isValid)
+            else if (m_textTable != null && m_serializedObject == null)
             {
-                SelectTextTable(MoreEditorUtility.InstanceIDToObject(m_textTableInstanceID) as TextTable);
+                // Restored after domain reload; rebuild non-serialized state:
+                SelectTextTable(m_textTable);
                 Repaint();
             }
         }
@@ -174,7 +176,6 @@ namespace PixelCrushers
             m_needToApplyBeforeUpdateSO = false;
             m_serializedObject = (newTable != null) ? new SerializedObject(newTable) : null;
             if (m_textTable != null && m_textTable.languages.Count == 0) m_textTable.AddLanguage("Default");
-            m_textTableInstanceID = EntityUtility.GetEntityId(newTable);
         }
 
         public void Refresh()

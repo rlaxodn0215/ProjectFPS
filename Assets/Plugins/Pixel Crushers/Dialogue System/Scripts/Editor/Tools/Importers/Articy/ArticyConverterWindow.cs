@@ -12,6 +12,9 @@ namespace PixelCrushers.DialogueSystem.Articy
     /// <summary>
     /// articy:draft converter window.
     /// </summary>
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public class ArticyConverterWindow : EditorWindow
     {
 
@@ -825,8 +828,8 @@ namespace PixelCrushers.DialogueSystem.Articy
             var wasOpen = DialogueEditor.DialogueEditorWindow.instance != null;
             foreach (var conversation in database.conversations)
             {
-                DialogueEditor.DialogueEditorWindow.OpenDialogueEntry(database, conversation.id, 0);
-                DialogueEditor.DialogueEditorWindow.instance.AutoArrangeNodes(true);
+                DialogueEditor.DialogueEditorBridge.OpenDialogueEntry(database, conversation.id, 0);
+                DialogueEditor.DialogueEditorBridge.AutoArrangeNodes(database, conversation.id);
             }
             if (!wasOpen) DialogueEditor.DialogueEditorWindow.instance.Close();
         }

@@ -125,8 +125,7 @@ namespace PixelCrushers.DialogueSystem
             GUILayout.BeginHorizontal();
             if (GUILayout.Button(iconButtonContent, iconButtonStyle, GUILayout.Width(icon.width), GUILayout.Height(icon.height)))
             {
-                Selection.activeObject = dialogueSystemController.initialDatabase;
-                PixelCrushers.DialogueSystem.DialogueEditor.DialogueEditorWindow.OpenDialogueEditorWindow();
+                OpenEditor();
             }
             GUILayout.FlexibleSpace();
             if (GUILayout.Button("Wizard...", GUILayout.Width(64)))
@@ -153,11 +152,20 @@ namespace PixelCrushers.DialogueSystem
             {
                 if (GUILayout.Button("Edit", EditorStyles.miniButton, GUILayout.Width(36)))
                 {
-                    Selection.activeObject = dialogueSystemController.initialDatabase;
-                    PixelCrushers.DialogueSystem.DialogueEditor.DialogueEditorWindow.OpenDialogueEditorWindow();
+                    OpenEditor();
                 }
             }
             EditorGUILayout.EndHorizontal();
+        }
+
+        private void OpenEditor()
+        {
+            Selection.activeObject = dialogueSystemController.initialDatabase;
+#if UNITY_2022_1_OR_NEWER
+            DialogueEditor.DialogueDatabaseEditorWindow.Open(dialogueSystemController.initialDatabase);
+#else
+            PixelCrushers.DialogueSystem.DialogueEditor.DialogueEditorWindow.OpenDialogueEditorWindow();
+#endif
         }
 
         private void CreateInitialDatabase()
@@ -172,7 +180,7 @@ namespace PixelCrushers.DialogueSystem
             AssetDatabase.CreateAsset(database, path);
             AssetDatabase.SaveAssets();
             Selection.activeObject = database;
-            PixelCrushers.DialogueSystem.DialogueEditor.DialogueEditorWindow.OpenDialogueEditorWindow();
+            OpenEditor();
         }
 
         private void DrawDisplaySettings()

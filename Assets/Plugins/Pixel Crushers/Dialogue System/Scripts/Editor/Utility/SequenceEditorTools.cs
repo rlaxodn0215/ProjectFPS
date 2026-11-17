@@ -111,9 +111,13 @@ namespace PixelCrushers.DialogueSystem
 
         private static bool needToCheckSyntax = false;
 
+        /// <param name="drawAIButton">
+        /// Optional IMGUI drawer for an AI addon button next to the label. If null, uses the
+        /// IMGUI Dialogue Editor's AI button if that window is open.
+        /// </param>
         public static string DrawLayout(GUIContent guiContent, string sequence, ref Rect rect,
             ref SequenceSyntaxState syntaxState, DialogueEntry entry = null, Field field = null,
-            bool showDefaultShortcutButton = false)
+            bool showDefaultShortcutButton = false, Action<DialogueEntry, Field> drawAIButton = null)
         {
             if (!string.IsNullOrEmpty(queuedText))
             {
@@ -124,10 +128,16 @@ namespace PixelCrushers.DialogueSystem
             }
 
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(guiContent);
+            // Only reserve the label text's width, so the buttons fit in narrow layouts:
+            EditorGUILayout.LabelField(guiContent, GUILayout.MinWidth(EditorStyles.label.CalcSize(guiContent).x));
 
-            if (DialogueEditor.DialogueEditorWindow.instance != null)
-            { // Note: We no longer check (entry != null && field != null) so we can handle multinode selections.
+            // Note: We no longer check (entry != null && field != null) so we can handle multinode selections.
+            if (drawAIButton != null)
+            {
+                drawAIButton(entry, field);
+            }
+            else if (DialogueEditor.DialogueEditorWindow.instance != null)
+            {
                 DialogueEditor.DialogueEditorWindow.instance.DrawAISequence(entry, field);
             }
 
