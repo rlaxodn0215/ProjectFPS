@@ -1,0 +1,2854 @@
+; FBX 7.7.0 project file
+; ----------------------------------------------------
+; ExporterVersion: v2026-08-10-streaming-batch
+
+FBXHeaderExtension:  {
+	FBXHeaderVersion: 1003
+	FBXVersion: 7700
+	CreationTimeStamp:  {
+		Version: 1000
+		Year: 2026
+		Month: 8
+		Day: 18
+		Hour: 22
+		Minute: 38
+		Second: 33
+		Millisecond: 915
+	}
+	Creator: "KINEMATION ASCII FBX Exporter v2026-08-10-streaming-batch"
+}
+GlobalSettings:  {
+	Version: 1000
+	Properties70:  {
+		P: "UpAxis", "int", "Integer", "",1
+		P: "UpAxisSign", "int", "Integer", "",1
+		P: "FrontAxis", "int", "Integer", "",2
+		P: "FrontAxisSign", "int", "Integer", "",1
+		P: "CoordAxis", "int", "Integer", "",0
+		P: "CoordAxisSign", "int", "Integer", "",1
+		P: "OriginalUpAxis", "int", "Integer", "",-1
+		P: "OriginalUpAxisSign", "int", "Integer", "",1
+		P: "UnitScaleFactor", "double", "Number", "",1
+		P: "OriginalUnitScaleFactor", "double", "Number", "",1
+		P: "AmbientColor", "ColorRGB", "Color", "",0,0,0
+		P: "DefaultCamera", "KString", "", "", "Producer Perspective"
+		P: "TimeMode", "enum", "", "",14
+		P: "TimeSpanStart", "KTime", "Time", "",0
+		P: "TimeSpanStop", "KTime", "Time", "",190902786400
+		P: "CustomFrameRate", "double", "Number", "",60
+	}
+}
+
+Documents:  {
+	Count: 1
+	Document: 1, "Scene", "Scene" {
+		Properties70:  {
+			P: "SourceObject", "object", "", ""
+			P: "ActiveAnimStackName", "KString", "", "", ""
+		}
+		RootNode: 0
+	}
+}
+
+References:  {
+}
+
+Definitions:  {
+	Version: 100
+	Count: 160
+	ObjectType: "GlobalSettings" {
+		Count: 1
+	}
+	ObjectType: "Model" {
+		Count: 12
+		PropertyTemplate: "FbxNode" {
+			Properties70:  {
+				P: "RotationOrder", "enum", "", "",4
+				P: "RotationActive", "bool", "", "",1
+				P: "InheritType", "enum", "", "",1
+				P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+				P: "Lcl Translation", "Lcl Translation", "", "A",0,0,0
+				P: "Lcl Rotation", "Lcl Rotation", "", "A",0,0,0
+				P: "Lcl Scaling", "Lcl Scaling", "", "A",1,1,1
+				P: "Visibility", "Visibility", "", "A",1
+			}
+		}
+	}
+	ObjectType: "NodeAttribute" {
+		Count: 10
+		PropertyTemplate: "FbxSkeleton" {
+			Properties70:  {
+				P: "Color", "ColorRGB", "Color", "",0.8,0.8,0.8
+				P: "Size", "double", "Number", "",100
+				P: "LimbLength", "double", "Number", "H",1
+			}
+		}
+	}
+	ObjectType: "AnimationStack" {
+		Count: 1
+	}
+	ObjectType: "AnimationLayer" {
+		Count: 1
+	}
+	ObjectType: "AnimationCurveNode" {
+		Count: 36
+		PropertyTemplate: "FbxAnimCurveNode" {
+			Properties70:  {
+				P: "d", "Compound", "", ""
+			}
+		}
+	}
+	ObjectType: "AnimationCurve" {
+		Count: 108
+	}
+}
+
+Objects:  {
+	NodeAttribute: 1000272, "NodeAttribute::MKR-9_Rig_Skel", "Root" {
+		TypeFlags: "Null", "Skeleton", "Root"
+	}
+	NodeAttribute: 1000496, "NodeAttribute::Body_Skel", "LimbNode" {
+		TypeFlags: "Skeleton"
+	}
+	NodeAttribute: 1000720, "NodeAttribute::Bolt_Skel", "LimbNode" {
+		TypeFlags: "Skeleton"
+	}
+	NodeAttribute: 1000944, "NodeAttribute::ChargingHandle_Skel", "LimbNode" {
+		TypeFlags: "Skeleton"
+	}
+	NodeAttribute: 1001168, "NodeAttribute::Dustcover_Skel", "LimbNode" {
+		TypeFlags: "Skeleton"
+	}
+	NodeAttribute: 1001392, "NodeAttribute::Mag_Primary_Skel", "LimbNode" {
+		TypeFlags: "Skeleton"
+	}
+	NodeAttribute: 1001616, "NodeAttribute::Mag_Secondary_Skel", "LimbNode" {
+		TypeFlags: "Skeleton"
+	}
+	NodeAttribute: 1001840, "NodeAttribute::Safety_Skel", "LimbNode" {
+		TypeFlags: "Skeleton"
+	}
+	NodeAttribute: 1002064, "NodeAttribute::Stock_Skel", "LimbNode" {
+		TypeFlags: "Skeleton"
+	}
+	NodeAttribute: 1002288, "NodeAttribute::Trigger_Skel", "LimbNode" {
+		TypeFlags: "Skeleton"
+	}
+	Model: 1000016, "Model::SKM_MKR9_New(Clone)", "Null" {
+		Version: 232
+		Properties70:  {
+			P: "RotationOrder", "enum", "", "",4
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "Lcl Translation", "Lcl Translation", "", "A+",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A+",0,0,0
+			P: "Lcl Scaling", "Lcl Scaling", "", "A+",1,1,1
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 1000256, "Model::MKR-9_Rig", "Root" {
+		Version: 232
+		Properties70:  {
+			P: "RotationOrder", "enum", "", "",4
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+			P: "Lcl Translation", "Lcl Translation", "", "A+",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A+",-90,1.7986089E-05,0
+			P: "Lcl Scaling", "Lcl Scaling", "", "A+",1,1,1
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 1000480, "Model::Body", "LimbNode" {
+		Version: 232
+		Properties70:  {
+			P: "RotationOrder", "enum", "", "",4
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+			P: "Lcl Translation", "Lcl Translation", "", "A+",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A+",-1.41538533E-06,-90,180
+			P: "Lcl Scaling", "Lcl Scaling", "", "A+",0.99999994,0.9999999,0.99999994
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 1000704, "Model::Bolt", "LimbNode" {
+		Version: 232
+		Properties70:  {
+			P: "RotationOrder", "enum", "", "",4
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+			P: "Lcl Translation", "Lcl Translation", "", "A+",-0.9448172,-1.94404817,-1.024455E-06
+			P: "Lcl Rotation", "Lcl Rotation", "", "A+",1.69038522E-05,1.36603767E-05,2.414842E-06
+			P: "Lcl Scaling", "Lcl Scaling", "", "A+",1,1,1
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 1000928, "Model::ChargingHandle", "LimbNode" {
+		Version: 232
+		Properties70:  {
+			P: "RotationOrder", "enum", "", "",4
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+			P: "Lcl Translation", "Lcl Translation", "", "A+",-3.9305408,-12.77944,-5.58793636E-06
+			P: "Lcl Rotation", "Lcl Rotation", "", "A+",2.41483963E-06,-2.73207534E-05,2.65632E-05
+			P: "Lcl Scaling", "Lcl Scaling", "", "A+",1,1,1
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 1001152, "Model::Dustcover", "LimbNode" {
+		Version: 232
+		Properties70:  {
+			P: "RotationOrder", "enum", "", "",4
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+			P: "Lcl Translation", "Lcl Translation", "", "A+",0.217425987,1.76682377,2.003629
+			P: "Lcl Rotation", "Lcl Rotation", "", "A+",5.66550762E-06,64.84338,1.81499981E-05
+			P: "Lcl Scaling", "Lcl Scaling", "", "A+",1,1,1
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 1001376, "Model::Mag_Primary", "LimbNode" {
+		Version: 232
+		Properties70:  {
+			P: "RotationOrder", "enum", "", "",4
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+			P: "Lcl Translation", "Lcl Translation", "", "A+",10.6505785,5.87374258,6.70552345E-06
+			P: "Lcl Rotation", "Lcl Rotation", "", "A+",-2.182398E-05,-90,180
+			P: "Lcl Scaling", "Lcl Scaling", "", "A+",0.99999994,1,0.99999994
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 1001600, "Model::Mag_Secondary", "LimbNode" {
+		Version: 232
+		Properties70:  {
+			P: "RotationOrder", "enum", "", "",4
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+			P: "Lcl Translation", "Lcl Translation", "", "A+",10.6505785,5.87374258,6.70552345E-06
+			P: "Lcl Rotation", "Lcl Rotation", "", "A+",-2.182398E-05,-90,180
+			P: "Lcl Scaling", "Lcl Scaling", "", "A+",0.000999987,0.0009999871,0.000999987
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 1001824, "Model::Safety", "LimbNode" {
+		Version: 232
+		Properties70:  {
+			P: "RotationOrder", "enum", "", "",4
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+			P: "Lcl Translation", "Lcl Translation", "", "A+",3.127663,-5.98510838,-1.40688431
+			P: "Lcl Rotation", "Lcl Rotation", "", "A+",-1.3914756E-05,-9.421588E-06,1.48342388E-05
+			P: "Lcl Scaling", "Lcl Scaling", "", "A+",1,1,1
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 1002048, "Model::Stock", "LimbNode" {
+		Version: 232
+		Properties70:  {
+			P: "RotationOrder", "enum", "", "",4
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+			P: "Lcl Translation", "Lcl Translation", "", "A+",-1.67952406,-30.9338245,-9.685757E-06
+			P: "Lcl Rotation", "Lcl Rotation", "", "A+",1.69038522E-05,1.36603767E-05,2.414842E-06
+			P: "Lcl Scaling", "Lcl Scaling", "", "A+",1,1,1
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 1002272, "Model::Trigger", "LimbNode" {
+		Version: 232
+		Properties70:  {
+			P: "RotationOrder", "enum", "", "",4
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+			P: "Lcl Translation", "Lcl Translation", "", "A+",2.65983677,-2.532675,5.58793658E-07
+			P: "Lcl Rotation", "Lcl Rotation", "", "A+",1.61961616E-05,-7.952198E-06,-90
+			P: "Lcl Scaling", "Lcl Scaling", "", "A+",0.9999999,1.00000012,1
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 1002496, "Model::SKM_MKR9", "Null" {
+		Version: 232
+		Properties70:  {
+			P: "RotationOrder", "enum", "", "",4
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+			P: "Lcl Translation", "Lcl Translation", "", "A+",0,0,0
+			P: "Lcl Rotation", "Lcl Rotation", "", "A+",-90,-9.334667E-06,0
+			P: "Lcl Scaling", "Lcl Scaling", "", "A+",1,1,1
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	AnimationStack: 1000032, "AnimStack::SKM_MKR9_New_A_W_MKR9_Mag_Check", "" {
+		Properties70:  {
+			P: "Description", "KString", "", "", "Animation Take: SKM_MKR9_New_A_W_MKR9_Mag_Check"
+			P: "LocalStart", "KTime", "Time", "",0
+			P: "LocalStop", "KTime", "Time", "",190902786400
+			P: "ReferenceStart", "KTime", "Time", "",0
+			P: "ReferenceStop", "KTime", "Time", "",190902786400
+		}
+	}
+	AnimationLayer: 1000048, "AnimLayer::Animation Base Layer", "" {
+		Properties70:  {
+			P: "Weight", "Number", "", "A",100
+			P: "Mute", "bool", "", "",0
+			P: "Solo", "bool", "", "",0
+			P: "Lock", "bool", "", "",0
+			P: "BlendMode", "enum", "", "",0
+		}
+	}
+	AnimationCurveNode: 1000064, "AnimCurveNode::T", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",0
+			P: "d|Y", "Number", "", "A",0
+			P: "d|Z", "Number", "", "A",0
+		}
+	}
+	AnimationCurveNode: 1000128, "AnimCurveNode::R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",0
+			P: "d|Y", "Number", "", "A",0
+			P: "d|Z", "Number", "", "A",0
+		}
+	}
+	AnimationCurveNode: 1000192, "AnimCurveNode::S", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurveNode: 1000288, "AnimCurveNode::T", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",0
+			P: "d|Y", "Number", "", "A",0
+			P: "d|Z", "Number", "", "A",0
+		}
+	}
+	AnimationCurveNode: 1000352, "AnimCurveNode::R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",-90
+			P: "d|Y", "Number", "", "A",1.7986089E-05
+			P: "d|Z", "Number", "", "A",0
+		}
+	}
+	AnimationCurveNode: 1000416, "AnimCurveNode::S", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurveNode: 1000512, "AnimCurveNode::T", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",0
+			P: "d|Y", "Number", "", "A",0
+			P: "d|Z", "Number", "", "A",0
+		}
+	}
+	AnimationCurveNode: 1000576, "AnimCurveNode::R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",-1.41538533E-06
+			P: "d|Y", "Number", "", "A",-90
+			P: "d|Z", "Number", "", "A",180
+		}
+	}
+	AnimationCurveNode: 1000640, "AnimCurveNode::S", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",0.99999994
+			P: "d|Y", "Number", "", "A",0.9999999
+			P: "d|Z", "Number", "", "A",0.99999994
+		}
+	}
+	AnimationCurveNode: 1000736, "AnimCurveNode::T", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",-0.9448172
+			P: "d|Y", "Number", "", "A",-1.94404817
+			P: "d|Z", "Number", "", "A",-1.024455E-06
+		}
+	}
+	AnimationCurveNode: 1000800, "AnimCurveNode::R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1.69038522E-05
+			P: "d|Y", "Number", "", "A",1.36603767E-05
+			P: "d|Z", "Number", "", "A",2.414842E-06
+		}
+	}
+	AnimationCurveNode: 1000864, "AnimCurveNode::S", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurveNode: 1000960, "AnimCurveNode::T", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",-3.9305408
+			P: "d|Y", "Number", "", "A",-12.77944
+			P: "d|Z", "Number", "", "A",-5.58793636E-06
+		}
+	}
+	AnimationCurveNode: 1001024, "AnimCurveNode::R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",2.41483963E-06
+			P: "d|Y", "Number", "", "A",-2.73207534E-05
+			P: "d|Z", "Number", "", "A",2.65632E-05
+		}
+	}
+	AnimationCurveNode: 1001088, "AnimCurveNode::S", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurveNode: 1001184, "AnimCurveNode::T", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",0.217425987
+			P: "d|Y", "Number", "", "A",1.76682377
+			P: "d|Z", "Number", "", "A",2.003629
+		}
+	}
+	AnimationCurveNode: 1001248, "AnimCurveNode::R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",5.66550762E-06
+			P: "d|Y", "Number", "", "A",64.84338
+			P: "d|Z", "Number", "", "A",1.81499981E-05
+		}
+	}
+	AnimationCurveNode: 1001312, "AnimCurveNode::S", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurveNode: 1001408, "AnimCurveNode::T", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",10.6505785
+			P: "d|Y", "Number", "", "A",5.87374258
+			P: "d|Z", "Number", "", "A",6.70552345E-06
+		}
+	}
+	AnimationCurveNode: 1001472, "AnimCurveNode::R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",-2.182398E-05
+			P: "d|Y", "Number", "", "A",-90
+			P: "d|Z", "Number", "", "A",180
+		}
+	}
+	AnimationCurveNode: 1001536, "AnimCurveNode::S", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",0.99999994
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",0.99999994
+		}
+	}
+	AnimationCurveNode: 1001632, "AnimCurveNode::T", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",10.6505785
+			P: "d|Y", "Number", "", "A",5.87374258
+			P: "d|Z", "Number", "", "A",6.70552345E-06
+		}
+	}
+	AnimationCurveNode: 1001696, "AnimCurveNode::R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",-2.182398E-05
+			P: "d|Y", "Number", "", "A",-90
+			P: "d|Z", "Number", "", "A",180
+		}
+	}
+	AnimationCurveNode: 1001760, "AnimCurveNode::S", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",0.000999987
+			P: "d|Y", "Number", "", "A",0.0009999871
+			P: "d|Z", "Number", "", "A",0.000999987
+		}
+	}
+	AnimationCurveNode: 1001856, "AnimCurveNode::T", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",3.127663
+			P: "d|Y", "Number", "", "A",-5.98510838
+			P: "d|Z", "Number", "", "A",-1.40688431
+		}
+	}
+	AnimationCurveNode: 1001920, "AnimCurveNode::R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",-1.3914756E-05
+			P: "d|Y", "Number", "", "A",-9.421588E-06
+			P: "d|Z", "Number", "", "A",1.48342388E-05
+		}
+	}
+	AnimationCurveNode: 1001984, "AnimCurveNode::S", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurveNode: 1002080, "AnimCurveNode::T", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",-1.67952406
+			P: "d|Y", "Number", "", "A",-30.9338245
+			P: "d|Z", "Number", "", "A",-9.685757E-06
+		}
+	}
+	AnimationCurveNode: 1002144, "AnimCurveNode::R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1.69038522E-05
+			P: "d|Y", "Number", "", "A",1.36603767E-05
+			P: "d|Z", "Number", "", "A",2.414842E-06
+		}
+	}
+	AnimationCurveNode: 1002208, "AnimCurveNode::S", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurveNode: 1002304, "AnimCurveNode::T", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",2.65983677
+			P: "d|Y", "Number", "", "A",-2.532675
+			P: "d|Z", "Number", "", "A",5.58793658E-07
+		}
+	}
+	AnimationCurveNode: 1002368, "AnimCurveNode::R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1.61961616E-05
+			P: "d|Y", "Number", "", "A",-7.952198E-06
+			P: "d|Z", "Number", "", "A",-90
+		}
+	}
+	AnimationCurveNode: 1002432, "AnimCurveNode::S", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",0.9999999
+			P: "d|Y", "Number", "", "A",1.00000012
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurveNode: 1002512, "AnimCurveNode::T", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",0
+			P: "d|Y", "Number", "", "A",0
+			P: "d|Z", "Number", "", "A",0
+		}
+	}
+	AnimationCurveNode: 1002576, "AnimCurveNode::R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",-90
+			P: "d|Y", "Number", "", "A",-9.334667E-06
+			P: "d|Z", "Number", "", "A",0
+		}
+	}
+	AnimationCurveNode: 1002640, "AnimCurveNode::S", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurve: 1000080, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000096, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000112, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000144, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000160, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000176, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000208, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000224, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000240, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000304, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000320, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000336, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000368, "AnimCurve::", "" {
+		Default: -90
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -90,-90
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000384, "AnimCurve::", "" {
+		Default: 1.7986089E-05
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1.7986089E-05,1.7986089E-05
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000400, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000432, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000448, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000464, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000528, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000544, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000560, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000592, "AnimCurve::", "" {
+		Default: -1.41538533E-06
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -1.41538533E-06,-1.41538533E-06
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000608, "AnimCurve::", "" {
+		Default: -90
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -90,-90
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000624, "AnimCurve::", "" {
+		Default: 180
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 180,180
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000656, "AnimCurve::", "" {
+		Default: 0.99999994
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0.99999994,0.99999994
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000672, "AnimCurve::", "" {
+		Default: 0.9999999
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0.9999999,0.9999999
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000688, "AnimCurve::", "" {
+		Default: 0.99999994
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0.99999994,0.99999994
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000752, "AnimCurve::", "" {
+		Default: -0.9448172
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -0.9448172,-0.9448172
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000768, "AnimCurve::", "" {
+		Default: -1.94404817
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -1.94404817,-1.94404817
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000784, "AnimCurve::", "" {
+		Default: -1.024455E-06
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -1.024455E-06,-1.024455E-06
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000816, "AnimCurve::", "" {
+		Default: 1.69038522E-05
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1.69038522E-05,1.69038522E-05
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000832, "AnimCurve::", "" {
+		Default: 1.36603767E-05
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1.36603767E-05,1.36603767E-05
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000848, "AnimCurve::", "" {
+		Default: 2.414842E-06
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 2.414842E-06,2.414842E-06
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000880, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000896, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000912, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000976, "AnimCurve::", "" {
+		Default: -3.9305408
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -3.9305408,-3.9305408
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1000992, "AnimCurve::", "" {
+		Default: -12.77944
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -12.77944,-12.77944
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001008, "AnimCurve::", "" {
+		Default: -5.58793636E-06
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -5.58793636E-06,-5.58793636E-06
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001040, "AnimCurve::", "" {
+		Default: 2.41483963E-06
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 2.41483963E-06,4.829676E-06
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 891081805,891081805,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001056, "AnimCurve::", "" {
+		Default: -2.73207534E-05
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -2.73207534E-05,-2.04905609E-05
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 903727692,903727692,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001072, "AnimCurve::", "" {
+		Default: 2.65632E-05
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 2.65632E-05,2.65632E-05
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001104, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001120, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001136, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001200, "AnimCurve::", "" {
+		Default: 0.217425987
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0.217425987,0.217425987
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001216, "AnimCurve::", "" {
+		Default: 1.76682377
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1.76682377,1.76682377
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001232, "AnimCurve::", "" {
+		Default: 2.003629
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 2.003629,2.003629
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001264, "AnimCurve::", "" {
+		Default: 5.66550762E-06
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 5.66550762E-06,6.82476229E-06
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 882283212,882283212,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001280, "AnimCurve::", "" {
+		Default: 64.84338
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 64.84338,64.84338
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001296, "AnimCurve::", "" {
+		Default: 1.81499981E-05
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1.81499981E-05,1.81499981E-05
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001328, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001344, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001360, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001424, "AnimCurve::", "" {
+		Default: 10.6505785
+		KeyVer: 4009
+		KeyTime: *250 {
+			a: 0,769769300,1539538600,2309307900,3079077200,3848846500,4618615800,5388385100,6158154400,6927923700,7697693000,8467462300,9237231600,10007000900,10776770200,11546539500,12316308800,13086078100,13855847400,14625616700,15395386000,16165155300,16934924600,17704693900,18474463200,19244232500,20014001800,20783771100,21553540400,22323309700,23093079000,23862848300,24632617600,25402386900,26172156200,26941925500,27711694800,28481464100,29251233400,30021002700,30790772000,31560541300,32330310600,33100079900,33869849200,34639618500,35409387800,36179157100,36948926400,37718695700,38488465000,39258234300,40028003600,40797772900,41567542200,42337311500,43107080800,43876850100,44646619400,45416388700,46186158000,46955927300,47725696600,48495465900,49265235200,50035004500,50804773800,51574543100,52344312400,53114081700,53883851000,54653620300,55423389600,56193158900,56962928200,57732697500,58502466800,59272236100,60042005400,60811774700,61581544000,62351313300,63121082600,63890851900,64660621200,65430390500,66200159800,66969929100,67739698400,68509467700,69279237000,70049006300,70818775600,71588544900,72358314200,73128083500,73897852800,74667622100,75437391400,76207160700,76976930000,77746699300,78516468600,79286237900,80056007200,80825776500,81595545800,82365315100,83135084400,83904853700,84674623000,85444392300,86214161600,86983930900,87753700200,88523469500,89293238800,90063008100,90832777400,91602546700,92372316000,93142085300,93911854600,94681623900,95451393200,96221162500,96990931800,97760701100,98530470400,99300239700,100070009000,100839778300,101609547600,102379316900,103149086200,103918855500,104688624800,105458394100,106228163400,106997932700,107767702000,108537471300,109307240600,110077009900,110846779200,111616548500,112386317800,113156087100,113925856400,114695625700,115465395000,116235164300,117004933600,117774702900,118544472200,119314241500,120084010800,120853780100,121623549400,122393318700,123163088000,123932857300,124702626600,125472395900,126242165200,127011934500,127781703800,128551473100,129321242400,130091011700,130860781000,131630550300,132400319600,133170088900,133939858200,134709627500,135479396800,136249166100,137018935400,137788704700,138558474000,139328243300,140098012600,140867781900,141637551200,142407320500,143177089800,143946859100,144716628400,145486397700,146256167000,147025936300,147795705600,148565474900,149335244200,150105013500,150874782800,151644552100,152414321400,153184090700,153953860000,154723629300,155493398600,156263167900,157032937200,157802706500,158572475800,159342245100,160112014400,160881783700,161651553000,162421322300,163191091600,163960860900,164730630200,165500399500,166270168800,167039938100,167809707400,168579476700,169349246000,170119015300,170888784600,171658553900,172428323200,173198092500,173967861800,174737631100,175507400400,176277169700,177046939000,177816708300,178586477600,179356246900,180126016200,180895785500,181665554800,182435324100,183205093400,183974862700,184744632000,185514401300,186284170600,187053939900,187823709200,188593478500,189363247800,190133017100,190902786400,190902786400
+		}
+		KeyValueFloat: *250 {
+			a: 10.6505785,10.6505947,10.6505842,10.6505823,10.65057,10.6505775,10.6505775,10.6505852,10.6505775,10.6505775,10.6505737,10.6505814,10.6505709,10.6505871,10.6505737,10.6505775,10.6505852,10.6506014,10.6505718,10.6505995,10.6505852,10.6505718,10.6505718,10.6505823,10.6505823,10.65056,10.6505985,10.6505852,10.65058,10.650589,10.65058,10.650589,10.6505785,10.6505737,11.0392265,12.0414867,13.4119167,14.9050875,16.275528,17.2777882,17.66643,19.9538231,20.8396187,21.740694,22.6383247,23.4746571,24.1697311,24.63331,24.8316383,24.7702713,24.3961754,23.71279,22.7690277,21.6121941,20.2881088,18.8413563,17.31561,15.7540684,14.1972008,12.6838388,11.2519217,9.93915749,8.782475,7.819294,7.08773947,6.6264205,6.47418737,6.50201941,6.55060339,6.613078,6.68250847,6.75108957,6.812284,6.861002,6.89188,6.91319466,6.935861,6.95862865,6.98025751,6.999596,7.01823473,7.0381856,7.058059,7.0762105,7.092284,7.10599947,7.11701441,7.12498045,7.129652,7.13068,7.127694,7.12042665,7.108519,7.09163475,7.069398,7.03011227,6.963094,6.869761,6.74941635,6.60170555,6.42828,6.230917,6.011511,5.771991,5.51453,5.241308,4.95465755,4.657065,4.35336876,4.04964256,3.75123215,3.463118,3.19120169,2.941433,2.71952343,2.53049016,2.37940884,2.270979,2.1954627,2.14220762,2.1145227,2.11583686,2.13731241,2.16932178,2.21409082,2.27376533,2.35063171,2.44673824,2.56433821,2.70549846,2.87240481,3.06720185,3.2919395,3.55756021,3.87362719,4.24024057,4.797543,5.6636014,6.803996,8.182527,9.76077652,11.4981308,13.3524475,15.2809334,17.241333,19.1934223,21.1004944,22.9306164,24.65772,24.9803848,24.793478,24.596962,24.38124,24.1367664,23.85393,23.52313,23.1347942,22.67932,22.1471138,21.5285816,20.8274364,20.1006622,19.4185238,18.8512936,18.4414825,18.1667919,18.00016,17.9145927,17.88307,17.87857,17.8785629,17.8785572,17.87857,17.8785553,17.8785629,17.8072739,17.3081245,15.9531956,13.3143787,10.65075,10.6505785,10.6505756,10.650568,10.6505718,10.6505785,10.65057,10.6505852,10.6505756,10.650588,10.6505718,10.6505823,10.6505814,10.6505871,10.6505823,10.6505737,10.6505718,10.6505871,10.6505747,10.6505651,10.650568,10.6505823,10.6505852,10.650589,10.6505823,10.6505775,10.6505823,10.6505785,10.6505737,10.650568,10.6505709,10.6505814,10.6505718,10.6505785,10.6505871,10.6505756,10.650589,10.6505756,10.6505871,10.6505756,10.650568,10.6505756,10.650589,10.6505871,10.6505747,10.6506023,10.6505585,10.6505547,10.6505651,10.6505814,10.6505823,10.6505814,10.6505785,10.6505756,10.6505814,10.6505775,10.6505842,10.6505852,10.650588,10.6505852,10.65057,10.6505671,10.6505756,10.650588,10.6505985,10.6505871,10.6505671,10.6505919,10.65057,10.6505785,10.6505785
+		}
+		KeyAttrFlags: *250 {
+			a: 50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728
+		}
+		KeyAttrDataFloat: *1000 {
+			a: 981401599,981401599,1051372203,1051372203,-1171980289,-1171980289,1051372203,1051372203,-1192230913,-1192230913,1051372203,1051372203,-1170014209,-1170014209,1051372203,1051372203,972029951,972029951,1051372203,1051372203,0,0,1051372203,1051372203,972029951,972029951,1051372203,1051372203,-1175453697,-1175453697,1051372203,1051372203,0,0,1051372203,1051372203,-1183842305,-1183842305,1051372203,1051372203,972029951,972029951,1051372203,1051372203,-1171980289,-1171980289,1051372203,1051372203,981401599,981401599,1051372203,1051372203,-1169031169,-1169031169,1051372203,1051372203,963641343,963641343,1051372203,1051372203,972029951,972029951,1051372203,1051372203,981401599,981401599,1051372203,1051372203,-1159168001,-1159168001,1051372203,1051372203,987332607,987332607,1051372203,1051372203,-1168048129,-1168048129,1051372203,1051372203,-1169031169,-1169031169,1051372203,1051372203,0,0,1051372203,1051372203,975503359,975503359,1051372203,1051372203,0,0,1051372203,1051372203,-1163100161,-1163100161,1051372203,1051372203,991297535,991297535,1051372203,1051372203,-1169031169,-1169031169,1051372203,1051372203,-1181351937,-1181351937,1051372203,1051372203,973537280,973537280,1051372203,1051372203,-1173946368,-1173946368,1051372203,1051372203,973537280,973537280,1051372203,1051372203,-1171980289,-1171980289,1051372203,1051372203,-1181351937,-1181351937,1051372203,1051372203,1102744999,1102744999,1051372203,1051372203,1114671837,1114671837,1051372203,1051372203,1118073755,1118073755,1051372203,1051372203,1119039028,1119039028,1051372203,1051372203,1118073838,1118073838,1051372203,1051372203,1114671837,1114671837,1051372203,1051372203,1102744639,1102744639,1051372203,1051372203,1124679261,1124679261,1051372203,1051372203,1112840007,1112840007,1051372203,1051372203,1113080337,1113080337,1051372203,1051372203,1113026157,1113026157,1051372203,1051372203,1112062017,1112062017,1051372203,1051372203,1109840217,1109840217,1051372203,1051372203,1105101979,1105101979,1051372203,1051372203,1094608151,1094608151,1051372203,1051372203,-1066686913,-1066686913,1051372203,1051372203,-1045196569,-1045196569,1051372203,1051372203,-1037827271,-1037827271,1051372203,1051372203,-1033731911,-1033731911,1051372203,1051372203,-1031089682,-1031089682,1051372203,1051372203,-1029774363,-1029774363,1051372203,1051372203,-1028809668,-1028809668,1051372203,1051372203,-1028188443,-1028188443,1051372203,1051372203,-1027906923,-1027906923,1051372203,1051372203,-1027943688,-1027943688,1051372203,1051372203,-1028285830,-1028285830,1051372203,1051372203,-1028926338,-1028926338,1051372203,1051372203,-1029863395,-1029863395,1051372203,1051372203,-1031090875,-1031090875,1051372203,1051372203,-1033426466,-1033426466,1051372203,1051372203,-1037069643,-1037069643,1051372203,1051372203,-1042452769,-1042452769,1051372203,1051372203,-1055775536,-1055775536,1051372203,1051372203,1070972927,1070972927,1051372203,1051372203,1077579775,1077579775,1051372203,1051372203,1081075495,1081075495,1051372203,1051372203,1082478184,1082478184,1051372203,1051372203,1082371324,1082371324,1051372203,1051372203,1080753295,1080753295,1051372203,1051372203,1077613495,1077613495,1051372203,1051372203,1072506047,1072506047,1051372203,1051372203,1067692607,1067692607,1051372203,1051372203,1068373007,1068373007,1051372203,1051372203,1068423887,1068423887,1051372203,1051372203,1067850767,1067850767,1051372203,1051372203,1066698047,1066698047,1051372203,1051372203,1066345728,1066345728,1051372203,1051372203,1067006207,1067006207,1051372203,1051372203,1066967327,1066967327,1051372203,1051372203,1066100448,1066100448,1051372203,1051372203,1064756319,1064756319,1051372203,1051372203,1062382239,1062382239,1051372203,1051372203,1059663999,1059663999,1051372203,1051372203,1056225151,1056225151,1051372203,1051372203,1049592512,1049592512,1051372203,1051372203,1031579647,1031579647,1051372203,1051372203,-1103661825,-1103661825,1051372203,1051372203,-1092664897,-1092664897,1051372203,1051372203,-1086921089,-1086921089,1051372203,1051372203,-1082020880,-1082020880,1051372203,1051372203,-1079326881,-1079326881,1051372203,1051372203,-1072243873,-1072243873,1051372203,1051372203,-1065309004,-1065309004,1051372203,1051372203,-1061997785,-1061997785,1051372203,1051372203,-1058598965,-1058598965,1051372203,1051372203,-1056060056,-1056060056,1051372203,1051372203,-1054442217,-1054442217,1051372203,1051372203,-1052936217,-1052936217,1051372203,1051372203,-1051549377,-1051549377,1051372203,1051372203,-1050283917,-1050283917,1051372203,1051372203,-1049155197,-1049155197,1051372203,1051372203,-1048369788,-1048369788,1051372203,1051372203,-1047947358,-1047947358,1051372203,1051372203,-1047603153,-1047603153,1051372203,1051372203,-1047411153,-1047411153,1051372203,1051372203,-1047410208,-1047410208,1051372203,1051372203,-1047577428,-1047577428,1051372203,1051372203,-1047901323,-1047901323,1051372203,1051372203,-1048410858,-1048410858,1051372203,1051372203,-1049639127,-1049639127,1051372203,1051372203,-1051391877,-1051391877,1051372203,1051372203,-1053460272,-1053460272,1051372203,1051372203,-1055848001,-1055848001,1051372203,1051372203,-1060098185,-1060098185,1051372203,1051372203,-1064239684,-1064239684,1051372203,1051372203,-1068728353,-1068728353,1051372203,1051372203,-1076584761,-1076584761,1051372203,1051372203,1033993215,1033993215,1051372203,1051372203,1067773607,1067773607,1051372203,1051372203,1073075447,1073075447,1051372203,1051372203,1076619715,1076619715,1051372203,1051372203,1080370795,1080370795,1051372203,1051372203,1083413853,1083413853,1051372203,1051372203,1085834823,1085834823,1051372203,1051372203,1088539323,1088539323,1051372203,1051372203,1091011467,1091011467,1051372203,1051372203,1092631271,1092631271,1051372203,1051372203,1094386001,1094386001,1051372203,1051372203,1096269701,1096269701,1051372203,1051372203,1098841841,1098841841,1051372203,1051372203,1100461647,1100461647,1051372203,1051372203,1102051699,1102051699,1051372203,1051372203,1107673258,1107673258,1051372203,1051372203,1112529567,1112529567,1051372203,1051372203,1116264684,1116264684,1051372203,1051372203,1118137460,1118137460,1051372203,1051372203,1119708118,1119708118,1051372203,1051372203,1120959365,1120959365,1051372203,1051372203,1121879195,1121879195,1051372203,1051372203,1122462485,1122462485,1051372203,1051372203,1122713465,1122713465,1051372203,1051372203,1122648110,1122648110,1051372203,1051372203,1122294080,1122294080,1051372203,1051372203,1121688920,1121688920,1051372203,1051372203,1120878755,1120878755,1051372203,1051372203,1100669179,1100669179,1051372203,1051372203,-1053594057,-1053594057,1051372203,1051372203,-1052989497,-1052989497,1051372203,1051372203,-1051781217,-1051781217,1051372203,1051372203,-1049972217,-1049972217,1051372203,1051372203,-1048067328,-1048067328,1051372203,1051372203,-1046558569,-1046558569,1051372203,1051372203,-1044748609,-1044748609,1051372203,1051372203,-1042636609,-1042636609,1051372203,1051372203,-1040222869,-1040222869,1051372203,1051372203,-1038847331,-1038847331,1051372203,1051372203,-1037547941,-1037547941,1051372203,1051372203,-1037144831,-1037144831,1051372203,1051372203,-1037846891,-1037846891,1051372203,1051372203,-1039654240,-1039654240,1051372203,1051372203,-1044073069,-1044073069,1051372203,1051372203,-1048323588,-1048323588,1051372203,1051372203,-1054869657,-1054869657,1051372203,1051372203,-1062974945,-1062974945,1051372203,1051372203,-1074653121,-1074653121,1051372203,1051372203,-1098237696,-1098237696,1051372203,1051372203,-1175453697,-1175453697,1051372203,1051372203,-1179385857,-1179385857,1051372203,1051372203,978452479,978452479,1051372203,1051372203,-1167065089,-1167065089,1051372203,1051372203,972029951,972029951,1051372203,1051372203,-1064771584,-1064771584,1051372203,1051372203,-1041262729,-1041262729,1051372203,1051372203,-1029531798,-1029531798,1051372203,1051372203,-1021422535,-1021422535,1051372203,1051372203,-1021324971,-1021324971,1051372203,1051372203,-1138180097,-1138180097,1051372203,1051372203,-1187774465,-1187774465,1051372203,1051372203,-1175453697,-1175453697,1051372203,1051372203,963641343,963641343,1051372203,1051372203,970063871,970063871,1051372203,1051372203,-1173946368,-1173946368,1051372203,1051372203,980418559,980418559,1051372203,1051372203,-1172963329,-1172963329,1051372203,1051372203,977469439,977469439,1051372203,1051372203,-1166082049,-1166082049,1051372203,1051372203,975503359,975503359,1051372203,1051372203,-1200619521,-1200619521,1051372203,1051372203,968097791,968097791,1051372203,1051372203,-1181351937,-1181351937,1051372203,1051372203,-1173946368,-1173946368,1051372203,1051372203,-1192230913,-1192230913,1051372203,1051372203,980418559,980418559,1051372203,1051372203,-1170014209,-1170014209,1051372203,1051372203,-1172963329,-1172963329,1051372203,1051372203,959709183,959709183,1051372203,1051372203,979435519,979435519,1051372203,1051372203,959709183,959709183,1051372203,1051372203,963641343,963641343,1051372203,1051372203,-1177419777,-1177419777,1051372203,1051372203,-1181351937,-1181351937,1051372203,1051372203,966131711,966131711,1051372203,1051372203,-1183842305,-1183842305,1051372203,1051372203,-1181351937,-1181351937,1051372203,1051372203,-1179385857,-1179385857,1051372203,1051372203,959709183,959709183,1051372203,1051372203,975503359,975503359,1051372203,1051372203,-1172963329,-1172963329,1051372203,1051372203,970063871,970063871,1051372203,1051372203,973537280,973537280,1051372203,1051372203,-1170997249,-1170997249,1051372203,1051372203,978452479,978452479,1051372203,1051372203,-1169031169,-1169031169,1051372203,1051372203,976486399,976486399,1051372203,1051372203,-1170997249,-1170997249,1051372203,1051372203,-1175453697,-1175453697,1051372203,1051372203,972029951,972029951,1051372203,1051372203,978452479,978452479,1051372203,1051372203,-1192230913,-1192230913,1051372203,1051372203,-1170014209,-1170014209,1051372203,1051372203,987332607,987332607,1051372203,1051372203,-1154711553,-1154711553,1051372203,1051372203,-1183842305,-1183842305,1051372203,1051372203,975503359,975503359,1051372203,1051372203,981401599,981401599,1051372203,1051372203,946864127,946864127,1051372203,1051372203,-1200619521,-1200619521,1051372203,1051372203,-1187774465,-1187774465,1051372203,1051372203,-1187774465,-1187774465,1051372203,1051372203,968097791,968097791,1051372203,1051372203,-1183842305,-1183842305,1051372203,1051372203,970063871,970063871,1051372203,1051372203,946864127,946864127,1051372203,1051372203,959709183,959709183,1051372203,1051372203,-1187774465,-1187774465,1051372203,1051372203,-1167065089,-1167065089,1051372203,1051372203,-1187774465,-1187774465,1051372203,1051372203,973537280,973537280,1051372203,1051372203,977469439,977469439,1051372203,1051372203,975503359,975503359,1051372203,1051372203,-1170997249,-1170997249,1051372203,1051372203,-1164083201,-1164083201,1051372203,1051372203,985858047,985858047,1051372203,1051372203,-1163100161,-1163100161,1051372203,1051372203,973537280,973537280,1051372203,1051372203,0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *250 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		}
+	}
+	AnimationCurve: 1001440, "AnimCurve::", "" {
+		Default: 5.87374258
+		KeyVer: 4009
+		KeyTime: *250 {
+			a: 0,769769300,1539538600,2309307900,3079077200,3848846500,4618615800,5388385100,6158154400,6927923700,7697693000,8467462300,9237231600,10007000900,10776770200,11546539500,12316308800,13086078100,13855847400,14625616700,15395386000,16165155300,16934924600,17704693900,18474463200,19244232500,20014001800,20783771100,21553540400,22323309700,23093079000,23862848300,24632617600,25402386900,26172156200,26941925500,27711694800,28481464100,29251233400,30021002700,30790772000,31560541300,32330310600,33100079900,33869849200,34639618500,35409387800,36179157100,36948926400,37718695700,38488465000,39258234300,40028003600,40797772900,41567542200,42337311500,43107080800,43876850100,44646619400,45416388700,46186158000,46955927300,47725696600,48495465900,49265235200,50035004500,50804773800,51574543100,52344312400,53114081700,53883851000,54653620300,55423389600,56193158900,56962928200,57732697500,58502466800,59272236100,60042005400,60811774700,61581544000,62351313300,63121082600,63890851900,64660621200,65430390500,66200159800,66969929100,67739698400,68509467700,69279237000,70049006300,70818775600,71588544900,72358314200,73128083500,73897852800,74667622100,75437391400,76207160700,76976930000,77746699300,78516468600,79286237900,80056007200,80825776500,81595545800,82365315100,83135084400,83904853700,84674623000,85444392300,86214161600,86983930900,87753700200,88523469500,89293238800,90063008100,90832777400,91602546700,92372316000,93142085300,93911854600,94681623900,95451393200,96221162500,96990931800,97760701100,98530470400,99300239700,100070009000,100839778300,101609547600,102379316900,103149086200,103918855500,104688624800,105458394100,106228163400,106997932700,107767702000,108537471300,109307240600,110077009900,110846779200,111616548500,112386317800,113156087100,113925856400,114695625700,115465395000,116235164300,117004933600,117774702900,118544472200,119314241500,120084010800,120853780100,121623549400,122393318700,123163088000,123932857300,124702626600,125472395900,126242165200,127011934500,127781703800,128551473100,129321242400,130091011700,130860781000,131630550300,132400319600,133170088900,133939858200,134709627500,135479396800,136249166100,137018935400,137788704700,138558474000,139328243300,140098012600,140867781900,141637551200,142407320500,143177089800,143946859100,144716628400,145486397700,146256167000,147025936300,147795705600,148565474900,149335244200,150105013500,150874782800,151644552100,152414321400,153184090700,153953860000,154723629300,155493398600,156263167900,157032937200,157802706500,158572475800,159342245100,160112014400,160881783700,161651553000,162421322300,163191091600,163960860900,164730630200,165500399500,166270168800,167039938100,167809707400,168579476700,169349246000,170119015300,170888784600,171658553900,172428323200,173198092500,173967861800,174737631100,175507400400,176277169700,177046939000,177816708300,178586477600,179356246900,180126016200,180895785500,181665554800,182435324100,183205093400,183974862700,184744632000,185514401300,186284170600,187053939900,187823709200,188593478500,189363247800,190133017100,190902786400,190902786400
+		}
+		KeyValueFloat: *250 {
+			a: 5.87374258,5.87374258,5.87373972,5.87373543,5.87373734,5.873739,5.87374067,5.873742,5.87374353,5.873739,5.873741,5.873741,5.873741,5.87373543,5.87373829,5.87373734,5.873745,5.873745,5.873741,5.873742,5.873744,5.873741,5.873739,5.873749,5.873737,5.873746,5.87373447,5.87373734,5.87374067,5.87374067,5.87374067,5.87373734,5.87374258,5.873741,5.877846,5.90657759,5.98455524,6.136413,6.386769,6.760253,7.281473,7.95098543,7.82767439,7.89222336,8.12378,8.487991,8.93713,9.411255,9.85994,10.2701254,10.5693188,10.6940012,10.6521749,10.45781,10.1296864,9.69031048,9.164833,8.580109,7.967391,7.36817026,6.81592,6.333517,5.9402194,5.64819527,5.46716547,5.404555,5.465866,5.59182739,5.71675062,5.835506,5.94308472,6.03812456,6.119929,6.184585,6.228208,6.259224,6.28812742,6.31418371,6.33666658,6.354846,6.368086,6.376477,6.38136435,6.384255,6.385651,6.386055,6.38598967,6.385921,6.386345,6.38775,6.39060354,6.39534235,6.40243673,6.41233826,6.425492,6.485356,6.626793,6.83737469,7.10477734,7.41674232,7.76106,8.125569,8.498123,8.866622,9.218981,9.543121,9.826975,10.0625191,10.2408552,10.34863,10.4153748,10.4791956,10.5395317,10.5958681,10.647666,10.6943626,10.7353811,10.770051,10.7979774,10.81989,10.836771,10.8495893,10.857151,10.8580742,10.8530579,10.842803,10.8279734,10.80922,10.7871647,10.762352,10.7353477,10.7065983,10.6764975,10.6453676,10.6131811,10.5796,10.5392818,10.48241,10.4007807,10.2855806,10.1284018,9.92218,9.661861,9.345056,8.972455,8.5482235,8.08000851,7.579087,7.060264,6.50375032,6.70729446,6.910899,7.11461067,7.31847525,7.522509,7.72681,7.93139124,8.136298,8.341595,8.547337,8.749217,8.925599,9.050493,9.097891,9.091085,9.074062,9.051914,9.029791,9.012766,9.005947,9.005964,9.00595,9.00595,9.005954,9.005964,8.872978,8.461207,7.75147057,6.7245245,5.87380028,5.873745,5.873742,5.873749,5.873733,5.87373734,5.873742,5.873742,5.873741,5.87373734,5.873749,5.873741,5.873737,5.87373352,5.873741,5.873741,5.873745,5.873737,5.87373734,5.873749,5.873749,5.873741,5.873748,5.873737,5.873749,5.87374926,5.873737,5.873741,5.873744,5.873741,5.873737,5.873737,5.87373734,5.873749,5.873741,5.87374353,5.873744,5.873741,5.873746,5.873741,5.87374067,5.87373972,5.873741,5.87373972,5.87374067,5.873741,5.873739,5.873742,5.87374067,5.873737,5.873742,5.873737,5.873737,5.873745,5.873741,5.873745,5.87374258,5.8737464,5.87373734,5.87374258,5.873742,5.87373734,5.873739,5.873745,5.873741,5.87374258,5.87374353,5.873741,5.87373734,5.87374258,5.87374258
+		}
+		KeyAttrFlags: *250 {
+			a: 50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728
+		}
+		KeyAttrDataFloat: *1000 {
+			a: 0,0,1051372203,1051372203,-1187774465,-1187774465,1051372203,1051372203,-1182334976,-1182334976,1051372203,1051372203,955252735,955252735,1051372203,1051372203,951320575,951320575,1051372203,1051372203,955252735,955252735,1051372203,1051372203,951320575,951320575,1051372203,1051372203,951320575,951320575,1051372203,1051372203,-1181351937,-1181351937,1051372203,1051372203,957743103,957743103,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,-1179385857,-1179385857,1051372203,1051372203,959709183,959709183,1051372203,1051372203,-1200619521,-1200619521,1051372203,1051372203,972029951,972029951,1051372203,1051372203,0,0,1051372203,1051372203,-1183842305,-1183842305,1051372203,1051372203,946864127,946864127,1051372203,1051372203,955252735,955252735,1051372203,1051372203,-1187774465,-1187774465,1051372203,1051372203,-1189740545,-1189740545,1051372203,1051372203,975011839,975011839,1051372203,1051372203,-1170505729,-1170505729,1051372203,1051372203,974028800,974028800,1051372203,1051372203,-1170997249,-1170997249,1051372203,1051372203,959709183,959709183,1051372203,1051372203,961675263,961675263,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,-1185808385,-1185808385,1051372203,1051372203,967114751,967114751,1051372203,1051372203,-1196163073,-1196163073,1051372203,1051372203,1048326143,1048326143,1051372203,1051372203,1071425807,1071425807,1051372203,1051372203,1083553683,1083553683,1051372203,1051372203,1091684502,1091684502,1051372203,1051372203,1097881451,1097881451,1051372203,1051372203,1102267834,1102267834,1051372203,1051372203,1106915209,1106915209,1051372203,1051372203,1109438165,1109438165,1051372203,1051372203,-1058225705,-1058225705,1051372203,1051372203,1081597495,1081597495,1051372203,1051372203,1096698731,1096698731,1051372203,1051372203,1101976129,1101976129,1051372203,1051372203,1104647719,1104647719,1051372203,1051372203,1105433719,1105433719,1051372203,1051372203,1104633439,1104633439,1051372203,1051372203,1103422369,1103422369,1051372203,1051372203,1099930850,1099930850,1051372203,1051372203,1089430503,1089430503,1051372203,1051372203,-1071604513,-1071604513,1051372203,1051372203,-1053124857,-1053124857,1051372203,1051372203,-1046642719,-1046642719,1051372203,1051372203,-1043143039,-1043143039,1051372203,1051372203,-1040434519,-1040434519,1051372203,1051372203,-1039379080,-1039379080,1051372203,1051372203,-1038938786,-1038938786,1051372203,1051372203,-1039151073,-1039151073,1051372203,1051372203,-1039889853,-1039889853,1051372203,1051372203,-1041789529,-1041789529,1051372203,1051372203,-1044592534,-1044592534,1051372203,1051372203,-1047778323,-1047778323,1051372203,1051372203,-1053963807,-1053963807,1051372203,1051372203,-1066373953,-1066373953,1051372203,1051372203,1080782695,1080782695,1051372203,1051372203,1089591423,1089591423,1051372203,1051372203,1089460803,1089460803,1051372203,1051372203,1088684703,1088684703,1051372203,1051372203,1087278363,1087278363,1051372203,1051372203,1085700603,1085700603,1051372203,1051372203,1084035183,1084035183,1051372203,1051372203,1081624495,1081624495,1051372203,1051372203,1076331295,1076331295,1051372203,1051372203,1072575407,1072575407,1051372203,1051372203,1071512207,1071512207,1051372203,1051372203,1070079167,1070079167,1051372203,1051372203,1068280607,1068280607,1051372203,1051372203,1066114608,1066114608,1051372203,1051372203,1061903679,1061903679,1051372203,1051372203,1057022560,1057022560,1051372203,1051372203,1050027391,1050027391,1051372203,1051372203,1043437823,1043437823,1051372203,1051372203,1034653695,1034653695,1051372203,1051372203,1019642879,1019642879,1051372203,1051372203,-1149210624,-1149210624,1051372203,1051372203,-1148780544,-1148780544,1051372203,1051372203,1020287999,1020287999,1051372203,1051372203,1034726655,1034726655,1051372203,1051372203,1043288063,1043288063,1051372203,1051372203,1049727872,1049727872,1051372203,1051372203,1054470271,1054470271,1051372203,1051372203,1058543199,1058543199,1051372203,1051372203,1061816799,1061816799,1051372203,1051372203,1080418495,1080418495,1051372203,1051372203,1091028882,1091028882,1051372203,1051372203,1095379091,1095379091,1051372203,1051372203,1098930800,1098930800,1051372203,1051372203,1100332609,1100332609,1051372203,1051372203,1101350344,1101350344,1051372203,1051372203,1101985504,1101985504,1051372203,1051372203,1102238569,1102238569,1051372203,1051372203,1102111009,1102111009,1051372203,1051372203,1101603289,1101603289,1051372203,1051372203,1100715619,1100715619,1051372203,1051372203,1099448300,1099448300,1051372203,1051372203,1096949591,1096949591,1051372203,1051372203,1093350371,1093350371,1051372203,1051372203,1087303023,1087303023,1051372203,1051372203,1082140264,1082140264,1051372203,1051372203,1081414255,1081414255,1051372203,1051372203,1080537295,1080537295,1051372203,1051372203,1079530735,1079530735,1051372203,1051372203,1078388575,1078388575,1051372203,1051372203,1077104815,1077104815,1051372203,1051372203,1075675855,1075675855,1051372203,1051372203,1074078176,1074078176,1051372203,1051372203,1071020447,1071020447,1051372203,1051372203,1067993567,1067993567,1051372203,1051372203,1065461088,1065461088,1051372203,1051372203,1061479359,1061479359,1051372203,1051372203,1055411071,1055411071,1051372203,1051372203,1029890047,1029890047,1051372203,1051372203,-1097197057,-1097197057,1051372203,1051372203,-1088584769,-1088584769,1051372203,1051372203,-1083979649,-1083979649,1051372203,1051372203,-1081080320,-1081080320,1051372203,1051372203,-1079418081,-1079418081,1051372203,1051372203,-1078030401,-1078030401,1051372203,1051372203,-1076927361,-1076927361,1051372203,1051372203,-1076048961,-1076048961,1051372203,1051372203,-1075368801,-1075368801,1051372203,1051372203,-1074850881,-1074850881,1051372203,1051372203,-1074319041,-1074319041,1051372203,1051372203,-1073679552,-1073679552,1051372203,1051372203,-1071983953,-1071983953,1051372203,1051372203,-1067818273,-1067818273,1051372203,1051372203,-1063470425,-1063470425,1051372203,1051372203,-1059246305,-1059246305,1051372203,1051372203,-1055464377,-1055464377,1051372203,1051372203,-1052378877,-1052378877,1051372203,1051372203,-1048975377,-1048975377,1051372203,1051372203,-1046998759,-1046998759,1051372203,1051372203,-1045243609,-1045243609,1051372203,1051372203,-1043619439,-1043619439,1051372203,1051372203,-1042235839,-1042235839,1051372203,1051372203,-1041206974,-1041206974,1051372203,1051372203,-1040643859,-1040643859,1051372203,1051372203,-1039822795,-1039822795,1051372203,1051372203,1094936321,1094936321,1051372203,1051372203,1094940131,1094940131,1051372203,1051372203,1094946851,1094946851,1051372203,1051372203,1094956481,1094956481,1051372203,1051372203,1094967131,1094967131,1051372203,1051372203,1094983931,1094983931,1051372203,1051372203,1095001571,1095001571,1051372203,1051372203,1095022061,1095022061,1051372203,1051372203,1095046571,1095046571,1051372203,1051372203,1095074591,1095074591,1051372203,1051372203,1094831651,1094831651,1051372203,1051372203,1093227431,1093227431,1051372203,1051372203,1089457143,1089457143,1051372203,1051372203,1077281215,1077281215,1051372203,1051372203,-1093595137,-1093595137,1051372203,1051372203,-1081951040,-1081951040,1051372203,1051372203,-1079371521,-1079371521,1051372203,1051372203,-1079384001,-1079384001,1051372203,1051372203,-1081950080,-1081950080,1051372203,1051372203,-1093568257,-1093568257,1051372203,1051372203,981925888,981925888,1051372203,1051372203,-1168048129,-1168048129,1051372203,1051372203,0,0,1051372203,1051372203,963641343,963641343,1051372203,1051372203,975503359,975503359,1051372203,1051372203,-1057008305,-1057008305,1051372203,1051372203,-1044011419,-1044011419,1051372203,1051372203,-1037412806,-1037412806,1051372203,1051372203,-1032423536,-1032423536,1051372203,1051372203,-1035195266,-1035195266,1051372203,1051372203,-1151762433,-1151762433,1051372203,1051372203,-1187774465,-1187774465,1051372203,1051372203,970063871,970063871,1051372203,1051372203,-1166573569,-1166573569,1051372203,1051372203,965148672,965148672,1051372203,1051372203,966131711,966131711,1051372203,1051372203,0,0,1051372203,1051372203,-1200619521,-1200619521,1051372203,1051372203,-1183842305,-1183842305,1051372203,1051372203,976486399,976486399,1051372203,1051372203,-1175453697,-1175453697,1051372203,1051372203,-1182334976,-1182334976,1051372203,1051372203,-1185808385,-1185808385,1051372203,1051372203,972029951,972029951,1051372203,1051372203,0,0,1051372203,1051372203,963641343,963641343,1051372203,1051372203,-1174470657,-1174470657,1051372203,1051372203,938475519,938475519,1051372203,1051372203,976486399,976486399,1051372203,1051372203,0,0,1051372203,1051372203,-1175453697,-1175453697,1051372203,1051372203,970063871,970063871,1051372203,1051372203,-1171488769,-1171488769,1051372203,1051372203,976977919,976977919,1051372203,1051372203,938475519,938475519,1051372203,1051372203,-1170014209,-1170014209,1051372203,1051372203,965148672,965148672,1051372203,1051372203,959709183,959709183,1051372203,1051372203,-1187774465,-1187774465,1051372203,1051372203,-1182334976,-1182334976,1051372203,1051372203,0,0,1051372203,1051372203,938475519,938475519,1051372203,1051372203,976486399,976486399,1051372203,1051372203,-1175453697,-1175453697,1051372203,1051372203,957743103,957743103,1051372203,1051372203,938475519,938475519,1051372203,1051372203,-1187774465,-1187774465,1051372203,1051372203,966131711,966131711,1051372203,1051372203,-1181351937,-1181351937,1051372203,1051372203,-1209008129,-1209008129,1051372203,1051372203,-1200619521,-1200619521,1051372203,1051372203,951320575,951320575,1051372203,1051372203,-1196163073,-1196163073,1051372203,1051372203,946864127,946864127,1051372203,1051372203,938475519,938475519,1051372203,1051372203,-1189740545,-1189740545,1051372203,1051372203,961675263,961675263,1051372203,1051372203,-1196163073,-1196163073,1051372203,1051372203,-1183842305,-1183842305,1051372203,1051372203,967114751,967114751,1051372203,1051372203,-1180368897,-1180368897,1051372203,1051372203,0,0,1051372203,1051372203,973012991,973012991,1051372203,1051372203,-1183842305,-1183842305,1051372203,1051372203,963641343,963641343,1051372203,1051372203,-1189740545,-1189740545,1051372203,1051372203,963641343,963641343,1051372203,1051372203,-1173454848,-1173454848,1051372203,1051372203,967114751,967114751,1051372203,1051372203,-1209008129,-1209008129,1051372203,1051372203,-1181351937,-1181351937,1051372203,1051372203,951320575,951320575,1051372203,1051372203,969080831,969080831,1051372203,1051372203,-1183842305,-1183842305,1051372203,1051372203,951320575,951320575,1051372203,1051372203,946864127,946864127,1051372203,1051372203,-1189740545,-1189740545,1051372203,1051372203,-1183842305,-1183842305,1051372203,1051372203,967114751,967114751,1051372203,1051372203,0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *250 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		}
+	}
+	AnimationCurve: 1001456, "AnimCurve::", "" {
+		Default: 6.70552345E-06
+		KeyVer: 4009
+		KeyTime: *250 {
+			a: 0,769769300,1539538600,2309307900,3079077200,3848846500,4618615800,5388385100,6158154400,6927923700,7697693000,8467462300,9237231600,10007000900,10776770200,11546539500,12316308800,13086078100,13855847400,14625616700,15395386000,16165155300,16934924600,17704693900,18474463200,19244232500,20014001800,20783771100,21553540400,22323309700,23093079000,23862848300,24632617600,25402386900,26172156200,26941925500,27711694800,28481464100,29251233400,30021002700,30790772000,31560541300,32330310600,33100079900,33869849200,34639618500,35409387800,36179157100,36948926400,37718695700,38488465000,39258234300,40028003600,40797772900,41567542200,42337311500,43107080800,43876850100,44646619400,45416388700,46186158000,46955927300,47725696600,48495465900,49265235200,50035004500,50804773800,51574543100,52344312400,53114081700,53883851000,54653620300,55423389600,56193158900,56962928200,57732697500,58502466800,59272236100,60042005400,60811774700,61581544000,62351313300,63121082600,63890851900,64660621200,65430390500,66200159800,66969929100,67739698400,68509467700,69279237000,70049006300,70818775600,71588544900,72358314200,73128083500,73897852800,74667622100,75437391400,76207160700,76976930000,77746699300,78516468600,79286237900,80056007200,80825776500,81595545800,82365315100,83135084400,83904853700,84674623000,85444392300,86214161600,86983930900,87753700200,88523469500,89293238800,90063008100,90832777400,91602546700,92372316000,93142085300,93911854600,94681623900,95451393200,96221162500,96990931800,97760701100,98530470400,99300239700,100070009000,100839778300,101609547600,102379316900,103149086200,103918855500,104688624800,105458394100,106228163400,106997932700,107767702000,108537471300,109307240600,110077009900,110846779200,111616548500,112386317800,113156087100,113925856400,114695625700,115465395000,116235164300,117004933600,117774702900,118544472200,119314241500,120084010800,120853780100,121623549400,122393318700,123163088000,123932857300,124702626600,125472395900,126242165200,127011934500,127781703800,128551473100,129321242400,130091011700,130860781000,131630550300,132400319600,133170088900,133939858200,134709627500,135479396800,136249166100,137018935400,137788704700,138558474000,139328243300,140098012600,140867781900,141637551200,142407320500,143177089800,143946859100,144716628400,145486397700,146256167000,147025936300,147795705600,148565474900,149335244200,150105013500,150874782800,151644552100,152414321400,153184090700,153953860000,154723629300,155493398600,156263167900,157032937200,157802706500,158572475800,159342245100,160112014400,160881783700,161651553000,162421322300,163191091600,163960860900,164730630200,165500399500,166270168800,167039938100,167809707400,168579476700,169349246000,170119015300,170888784600,171658553900,172428323200,173198092500,173967861800,174737631100,175507400400,176277169700,177046939000,177816708300,178586477600,179356246900,180126016200,180895785500,181665554800,182435324100,183205093400,183974862700,184744632000,185514401300,186284170600,187053939900,187823709200,188593478500,189363247800,190133017100,190902786400,190902786400
+		}
+		KeyValueFloat: *250 {
+			a: 6.70552345E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,-7.4505806E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,8.791685E-05,0.0006966293,0.00231862068,0.005491078,0.0107243657,0.0185444951,0.0294417143,-0.4331723,-1.7149359,-2.62703,-3.27420378,-3.79339457,-4.352391,-5.15124941,-6.09141731,-6.914568,-7.6793313,-8.452179,-9.217943,-9.962134,-10.6717482,-11.3357325,-11.9453373,-12.4942694,-12.9791422,-13.39945,-13.7562618,-14.0504446,-14.2858353,-14.4680824,-14.6019669,-14.6914215,-14.7395458,-14.7684441,-14.7991285,-14.8324709,-14.8694143,-14.9098139,-14.9526815,-14.9977074,-15.0446043,-15.0917511,-15.1373129,-15.1801329,-15.2190075,-15.2532444,-15.2820692,-15.30597,-15.326272,-15.3443441,-15.36132,-15.3784142,-15.3967962,-15.4176455,-15.4421549,-15.4715281,-15.5069571,-15.5496464,-15.6007872,-15.6616077,-15.7332764,-15.8213959,-15.929471,-16.055439,-16.19793,-16.3553333,-16.524931,-16.7038879,-16.8892822,-17.0780983,-17.26726,-17.4536915,-17.6342812,-17.8037128,-17.9566,-18.09021,-18.2056389,-18.30592,-18.3917618,-18.4641113,-18.5240974,-18.5730438,-18.612299,-18.6429482,-18.6673985,-18.6875324,-18.7033634,-18.71488,-18.7235336,-18.7308064,-18.7366581,-18.7410336,-18.743824,-18.7448368,-18.7438354,-18.74045,-18.7342262,-18.72456,-18.710659,-18.69031,-18.6609364,-18.6209641,-18.55863,-18.45158,-18.278656,-18.0163822,-17.6416245,-17.1340523,-16.478138,-15.6647367,-14.6921444,-13.5667238,-12.3027849,-10.9222069,-9.453562,-8.11101151,-7.239738,-6.38225365,-5.55236626,-4.76384449,-4.03044367,-3.365971,-2.78421783,-2.29897642,-1.9240036,-1.67311573,-1.547791,-1.50039339,-1.47102022,-1.39968538,-1.2432009,-1.025036,-0.7853776,-0.5644351,-0.402393937,-0.3394395,-0.3394395,-0.3394276,-0.3394276,-0.3394395,-0.3394395,-0.311079621,-0.240007043,-0.147357583,-0.0541865826,-1.937151E-05,4.47034836E-06,4.47034836E-06,-7.4505806E-06,-7.4505806E-06,-7.4505806E-06,-7.4505806E-06,1.63912773E-05,4.47034836E-06,-7.4505806E-06,-7.4505806E-06,1.63912773E-05,4.47034836E-06,1.63912773E-05,1.63912773E-05,-7.4505806E-06,-7.4505806E-06,4.47034836E-06,-7.4505806E-06,-7.4505806E-06,-7.4505806E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,-7.4505806E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,4.47034836E-06,6.70552345E-06,6.70552345E-06
+		}
+		KeyAttrFlags: *250 {
+			a: 50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728
+		}
+		KeyAttrDataFloat: *1000 {
+			a: -1190354941,-1190354941,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,-1170505729,-1170505729,1051372203,1051372203,976977919,976977919,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,1000607743,1000607743,1051372203,1051372203,1024825567,1024825567,1051372203,1051372203,1036472175,1036472175,1051372203,1051372203,1044572783,1044572783,1051372203,1051372203,1050723391,1050723391,1051372203,1051372203,1055931391,1055931391,1051372203,1051372203,1059545499,1059545499,1051372203,1051372203,-1042412031,-1042412031,1051372203,1051372203,-1030107193,-1030107193,1051372203,1051372203,-1034230003,-1034230003,1051372203,1051372203,-1038396836,-1038396836,1051372203,1051372203,-1040632279,-1040632279,1051372203,1051372203,-1039783750,-1039783750,1051372203,1051372203,-1036011041,-1036011041,1051372203,1051372203,-1033788438,-1033788438,1051372203,1051372203,-1035628961,-1035628961,1051372203,1051372203,-1036547313,-1036547313,1051372203,1051372203,-1036420158,-1036420158,1051372203,1051372203,-1036531571,-1036531571,1051372203,1051372203,-1036870886,-1036870886,1051372203,1051372203,-1037414741,-1037414741,1051372203,1051372203,-1038132431,-1038132431,1051372203,1051372203,-1038987746,-1038987746,1051372203,1051372203,-1039942045,-1039942045,1051372203,1051372203,-1041711829,-1041711829,1051372203,1051372203,-1043742859,-1043742859,1051372203,1051372203,-1045740289,-1045740289,1051372203,1051372203,-1047710418,-1047710418,1051372203,1051372203,-1050543717,-1050543717,1051372203,1051372203,-1053887217,-1053887217,1051372203,1051372203,-1056929936,-1056929936,1051372203,1051372203,-1062485825,-1062485825,1051372203,1051372203,-1070019553,-1070019553,1051372203,1051372203,-1075974081,-1075974081,1051372203,1051372203,-1075075041,-1075075041,1051372203,1051372203,-1073739552,-1073739552,1051372203,1051372203,-1072833312,-1072833312,1051372203,1051372203,-1071963553,-1071963553,1051372203,1051372203,-1071342433,-1071342433,1051372203,1051372203,-1070799313,-1070799313,1051372203,1051372203,-1070328433,-1070328433,1051372203,1051372203,-1070265553,-1070265553,1051372203,1051372203,-1070664433,-1070664433,1051372203,1051372203,-1071354433,-1071354433,1051372203,1051372203,-1072347313,-1072347313,1051372203,1051372203,-1073514432,-1073514432,1051372203,1051372203,-1076011041,-1076011041,1051372203,1051372203,-1078489281,-1078489281,1051372203,1051372203,-1080300801,-1080300801,1051372203,1051372203,-1081423040,-1081423040,1051372203,1051372203,-1081975040,-1081975040,1051372203,1051372203,-1081915040,-1081915040,1051372203,1051372203,-1081267040,-1081267040,1051372203,1051372203,-1080025281,-1080025281,1051372203,1051372203,-1078183041,-1078183041,1051372203,1051372203,-1075735041,-1075735041,1051372203,1051372203,-1073214432,-1073214432,1051372203,1051372203,-1071387313,-1071387313,1051372203,1051372203,-1069260433,-1069260433,1051372203,1051372203,-1066824433,-1066824433,1051372203,1051372203,-1064723824,-1064723824,1051372203,1051372203,-1062653825,-1062653825,1051372203,1051372203,-1060142825,-1060142825,1051372203,1051372203,-1057891385,-1057891385,1051372203,1051372203,-1056388496,-1056388496,1051372203,1051372203,-1055450217,-1055450217,1051372203,1051372203,-1054683057,-1054683057,1051372203,1051372203,-1054094217,-1054094217,1051372203,1051372203,-1053689217,-1053689217,1051372203,1051372203,-1053473937,-1053473937,1051372203,1051372203,-1053452217,-1053452217,1051372203,1051372203,-1053623937,-1053623937,1051372203,1051372203,-1053991497,-1053991497,1051372203,1051372203,-1054693497,-1054693497,1051372203,1051372203,-1055734377,-1055734377,1051372203,1051372203,-1056947216,-1056947216,1051372203,1051372203,-1059217505,-1059217505,1051372203,1051372203,-1061123585,-1061123585,1051372203,1051372203,-1062940385,-1062940385,1051372203,1051372203,-1064638144,-1064638144,1051372203,1051372203,-1067034433,-1067034433,1051372203,1051372203,-1069812673,-1069812673,1051372203,1051372203,-1072251553,-1072251553,1051372203,1051372203,-1075092801,-1075092801,1051372203,1051372203,-1078212801,-1078212801,1051372203,1051372203,-1080385281,-1080385281,1051372203,1051372203,-1082971649,-1082971649,1051372203,1051372203,-1087314689,-1087314689,1051372203,1051372203,-1090196608,-1090196608,1051372203,1051372203,-1092654337,-1092654337,1051372203,1051372203,-1095515137,-1095515137,1051372203,1051372203,-1098487296,-1098487296,1051372203,1051372203,-1104449025,-1104449025,1051372203,1051372203,-1116149761,-1116149761,1051372203,1051372203,1031149567,1031149567,1051372203,1051372203,1045430783,1045430783,1051372203,1051372203,1052717311,1052717311,1051372203,1051372203,1058306559,1058306559,1051372203,1051372203,1062568959,1062568959,1051372203,1051372203,1067206847,1067206847,1051372203,1051372203,1071748607,1071748607,1051372203,1051372203,1075412575,1075412575,1051372203,1051372203,1081040095,1081040095,1051372203,1051372203,1087211823,1087211823,1051372203,1051372203,1093009871,1093009871,1051372203,1051372203,1098631271,1098631271,1051372203,1051372203,1102307899,1102307899,1051372203,1051372203,1106485879,1106485879,1051372203,1051372203,1109224287,1109224287,1051372203,1051372203,1111701342,1111701342,1051372203,1051372203,1114205202,1114205202,1051372203,1051372203,1116146923,1116146923,1051372203,1051372203,1117236275,1117236275,1051372203,1051372203,1118153563,1118153563,1051372203,1051372203,1118846150,1118846150,1051372203,1051372203,1117854500,1117854500,1051372203,1051372203,1112611595,1112611595,1051372203,1051372203,1112394710,1112394710,1051372203,1051372203,1111960647,1111960647,1051372203,1051372203,1111310022,1111310022,1051372203,1051372203,1110443045,1110443045,1051372203,1051372203,1109358897,1109358897,1051372203,1051372203,1108057835,1108057835,1051372203,1051372203,1105783414,1105783414,1051372203,1051372203,1102314664,1102314664,1051372203,1051372203,1097914931,1097914931,1051372203,1051372203,1089511323,1089511323,1051372203,1051372203,1077281215,1077281215,1051372203,1051372203,1071748607,1071748607,1051372203,1051372203,1082717824,1082717824,1051372203,1051372203,1091975584,1091975584,1051372203,1051372203,1095856181,1095856181,1051372203,1051372203,1097208431,1097208431,1051372203,1051372203,1096030931,1096030931,1051372203,1051372203,1092325181,1092325181,1051372203,1051372203,1081196215,1081196215,1051372203,1051372203,0,0,1051372203,1051372203,976977919,976977919,1051372203,1051372203,0,0,1051372203,1051372203,-1170505729,-1170505729,1051372203,1051372203,0,0,1051372203,1051372203,1071238607,1071238607,1051372203,1051372203,1082684824,1082684824,1051372203,1051372203,1085399823,1085399823,1051372203,1051372203,1085465448,1085465448,1051372203,1051372203,1078984840,1078984840,1051372203,1051372203,985366527,985366527,1051372203,1051372203,0,0,1051372203,1051372203,-1170505729,-1170505729,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,985366527,985366527,1051372203,1051372203,-1170505729,-1170505729,1051372203,1051372203,-1170505729,-1170505729,1051372203,1051372203,0,0,1051372203,1051372203,985366527,985366527,1051372203,1051372203,-1170505729,-1170505729,1051372203,1051372203,976977919,976977919,1051372203,1051372203,0,0,1051372203,1051372203,-1162117121,-1162117121,1051372203,1051372203,0,0,1051372203,1051372203,976977919,976977919,1051372203,1051372203,-1170505729,-1170505729,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,976977919,976977919,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,-1170505729,-1170505729,1051372203,1051372203,976977919,976977919,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,957128707,957128707,1051372203,1051372203,0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *250 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		}
+	}
+	AnimationCurve: 1001488, "AnimCurve::", "" {
+		Default: -2.182398E-05
+		KeyVer: 4009
+		KeyTime: *250 {
+			a: 0,769769300,1539538600,2309307900,3079077200,3848846500,4618615800,5388385100,6158154400,6927923700,7697693000,8467462300,9237231600,10007000900,10776770200,11546539500,12316308800,13086078100,13855847400,14625616700,15395386000,16165155300,16934924600,17704693900,18474463200,19244232500,20014001800,20783771100,21553540400,22323309700,23093079000,23862848300,24632617600,25402386900,26172156200,26941925500,27711694800,28481464100,29251233400,30021002700,30790772000,31560541300,32330310600,33100079900,33869849200,34639618500,35409387800,36179157100,36948926400,37718695700,38488465000,39258234300,40028003600,40797772900,41567542200,42337311500,43107080800,43876850100,44646619400,45416388700,46186158000,46955927300,47725696600,48495465900,49265235200,50035004500,50804773800,51574543100,52344312400,53114081700,53883851000,54653620300,55423389600,56193158900,56962928200,57732697500,58502466800,59272236100,60042005400,60811774700,61581544000,62351313300,63121082600,63890851900,64660621200,65430390500,66200159800,66969929100,67739698400,68509467700,69279237000,70049006300,70818775600,71588544900,72358314200,73128083500,73897852800,74667622100,75437391400,76207160700,76976930000,77746699300,78516468600,79286237900,80056007200,80825776500,81595545800,82365315100,83135084400,83904853700,84674623000,85444392300,86214161600,86983930900,87753700200,88523469500,89293238800,90063008100,90832777400,91602546700,92372316000,93142085300,93911854600,94681623900,95451393200,96221162500,96990931800,97760701100,98530470400,99300239700,100070009000,100839778300,101609547600,102379316900,103149086200,103918855500,104688624800,105458394100,106228163400,106997932700,107767702000,108537471300,109307240600,110077009900,110846779200,111616548500,112386317800,113156087100,113925856400,114695625700,115465395000,116235164300,117004933600,117774702900,118544472200,119314241500,120084010800,120853780100,121623549400,122393318700,123163088000,123932857300,124702626600,125472395900,126242165200,127011934500,127781703800,128551473100,129321242400,130091011700,130860781000,131630550300,132400319600,133170088900,133939858200,134709627500,135479396800,136249166100,137018935400,137788704700,138558474000,139328243300,140098012600,140867781900,141637551200,142407320500,143177089800,143946859100,144716628400,145486397700,146256167000,147025936300,147795705600,148565474900,149335244200,150105013500,150874782800,151644552100,152414321400,153184090700,153953860000,154723629300,155493398600,156263167900,157032937200,157802706500,158572475800,159342245100,160112014400,160881783700,161651553000,162421322300,163191091600,163960860900,164730630200,165500399500,166270168800,167039938100,167809707400,168579476700,169349246000,170119015300,170888784600,171658553900,172428323200,173198092500,173967861800,174737631100,175507400400,176277169700,177046939000,177816708300,178586477600,179356246900,180126016200,180895785500,181665554800,182435324100,183205093400,183974862700,184744632000,185514401300,186284170600,187053939900,187823709200,188593478500,189363247800,190133017100,190902786400,190902786400
+		}
+		KeyValueFloat: *250 {
+			a: -2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,-2.182398E-05,0.00266002538,0.0212552175,0.07173031,0.1699929,0.33203274,0.5737789,0.9113203,0.326603532,2.09741569,3.86902475,5.51347733,6.943974,8.119297,9.038814,9.776701,10.4837217,11.2744112,12.1721087,13.1556854,14.1973047,15.2642183,16.32048,17.3284626,18.2508469,19.0663128,19.7639236,20.3281689,20.7588177,21.0597668,21.2337151,21.2918282,21.2529488,21.1413765,20.9850655,20.81252,20.64986,20.5258369,20.4606514,20.4541512,20.4990768,20.5880013,20.7134,20.8676243,21.0430489,21.2319489,21.4266262,21.60839,21.7628365,21.8997269,22.03016,22.1548023,22.27425,22.38924,22.500536,22.6090527,22.7156544,22.8214321,22.9275265,23.0351048,23.1453247,23.2595825,23.1052246,22.431427,21.2497559,19.5545349,17.3383789,14.6054382,11.3806458,7.717041,3.69766235,-0.5663147,-4.940277,-9.273193,-13.4066467,-17.18155,-20.4407654,-23.0338745,-24.8199158,-26.0463562,-27.0643921,-27.8966675,-28.5656128,-29.09378,-29.5036011,-29.8078918,-30.0209656,-30.1673889,-30.2716675,-30.3583984,-30.4520264,-30.5726929,-30.7223511,-30.8987122,-31.0993042,-31.3219,-31.5641174,-31.823822,-32.0987244,-32.38681,-32.6858826,-32.9938965,-33.30899,-33.2060852,-32.3179321,-30.7444153,-28.6065674,-26.04663,-23.2247925,-20.3122559,-17.4801941,-14.88559,-12.6550293,-10.8688965,-9.550781,-8.664337,-8.853455,-7.55670166,-6.258423,-4.96847534,-3.69720459,-2.45556641,-1.2543335,-0.104492188,0.98303175,1.99779534,2.92979836,3.775387,4.55929,5.31865454,6.0935297,6.90866041,7.7186594,8.457928,9.062031,9.468955,9.618078,9.618048,9.617926,9.6179285,9.618045,9.61807,9.226193,7.98717976,5.811429,2.63293171,0.000180244446,-3.33786E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.4238816E-05,-2.182398E-05,-2.182398E-05
+		}
+		KeyAttrFlags: *250 {
+			a: 50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728
+		}
+		KeyAttrDataFloat: *1000 {
+			a: 0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,1042597335,1042597335,1051372203,1051372203,1066323874,1066323874,1051372203,1051372203,1078055688,1078055688,1051372203,1051372203,1086106118,1086106118,1051372203,1051372203,1092325097,1092325097,1051372203,1051372203,1097339786,1097339786,1051372203,1051372203,1101137174,1101137174,1051372203,1051372203,-1039379200,-1039379200,1051372203,1051372203,1121222489,1121222489,1051372203,1051372203,1121228756,1121228756,1051372203,1051372203,1120228757,1120228757,1051372203,1051372203,1118546139,1118546139,1051372203,1051372203,1116539372,1116539372,1051372203,1051372203,1113370392,1113370392,1051372203,1051372203,1110513612,1110513612,1051372203,1051372203,1110028122,1110028122,1051372203,1051372203,1111344117,1111344117,1051372203,1051372203,1113027207,1113027207,1051372203,1051372203,1114377972,1114377972,1051372203,1051372203,1115290902,1115290902,1051372203,1051372203,1115686806,1115686806,1051372203,1051372203,1115521212,1115521212,1051372203,1051372203,1114761837,1114761837,1051372203,1051372203,1113415497,1113415497,1051372203,1051372203,1111733817,1111733817,1051372203,1051372203,1109880117,1109880117,1051372203,1051372203,1107782458,1107782458,1051372203,1051372203,1104066079,1104066079,1051372203,1051372203,1099986080,1099986080,1051372203,1051372203,1093074311,1093074311,1051372203,1051372203,1079977855,1079977855,1051372203,1051372203,-1072346113,-1072346113,1051372203,1051372203,-1059702785,-1059702785,1051372203,1051372203,-1055518977,-1055518977,1051372203,1051372203,-1054497537,-1054497537,1051372203,1051372203,-1055119617,-1055119617,1051372203,1051372203,-1058136065,-1058136065,1051372203,1051372203,-1065725953,-1065725953,1051372203,1051372203,-1094209537,-1094209537,1051372203,1051372203,1076659135,1076659135,1051372203,1051372203,1084931103,1084931103,1051372203,1051372203,1089520623,1089520623,1051372203,1051372203,1091833391,1091833391,1051372203,1051372203,1093167191,1093167191,1051372203,1051372203,1094014991,1094014991,1051372203,1051372203,1094378471,1094378471,1051372203,1051372203,1093566071,1093566071,1051372203,1051372203,1091847311,1091847311,1051372203,1051372203,1090742832,1090742832,1051372203,1051372203,1090154223,1090154223,1051372203,1051372203,1089425343,1089425343,1051372203,1051372203,1088771823,1088771823,1051372203,1051372203,1088210943,1088210943,1051372203,1051372203,1087746063,1087746063,1051372203,1051372203,1087396383,1087396383,1051372203,1051372203,1087155423,1087155423,1051372203,1051372203,1087051743,1087051743,1051372203,1051372203,1087091583,1087091583,1051372203,1051372203,1087278303,1087278303,1051372203,1051372203,1087610703,1087610703,1051372203,1051372203,1088118783,1088118783,1051372203,1051372203,-1055641857,-1055641857,1051372203,1051372203,-1037978081,-1037978081,1051372203,1051372203,-1030894352,-1030894352,1051372203,1051372203,-1026855633,-1026855633,1051372203,1051372203,-1023084504,-1023084504,1051372203,1051372203,-1021052425,-1021052425,1051372203,1051372203,-1019118385,-1019118385,1051372203,1051372203,-1017392905,-1017392905,1051372203,1051372203,-1015993945,-1015993945,1051372203,1051372203,-1015032145,-1015032145,1051372203,1051372203,-1014810616,-1014810616,1051372203,1051372203,-1014891316,-1014891316,1051372203,1051372203,-1015545385,-1015545385,1051372203,1051372203,-1016955265,-1016955265,1051372203,1051372203,-1018983025,-1018983025,1051372203,1051372203,-1021602265,-1021602265,1051372203,1051372203,-1026141393,-1026141393,1051372203,1051372203,-1030542273,-1030542273,1051372203,1051372203,-1032563681,-1032563681,1051372203,1051372203,-1035485441,-1035485441,1051372203,1051372203,-1038054401,-1038054401,1051372203,1051372203,-1040349889,-1040349889,1051372203,1051372203,-1044072769,-1044072769,1051372203,1051372203,-1047392448,-1047392448,1051372203,1051372203,-1051947777,-1051947777,1051372203,1051372203,-1056141056,-1056141056,1051372203,1051372203,-1060620545,-1060620545,1051372203,1051372203,-1062828545,-1062828545,1051372203,1051372203,-1061960705,-1061960705,1051372203,1051372203,-1058558465,-1058558465,1051372203,1051372203,-1055937536,-1055937536,1051372203,1051372203,-1054257537,-1054257537,1051372203,1051372203,-1052733057,-1052733057,1051372203,1051372203,-1051348737,-1051348737,1051372203,1051372203,-1050114177,-1050114177,1051372203,1051372203,-1049014017,-1049014017,1051372203,1051372203,-1048316928,-1048316928,1051372203,1051372203,-1047902208,-1047902208,1051372203,1051372203,-1047556608,-1047556608,1051372203,1051372203,-1047275329,-1047275329,1051372203,1051372203,-1047052609,-1047052609,1051372203,1051372203,1086690303,1086690303,1051372203,1051372203,1112877087,1112877087,1051372203,1051372203,1119670895,1119670895,1051372203,1051372203,1124091224,1124091224,1051372203,1051372203,1125750943,1125750943,1051372203,1051372203,1126780783,1126780783,1051372203,1051372203,1127137423,1127137423,1051372203,1051372203,1126820983,1126820983,1051372203,1051372203,1125887263,1125887263,1051372203,1051372203,1124455784,1124455784,1051372203,1051372203,1121342975,1121342975,1051372203,1051372203,1117662335,1117662335,1051372203,1051372203,1112850207,1112850207,1051372203,1051372203,-1053454977,-1053454977,1051372203,1051372203,1117494335,1117494335,1051372203,1051372203,1117506335,1117506335,1051372203,1051372203,1117440815,1117440815,1051372203,1051372203,1117293935,1117293935,1051372203,1051372203,1117060895,1117060895,1051372203,1051372203,1116743136,1116743136,1051372203,1051372203,1116338976,1116338976,1051372203,1051372203,1115848892,1115848892,1051372203,1051372203,1114868498,1114868498,1051372203,1051372203,1113566787,1113566787,1051372203,1051372203,1112207607,1112207607,1051372203,1051372203,1111237374,1111237374,1051372203,1051372203,1110851420,1110851420,1051372203,1051372203,1111095380,1111095380,1051372203,1051372203,1111728545,1111728545,1051372203,1051372203,1111647830,1111647830,1051372203,1051372203,1110535332,1110535332,1051372203,1051372203,1108409368,1108409368,1051372203,1051372203,1103319769,1103319769,1051372203,1051372203,1091512452,1091512452,1051372203,1051372203,-1158676481,-1158676481,1051372203,1051372203,-1141899265,-1141899265,1051372203,1051372203,959709183,959709183,1051372203,1051372203,1004847103,1004847103,1051372203,1051372203,985858047,985858047,1051372203,1051372203,-1044637249,-1044637249,1051372203,1051372203,-1030443393,-1030443393,1051372203,1051372203,-1023243384,-1023243384,1051372203,1051372203,-1019300425,-1019300425,1051372203,1051372203,-1021446385,-1021446385,1051372203,1051372203,-1135476737,-1135476737,1051372203,1051372203,974111138,974111138,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,957869478,957869478,1051372203,1051372203,0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *250 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		}
+	}
+	AnimationCurve: 1001504, "AnimCurve::", "" {
+		Default: -90
+		KeyVer: 4009
+		KeyTime: *250 {
+			a: 0,769769300,1539538600,2309307900,3079077200,3848846500,4618615800,5388385100,6158154400,6927923700,7697693000,8467462300,9237231600,10007000900,10776770200,11546539500,12316308800,13086078100,13855847400,14625616700,15395386000,16165155300,16934924600,17704693900,18474463200,19244232500,20014001800,20783771100,21553540400,22323309700,23093079000,23862848300,24632617600,25402386900,26172156200,26941925500,27711694800,28481464100,29251233400,30021002700,30790772000,31560541300,32330310600,33100079900,33869849200,34639618500,35409387800,36179157100,36948926400,37718695700,38488465000,39258234300,40028003600,40797772900,41567542200,42337311500,43107080800,43876850100,44646619400,45416388700,46186158000,46955927300,47725696600,48495465900,49265235200,50035004500,50804773800,51574543100,52344312400,53114081700,53883851000,54653620300,55423389600,56193158900,56962928200,57732697500,58502466800,59272236100,60042005400,60811774700,61581544000,62351313300,63121082600,63890851900,64660621200,65430390500,66200159800,66969929100,67739698400,68509467700,69279237000,70049006300,70818775600,71588544900,72358314200,73128083500,73897852800,74667622100,75437391400,76207160700,76976930000,77746699300,78516468600,79286237900,80056007200,80825776500,81595545800,82365315100,83135084400,83904853700,84674623000,85444392300,86214161600,86983930900,87753700200,88523469500,89293238800,90063008100,90832777400,91602546700,92372316000,93142085300,93911854600,94681623900,95451393200,96221162500,96990931800,97760701100,98530470400,99300239700,100070009000,100839778300,101609547600,102379316900,103149086200,103918855500,104688624800,105458394100,106228163400,106997932700,107767702000,108537471300,109307240600,110077009900,110846779200,111616548500,112386317800,113156087100,113925856400,114695625700,115465395000,116235164300,117004933600,117774702900,118544472200,119314241500,120084010800,120853780100,121623549400,122393318700,123163088000,123932857300,124702626600,125472395900,126242165200,127011934500,127781703800,128551473100,129321242400,130091011700,130860781000,131630550300,132400319600,133170088900,133939858200,134709627500,135479396800,136249166100,137018935400,137788704700,138558474000,139328243300,140098012600,140867781900,141637551200,142407320500,143177089800,143946859100,144716628400,145486397700,146256167000,147025936300,147795705600,148565474900,149335244200,150105013500,150874782800,151644552100,152414321400,153184090700,153953860000,154723629300,155493398600,156263167900,157032937200,157802706500,158572475800,159342245100,160112014400,160881783700,161651553000,162421322300,163191091600,163960860900,164730630200,165500399500,166270168800,167039938100,167809707400,168579476700,169349246000,170119015300,170888784600,171658553900,172428323200,173198092500,173967861800,174737631100,175507400400,176277169700,177046939000,177816708300,178586477600,179356246900,180126016200,180895785500,181665554800,182435324100,183205093400,183974862700,184744632000,185514401300,186284170600,187053939900,187823709200,188593478500,189363247800,190133017100,190902786400,190902786400
+		}
+		KeyValueFloat: *250 {
+			a: -90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-85.3417358,-79.2446,-74.1812744,-69.93805,-66.29877,-63.04547,-59.95752,-57.4997559,-56.42578,-56.2232666,-56.2262268,-56.4217529,-56.80072,-57.3564148,-58.0828247,-58.97278,-60.01657,-61.19638,-62.4879761,-63.86563,-65.3015442,-66.7561,-68.1819458,-69.5314941,-70.75879,-71.8199158,-72.6736145,-73.28076,-73.60321,-73.75922,-73.8927,-74.00717,-74.10553,-74.19046,-74.2644653,-74.33011,-74.38983,-74.44632,-74.50232,-74.54895,-74.57687,-74.58661,-74.57849,-74.5549,-74.51843,-74.47174,-74.41751,-74.35858,-74.29776,-74.23782,-74.18155,-74.1317139,-74.091,-74.06207,-74.53363,-75.905304,-78.02716,-80.7219543,-83.80017,-87.0769653,-90.375946,-93.5403748,-96.44165,-98.9838257,-101.104431,-102.773315,-103.988159,-104.776855,-105.196259,-105.323425,-105.244,-105.073914,-104.888519,-104.706757,-104.546234,-104.423065,-104.352264,-104.310547,-104.268448,-104.229614,-104.197266,-104.174026,-104.162384,-104.164978,-104.18634,-104.231354,-104.305115,-104.412628,-104.55899,-104.749237,-104.988281,-105.281006,-105.632111,-106.046021,-106.526855,-107.117554,-107.786346,-108.389526,-108.760132,-108.734451,-108.170166,-106.958344,-105.029587,-102.358032,-98.96228,-94.90259,-90.27399,-85.19534,-84.95221,-85.2579346,-85.49222,-85.6499,-85.72705,-85.7211,-85.6305847,-85.45526,-85.1958,-84.85397,-84.43225,-83.9472656,-83.47153,-83.09323,-82.90314,-83.2312,-84.15225,-85.37637,-86.61267,-87.56912,-87.953,-87.95303,-87.95303,-87.95303,-87.95303,-87.953,-88.19437,-88.75815,-89.3852844,-89.84381,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90,-90
+		}
+		KeyAttrFlags: *250 {
+			a: 50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728
+		}
+		KeyAttrDataFloat: *1000 {
+			a: 0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,1133231992,1133231992,1051372203,1051372203,1136060931,1136060931,1051372203,1051372203,1134028371,1134028371,1051372203,1051372203,1132369903,1132369903,1051372203,1051372203,1129995103,1129995103,1051372203,1051372203,1128477343,1128477343,1051372203,1051372203,1127827183,1127827183,1051372203,1051372203,1125349183,1125349183,1051372203,1051372203,1115742336,1115742336,1051372203,1051372203,1094871551,1094871551,1051372203,1051372203,-1103765505,-1103765505,1051372203,1051372203,-1053051777,-1053051777,1051372203,1051372203,-1045043329,-1045043329,1051372203,1051372203,-1039835680,-1039835680,1051372203,1051372203,-1037150561,-1037150561,1051372203,1051372203,-1034578241,-1034578241,1051372203,1051372203,-1032158561,-1032158561,1051372203,1051372203,-1030908992,-1030908992,1051372203,1051372203,-1030029873,-1030029873,1051372203,1051372203,-1029353073,-1029353073,1051372203,1051372203,-1028894913,-1028894913,1051372203,1051372203,-1028748273,-1028748273,1051372203,1051372203,-1028974113,-1028974113,1051372203,1051372203,-1029574113,-1029574113,1051372203,1051372203,-1030535553,-1030535553,1051372203,1051372203,-1031885921,-1031885921,1051372203,1051372203,-1035148481,-1035148481,1051372203,1051372203,-1039026400,-1039026400,1051372203,1051372203,-1046821249,-1046821249,1051372203,1051372203,-1055538177,-1055538177,1051372203,1051372203,-1056955136,-1056955136,1051372203,1051372203,-1059337985,-1059337985,1051372203,1051372203,-1061365505,-1061365505,1051372203,1051372203,-1063055105,-1063055105,1051372203,1051372203,-1064429824,-1064429824,1051372203,1051372203,-1065610753,-1065610753,1051372203,1051372203,-1067100673,-1067100673,1051372203,1051372203,-1067914753,-1067914753,1051372203,1051372203,-1068037633,-1068037633,1051372203,1051372203,-1070395393,-1070395393,1051372203,1051372203,-1076464641,-1076464641,1051372203,1051372203,-1089107969,-1089107969,1051372203,1051372203,1056530431,1056530431,1051372203,1051372203,1068837887,1068837887,1051372203,1051372203,1074530816,1074530816,1051372203,1051372203,1077103615,1077103615,1051372203,1051372203,1079000575,1079000575,1051372203,1051372203,1080183295,1080183295,1051372203,1051372203,1080659455,1080659455,1051372203,1051372203,1080436735,1080436735,1051372203,1051372203,1079515135,1079515135,1051372203,1051372203,1077894655,1077894655,1051372203,1051372203,1075598335,1075598335,1051372203,1051372203,1071525887,1071525887,1051372203,1051372203,-1042130689,-1042130689,1051372203,1051372203,-1029400113,-1029400113,1051372203,1051372203,-1023500433,-1023500433,1051372203,1051372203,-1021202425,-1021202425,1051372203,1051372203,-1019694745,-1019694745,1051372203,1051372203,-1018913905,-1018913905,1051372203,1051372203,-1018826665,-1018826665,1051372203,1051372203,-1019355745,-1019355745,1051372203,1051372203,-1020390505,-1020390505,1051372203,1051372203,-1021802545,-1021802545,1051372203,1051372203,-1023510273,-1023510273,1051372203,1051372203,-1027062753,-1027062753,1051372203,1051372203,-1030633472,-1030633472,1051372203,1051372203,-1036170881,-1036170881,1051372203,1051372203,-1043771329,-1043771329,1051372203,1051372203,-1057740545,-1057740545,1051372203,1051372203,1083735423,1083735423,1051372203,1051372203,1092831551,1092831551,1051372203,1051372203,1093794431,1093794431,1051372203,1051372203,1093565951,1093565951,1051372203,1051372203,1092229631,1092229631,1051372203,1051372203,1089240063,1089240063,1051372203,1051372203,1082650624,1082650624,1051372203,1051372203,1075851775,1075851775,1051372203,1051372203,1075947775,1075947775,1051372203,1051372203,1075126015,1075126015,1051372203,1051372203,1073246207,1073246207,1051372203,1051372203,1068661247,1068661247,1051372203,1051372203,1060295679,1060295679,1051372203,1051372203,-1105240065,-1105240065,1051372203,1051372203,-1079767041,-1079767041,1051372203,1051372203,-1070802433,-1070802433,1051372203,1051372203,-1064460544,-1064460544,1051372203,1051372203,-1060213505,-1060213505,1051372203,1051372203,-1056144896,-1056144896,1051372203,1051372203,-1053383937,-1053383937,1051372203,1051372203,-1050313857,-1050313857,1051372203,1051372203,-1047756288,-1047756288,1051372203,1051372203,-1045919809,-1045919809,1051372203,1051372203,-1043944129,-1043944129,1051372203,1051372203,-1041838849,-1041838849,1051372203,1051372203,-1039285120,-1039285120,1051372203,1051372203,-1038056801,-1038056801,1051372203,1051372203,-1039088800,-1039088800,1051372203,1051372203,-1045306369,-1045306369,1051372203,1051372203,1069890047,1069890047,1051372203,1051372203,1107783088,1107783088,1051372203,1051372203,1116826416,1116826416,1051372203,1051372203,1122464615,1122464615,1051372203,1051372203,1126189843,1126189843,1051372203,1051372203,1129037503,1129037503,1051372203,1051372203,1131648223,1131648223,1051372203,1051372203,1133173672,1133173672,1051372203,1051372203,1134058491,1134058491,1051372203,1051372203,1097427071,1097427071,1051372203,1051372203,-1047347329,-1047347329,1051372203,1051372203,-1050613377,-1050613377,1051372203,1051372203,-1055432577,-1055432577,1051372203,1051372203,-1064034305,-1064034305,1051372203,1051372203,1052168191,1052168191,1051372203,1051372203,1085131263,1085131263,1051372203,1051372203,1093160831,1093160831,1051372203,1051372203,1098454271,1098454271,1051372203,1051372203,1101271999,1101271999,1051372203,1051372203,1103785279,1103785279,1051372203,1051372203,1105775359,1105775359,1051372203,1051372203,1105484479,1105484479,1051372203,1051372203,1102419199,1102419199,1051372203,1051372203,1094090111,1094090111,1051372203,1051372203,-1046644609,-1046644609,1051372203,1051372203,-1034089121,-1034089121,1051372203,1051372203,-1030560513,-1030560513,1051372203,1051372203,-1030464753,-1030464753,1051372203,1051372203,-1033532321,-1033532321,1051372203,1051372203,-1044888769,-1044888769,1051372203,1051372203,-1158676481,-1158676481,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,988807167,988807167,1051372203,1051372203,-1050167937,-1050167937,1051372203,1051372203,-1039708480,-1039708480,1051372203,1051372203,-1038712001,-1038712001,1051372203,1051372203,-1042540609,-1042540609,1051372203,1051372203,-1055526657,-1055526657,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *250 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		}
+	}
+	AnimationCurve: 1001520, "AnimCurve::", "" {
+		Default: 180
+		KeyVer: 4009
+		KeyTime: *250 {
+			a: 0,769769300,1539538600,2309307900,3079077200,3848846500,4618615800,5388385100,6158154400,6927923700,7697693000,8467462300,9237231600,10007000900,10776770200,11546539500,12316308800,13086078100,13855847400,14625616700,15395386000,16165155300,16934924600,17704693900,18474463200,19244232500,20014001800,20783771100,21553540400,22323309700,23093079000,23862848300,24632617600,25402386900,26172156200,26941925500,27711694800,28481464100,29251233400,30021002700,30790772000,31560541300,32330310600,33100079900,33869849200,34639618500,35409387800,36179157100,36948926400,37718695700,38488465000,39258234300,40028003600,40797772900,41567542200,42337311500,43107080800,43876850100,44646619400,45416388700,46186158000,46955927300,47725696600,48495465900,49265235200,50035004500,50804773800,51574543100,52344312400,53114081700,53883851000,54653620300,55423389600,56193158900,56962928200,57732697500,58502466800,59272236100,60042005400,60811774700,61581544000,62351313300,63121082600,63890851900,64660621200,65430390500,66200159800,66969929100,67739698400,68509467700,69279237000,70049006300,70818775600,71588544900,72358314200,73128083500,73897852800,74667622100,75437391400,76207160700,76976930000,77746699300,78516468600,79286237900,80056007200,80825776500,81595545800,82365315100,83135084400,83904853700,84674623000,85444392300,86214161600,86983930900,87753700200,88523469500,89293238800,90063008100,90832777400,91602546700,92372316000,93142085300,93911854600,94681623900,95451393200,96221162500,96990931800,97760701100,98530470400,99300239700,100070009000,100839778300,101609547600,102379316900,103149086200,103918855500,104688624800,105458394100,106228163400,106997932700,107767702000,108537471300,109307240600,110077009900,110846779200,111616548500,112386317800,113156087100,113925856400,114695625700,115465395000,116235164300,117004933600,117774702900,118544472200,119314241500,120084010800,120853780100,121623549400,122393318700,123163088000,123932857300,124702626600,125472395900,126242165200,127011934500,127781703800,128551473100,129321242400,130091011700,130860781000,131630550300,132400319600,133170088900,133939858200,134709627500,135479396800,136249166100,137018935400,137788704700,138558474000,139328243300,140098012600,140867781900,141637551200,142407320500,143177089800,143946859100,144716628400,145486397700,146256167000,147025936300,147795705600,148565474900,149335244200,150105013500,150874782800,151644552100,152414321400,153184090700,153953860000,154723629300,155493398600,156263167900,157032937200,157802706500,158572475800,159342245100,160112014400,160881783700,161651553000,162421322300,163191091600,163960860900,164730630200,165500399500,166270168800,167039938100,167809707400,168579476700,169349246000,170119015300,170888784600,171658553900,172428323200,173198092500,173967861800,174737631100,175507400400,176277169700,177046939000,177816708300,178586477600,179356246900,180126016200,180895785500,181665554800,182435324100,183205093400,183974862700,184744632000,185514401300,186284170600,187053939900,187823709200,188593478500,189363247800,190133017100,190902786400,190902786400
+		}
+		KeyValueFloat: *250 {
+			a: 180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,181.355164,182.6969,184.05249,185.412964,186.744263,187.9975,189.094055,189.987732,190.6109,190.921417,190.92572,190.629211,190.038116,189.161163,188.011414,186.6076,184.987335,183.198456,181.2847,179.282013,177.233276,175.19873,173.239624,171.416443,169.78772,168.40918,167.333252,166.6095,166.135071,165.7641,165.477173,165.264709,165.117279,165.025726,164.9808,164.973541,164.994843,165.035675,165.116333,165.256378,165.450928,165.6958,165.98172,166.299423,166.639633,166.993011,167.350189,167.701767,168.038361,168.35054,168.628815,168.863739,169.045746,168.942841,168.361908,167.354065,165.97644,164.295044,162.381744,160.308624,158.142059,155.938049,153.741577,151.589355,149.516113,147.549286,145.732727,144.144287,142.884216,142.070709,141.541565,141.055542,140.618042,140.232727,139.901733,139.626,139.40271,139.224548,139.08429,138.974426,138.88678,138.813354,138.747925,138.6933,138.654236,138.635864,138.6431,138.681015,138.754639,138.869064,139.029327,139.240417,139.507324,139.8348,140.586914,142.05069,144.098709,146.5965,149.417923,152.451233,155.59671,158.758362,161.834335,164.710373,167.260345,169.355148,170.879974,170.21701,171.573227,172.909363,174.220428,175.501511,176.747711,177.953934,179.114761,180.224472,181.2769,182.265457,183.170334,183.921066,184.434982,184.629349,184.621414,184.589981,184.5443,184.495071,184.4551,184.438553,184.438553,184.438553,184.438553,184.438553,184.438553,183.972672,182.864059,181.548813,180.455765,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015,180.000015
+		}
+		KeyAttrFlags: *250 {
+			a: 50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728,50334728
+		}
+		KeyAttrDataFloat: *1000 {
+			a: 0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,1117953695,1117953695,1051372203,1051372203,1117848095,1117848095,1051372203,1051372203,1117957055,1117957055,1051372203,1051372203,1117995455,1117995455,1051372203,1051372203,1117766015,1117766015,1051372203,1051372203,1117152095,1117152095,1051372203,1051372203,1115919936,1115919936,1051372203,1051372203,1112963967,1112963967,1051372203,1051372203,1108709247,1108709247,1051372203,1051372203,1100287039,1100287039,1051372203,1051372203,1048850432,1048850432,1051372203,1051372203,-1047637248,-1047637248,1051372203,1051372203,-1039278880,-1039278880,1051372203,1051372203,-1034782721,-1034782721,1051372203,1051372203,-1031145392,-1031145392,1051372203,1051372203,-1029147393,-1029147393,1051372203,1051372203,-1027445073,-1027445073,1051372203,1051372203,-1026119073,-1026119073,1051372203,1051372203,-1025136993,-1025136993,1051372203,1051372203,-1024437633,-1024437633,1051372203,1051372203,-1024075473,-1024075473,1051372203,1051372203,-1024187073,-1024187073,1051372203,1051372203,-1024780353,-1024780353,1051372203,1051372203,-1025849313,-1025849313,1051372203,1051372203,-1027378593,-1027378593,1051372203,1051372203,-1029346113,-1029346113,1051372203,1051372203,-1031725952,-1031725952,1051372203,1051372203,-1037192321,-1037192321,1051372203,1051372203,-1042040449,-1042040449,1051372203,1051372203,-1045294849,-1045294849,1051372203,1051372203,-1047938688,-1047938688,1051372203,1051372203,-1051986177,-1051986177,1051372203,1051372203,-1056077696,-1056077696,1051372203,1051372203,-1062221825,-1062221825,1051372203,1051372203,-1070825473,-1070825473,1051372203,1051372203,-1092673537,-1092673537,1051372203,1051372203,1067685887,1067685887,1051372203,1051372203,1075629055,1075629055,1051372203,1051372203,1083890943,1083890943,1051372203,1051372203,1090941312,1090941312,1051372203,1051372203,1094370431,1094370431,1051372203,1051372203,1097536511,1097536511,1051372203,1051372203,1099513280,1099513280,1051372203,1051372203,1100513119,1100513119,1051372203,1051372203,1101221119,1101221119,1051372203,1051372203,1101635359,1101635359,1051372203,1051372203,1101754879,1101754879,1051372203,1051372203,1101578719,1101578719,1051372203,1051372203,1101107359,1101107359,1051372203,1051372203,1100339359,1100339359,1051372203,1051372203,1099272800,1099272800,1051372203,1051372203,1096910591,1096910591,1051372203,1051372203,1093581311,1093581311,1051372203,1051372203,-1060793345,-1060793345,1051372203,1051372203,-1039438720,-1039438720,1051372203,1051372203,-1032724001,-1032724001,1051372203,1051372203,-1029353313,-1029353313,1051372203,1051372203,-1026964353,-1026964353,1051372203,1051372203,-1025140593,-1025140593,1051372203,1051372203,-1023883713,-1023883713,1051372203,1051372203,-1023279504,-1023279504,1051372203,1051372203,-1023132264,-1023132264,1051372203,1051372203,-1023161904,-1023161904,1051372203,1051372203,-1023335904,-1023335904,1051372203,1051372203,-1023882753,-1023882753,1051372203,1051372203,-1024719633,-1024719633,1051372203,1051372203,-1025901393,-1025901393,1051372203,1051372203,-1027695393,-1027695393,1051372203,1051372203,-1030277793,-1030277793,1051372203,1051372203,-1035780641,-1035780641,1051372203,1051372203,-1040319169,-1040319169,1051372203,1051372203,-1041675649,-1041675649,1051372203,1051372203,-1043202049,-1043202049,1051372203,1051372203,-1044843649,-1044843649,1051372203,1051372203,-1046552449,-1046552449,1051372203,1051372203,-1048291008,-1048291008,1051372203,1051372203,-1051304577,-1051304577,1051372203,1051372203,-1054144257,-1054144257,1051372203,1051372203,-1056528896,-1056528896,1051372203,1051372203,-1059917825,-1059917825,1051372203,1051372203,-1062713345,-1062713345,1051372203,1051372203,-1064502784,-1064502784,1051372203,1051372203,-1065664513,-1065664513,1051372203,1051372203,-1068383233,-1068383233,1051372203,1051372203,-1072300033,-1072300033,1051372203,1051372203,-1081272320,-1081272320,1051372203,1051372203,1054748671,1054748671,1051372203,1051372203,1074895616,1074895616,1051372203,1051372203,1083005824,1083005824,1051372203,1051372203,1088139903,1088139903,1051372203,1051372203,1092213311,1092213311,1051372203,1051372203,1095411071,1095411071,1051372203,1051372203,1098915200,1098915200,1051372203,1051372203,1100820319,1100820319,1051372203,1051372203,1110737487,1110737487,1051372203,1051372203,1118807855,1118807855,1051372203,1051372203,1123402535,1123402535,1051372203,1051372203,1125506563,1125506563,1051372203,1051372203,1126779163,1126779163,1051372203,1051372203,1127612323,1127612323,1051372203,1051372203,1128053383,1128053383,1051372203,1051372203,1128116983,1128116983,1051372203,1051372203,1127780083,1127780083,1051372203,1051372203,1126993903,1126993903,1051372203,1051372203,1125711763,1125711763,1051372203,1051372203,1123770455,1123770455,1051372203,1051372203,1119287975,1119287975,1051372203,1051372203,-1038148481,-1038148481,1051372203,1051372203,1117961975,1117961975,1051372203,1051372203,1117804055,1117804055,1051372203,1051372203,1117606895,1117606895,1051372203,1051372203,1117371095,1117371095,1051372203,1051372203,1117096775,1117096775,1051372203,1051372203,1116782376,1116782376,1051372203,1051372203,1116425376,1116425376,1051372203,1051372203,1116023376,1116023376,1051372203,1051372203,1115460927,1115460927,1051372203,1051372203,1114456287,1114456287,1051372203,1051372203,1113140127,1113140127,1051372203,1051372203,1110715647,1110715647,1051372203,1051372203,1106685439,1106685439,1051372203,1051372203,1094358911,1094358911,1051372203,1051372203,-1091321857,-1091321857,1051372203,1051372203,-1074698241,-1074698241,1051372203,1051372203,-1070633473,-1070633473,1051372203,1051372203,-1069742593,-1069742593,1051372203,1051372203,-1072069633,-1072069633,1051372203,1051372203,-1082257409,-1082257409,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,-1042309249,-1042309249,1051372203,1051372203,-1031468912,-1031468912,1051372203,1051372203,-1029843873,-1029843873,1051372203,1051372203,-1031591312,-1031591312,1051372203,1051372203,-1042627969,-1042627969,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *250 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		}
+	}
+	AnimationCurve: 1001552, "AnimCurve::", "" {
+		Default: 0.99999994
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0.99999994,0.99999994
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001568, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001584, "AnimCurve::", "" {
+		Default: 0.99999994
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0.99999994,0.99999994
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001648, "AnimCurve::", "" {
+		Default: 10.6505785
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 10.6505785,10.6505785
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001664, "AnimCurve::", "" {
+		Default: 5.87374258
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 5.87374258,5.87374258
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001680, "AnimCurve::", "" {
+		Default: 6.70552345E-06
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 6.70552345E-06,6.70552345E-06
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001712, "AnimCurve::", "" {
+		Default: -2.182398E-05
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -2.182398E-05,-2.182398E-05
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001728, "AnimCurve::", "" {
+		Default: -90
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -90,-90
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001744, "AnimCurve::", "" {
+		Default: 180
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 180,180
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001776, "AnimCurve::", "" {
+		Default: 0.000999987
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0.000999987,0.000999987
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001792, "AnimCurve::", "" {
+		Default: 0.0009999871
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0.0009999871,0.0009999871
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001808, "AnimCurve::", "" {
+		Default: 0.000999987
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0.000999987,0.000999987
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001872, "AnimCurve::", "" {
+		Default: 3.127663
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 3.127663,3.127663
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001888, "AnimCurve::", "" {
+		Default: -5.98510838
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -5.98510838,-5.98510838
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001904, "AnimCurve::", "" {
+		Default: -1.40688431
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -1.40688431,-1.40688431
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001936, "AnimCurve::", "" {
+		Default: -1.3914756E-05
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -1.3914756E-05,-1.3914756E-05
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001952, "AnimCurve::", "" {
+		Default: -9.421588E-06
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -9.421588E-06,-9.421588E-06
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1001968, "AnimCurve::", "" {
+		Default: 1.48342388E-05
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1.48342388E-05,1.48342388E-05
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002000, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002016, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002032, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002096, "AnimCurve::", "" {
+		Default: -1.67952406
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -1.67952406,-1.67952406
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002112, "AnimCurve::", "" {
+		Default: -30.9338245
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -30.9338245,-30.9338245
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002128, "AnimCurve::", "" {
+		Default: -9.685757E-06
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -9.685757E-06,-9.685757E-06
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002160, "AnimCurve::", "" {
+		Default: 1.69038522E-05
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1.69038522E-05,1.69038522E-05
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002176, "AnimCurve::", "" {
+		Default: 1.36603767E-05
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1.36603767E-05,1.36603767E-05
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002192, "AnimCurve::", "" {
+		Default: 2.414842E-06
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 2.414842E-06,2.414842E-06
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002224, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002240, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002256, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002320, "AnimCurve::", "" {
+		Default: 2.65983677
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 2.65983677,2.65983677
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002336, "AnimCurve::", "" {
+		Default: -2.532675
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -2.532675,-2.532675
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002352, "AnimCurve::", "" {
+		Default: 5.58793658E-07
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 5.58793658E-07,5.58793658E-07
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002384, "AnimCurve::", "" {
+		Default: 1.61961616E-05
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1.61961616E-05,1.61961616E-05
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002400, "AnimCurve::", "" {
+		Default: -7.952198E-06
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -7.952198E-06,-6.74478224E-06
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 882693174,882693174,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002416, "AnimCurve::", "" {
+		Default: -90
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -90,-90
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002448, "AnimCurve::", "" {
+		Default: 0.9999999
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0.9999999,0.9999999
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002464, "AnimCurve::", "" {
+		Default: 1.00000012
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1.00000012,1.00000012
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002480, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002528, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002544, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002560, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002592, "AnimCurve::", "" {
+		Default: -90
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -90,-90
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002608, "AnimCurve::", "" {
+		Default: -9.334667E-06
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: -9.334667E-06,-9.334667E-06
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002624, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 0,0
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002656, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002672, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+	AnimationCurve: 1002688, "AnimCurve::", "" {
+		Default: 1
+		KeyVer: 4009
+		KeyTime: *2 {
+			a: 0,190902786400
+		}
+		KeyValueFloat: *2 {
+			a: 1,1
+		}
+		KeyAttrFlags: *2 {
+			a: 50334728,50334728
+		}
+		KeyAttrDataFloat: *8 {
+			a: 0,0,1051372203,1051372203,0,-2147483648,1051372203,953269366
+		}
+		KeyAttrRefCount: *2 {
+			a: 1,1
+		}
+	}
+}
+
+Connections:  {
+	C: "OO",1000048,1000032
+	C: "OO",1000016,0
+	C: "OP",1000064,1000016,"Lcl Translation"
+	C: "OP",1000128,1000016,"Lcl Rotation"
+	C: "OO",1000064,1000048
+	C: "OO",1000128,1000048
+	C: "OP",1000080,1000064,"d|X"
+	C: "OP",1000096,1000064,"d|Y"
+	C: "OP",1000112,1000064,"d|Z"
+	C: "OP",1000144,1000128,"d|X"
+	C: "OP",1000160,1000128,"d|Y"
+	C: "OP",1000176,1000128,"d|Z"
+	C: "OP",1000192,1000016,"Lcl Scaling"
+	C: "OO",1000192,1000048
+	C: "OP",1000208,1000192,"d|X"
+	C: "OP",1000224,1000192,"d|Y"
+	C: "OP",1000240,1000192,"d|Z"
+	C: "OO",1000256,0
+	C: "OO",1000272,1000256
+	C: "OP",1000288,1000256,"Lcl Translation"
+	C: "OP",1000352,1000256,"Lcl Rotation"
+	C: "OO",1000288,1000048
+	C: "OO",1000352,1000048
+	C: "OP",1000304,1000288,"d|X"
+	C: "OP",1000320,1000288,"d|Y"
+	C: "OP",1000336,1000288,"d|Z"
+	C: "OP",1000368,1000352,"d|X"
+	C: "OP",1000384,1000352,"d|Y"
+	C: "OP",1000400,1000352,"d|Z"
+	C: "OP",1000416,1000256,"Lcl Scaling"
+	C: "OO",1000416,1000048
+	C: "OP",1000432,1000416,"d|X"
+	C: "OP",1000448,1000416,"d|Y"
+	C: "OP",1000464,1000416,"d|Z"
+	C: "OO",1000480,1000256
+	C: "OO",1000496,1000480
+	C: "OP",1000512,1000480,"Lcl Translation"
+	C: "OP",1000576,1000480,"Lcl Rotation"
+	C: "OO",1000512,1000048
+	C: "OO",1000576,1000048
+	C: "OP",1000528,1000512,"d|X"
+	C: "OP",1000544,1000512,"d|Y"
+	C: "OP",1000560,1000512,"d|Z"
+	C: "OP",1000592,1000576,"d|X"
+	C: "OP",1000608,1000576,"d|Y"
+	C: "OP",1000624,1000576,"d|Z"
+	C: "OP",1000640,1000480,"Lcl Scaling"
+	C: "OO",1000640,1000048
+	C: "OP",1000656,1000640,"d|X"
+	C: "OP",1000672,1000640,"d|Y"
+	C: "OP",1000688,1000640,"d|Z"
+	C: "OO",1000704,1000480
+	C: "OO",1000720,1000704
+	C: "OP",1000736,1000704,"Lcl Translation"
+	C: "OP",1000800,1000704,"Lcl Rotation"
+	C: "OO",1000736,1000048
+	C: "OO",1000800,1000048
+	C: "OP",1000752,1000736,"d|X"
+	C: "OP",1000768,1000736,"d|Y"
+	C: "OP",1000784,1000736,"d|Z"
+	C: "OP",1000816,1000800,"d|X"
+	C: "OP",1000832,1000800,"d|Y"
+	C: "OP",1000848,1000800,"d|Z"
+	C: "OP",1000864,1000704,"Lcl Scaling"
+	C: "OO",1000864,1000048
+	C: "OP",1000880,1000864,"d|X"
+	C: "OP",1000896,1000864,"d|Y"
+	C: "OP",1000912,1000864,"d|Z"
+	C: "OO",1000928,1000480
+	C: "OO",1000944,1000928
+	C: "OP",1000960,1000928,"Lcl Translation"
+	C: "OP",1001024,1000928,"Lcl Rotation"
+	C: "OO",1000960,1000048
+	C: "OO",1001024,1000048
+	C: "OP",1000976,1000960,"d|X"
+	C: "OP",1000992,1000960,"d|Y"
+	C: "OP",1001008,1000960,"d|Z"
+	C: "OP",1001040,1001024,"d|X"
+	C: "OP",1001056,1001024,"d|Y"
+	C: "OP",1001072,1001024,"d|Z"
+	C: "OP",1001088,1000928,"Lcl Scaling"
+	C: "OO",1001088,1000048
+	C: "OP",1001104,1001088,"d|X"
+	C: "OP",1001120,1001088,"d|Y"
+	C: "OP",1001136,1001088,"d|Z"
+	C: "OO",1001152,1000480
+	C: "OO",1001168,1001152
+	C: "OP",1001184,1001152,"Lcl Translation"
+	C: "OP",1001248,1001152,"Lcl Rotation"
+	C: "OO",1001184,1000048
+	C: "OO",1001248,1000048
+	C: "OP",1001200,1001184,"d|X"
+	C: "OP",1001216,1001184,"d|Y"
+	C: "OP",1001232,1001184,"d|Z"
+	C: "OP",1001264,1001248,"d|X"
+	C: "OP",1001280,1001248,"d|Y"
+	C: "OP",1001296,1001248,"d|Z"
+	C: "OP",1001312,1001152,"Lcl Scaling"
+	C: "OO",1001312,1000048
+	C: "OP",1001328,1001312,"d|X"
+	C: "OP",1001344,1001312,"d|Y"
+	C: "OP",1001360,1001312,"d|Z"
+	C: "OO",1001376,1000480
+	C: "OO",1001392,1001376
+	C: "OP",1001408,1001376,"Lcl Translation"
+	C: "OP",1001472,1001376,"Lcl Rotation"
+	C: "OO",1001408,1000048
+	C: "OO",1001472,1000048
+	C: "OP",1001424,1001408,"d|X"
+	C: "OP",1001440,1001408,"d|Y"
+	C: "OP",1001456,1001408,"d|Z"
+	C: "OP",1001488,1001472,"d|X"
+	C: "OP",1001504,1001472,"d|Y"
+	C: "OP",1001520,1001472,"d|Z"
+	C: "OP",1001536,1001376,"Lcl Scaling"
+	C: "OO",1001536,1000048
+	C: "OP",1001552,1001536,"d|X"
+	C: "OP",1001568,1001536,"d|Y"
+	C: "OP",1001584,1001536,"d|Z"
+	C: "OO",1001600,1000480
+	C: "OO",1001616,1001600
+	C: "OP",1001632,1001600,"Lcl Translation"
+	C: "OP",1001696,1001600,"Lcl Rotation"
+	C: "OO",1001632,1000048
+	C: "OO",1001696,1000048
+	C: "OP",1001648,1001632,"d|X"
+	C: "OP",1001664,1001632,"d|Y"
+	C: "OP",1001680,1001632,"d|Z"
+	C: "OP",1001712,1001696,"d|X"
+	C: "OP",1001728,1001696,"d|Y"
+	C: "OP",1001744,1001696,"d|Z"
+	C: "OP",1001760,1001600,"Lcl Scaling"
+	C: "OO",1001760,1000048
+	C: "OP",1001776,1001760,"d|X"
+	C: "OP",1001792,1001760,"d|Y"
+	C: "OP",1001808,1001760,"d|Z"
+	C: "OO",1001824,1000480
+	C: "OO",1001840,1001824
+	C: "OP",1001856,1001824,"Lcl Translation"
+	C: "OP",1001920,1001824,"Lcl Rotation"
+	C: "OO",1001856,1000048
+	C: "OO",1001920,1000048
+	C: "OP",1001872,1001856,"d|X"
+	C: "OP",1001888,1001856,"d|Y"
+	C: "OP",1001904,1001856,"d|Z"
+	C: "OP",1001936,1001920,"d|X"
+	C: "OP",1001952,1001920,"d|Y"
+	C: "OP",1001968,1001920,"d|Z"
+	C: "OP",1001984,1001824,"Lcl Scaling"
+	C: "OO",1001984,1000048
+	C: "OP",1002000,1001984,"d|X"
+	C: "OP",1002016,1001984,"d|Y"
+	C: "OP",1002032,1001984,"d|Z"
+	C: "OO",1002048,1000480
+	C: "OO",1002064,1002048
+	C: "OP",1002080,1002048,"Lcl Translation"
+	C: "OP",1002144,1002048,"Lcl Rotation"
+	C: "OO",1002080,1000048
+	C: "OO",1002144,1000048
+	C: "OP",1002096,1002080,"d|X"
+	C: "OP",1002112,1002080,"d|Y"
+	C: "OP",1002128,1002080,"d|Z"
+	C: "OP",1002160,1002144,"d|X"
+	C: "OP",1002176,1002144,"d|Y"
+	C: "OP",1002192,1002144,"d|Z"
+	C: "OP",1002208,1002048,"Lcl Scaling"
+	C: "OO",1002208,1000048
+	C: "OP",1002224,1002208,"d|X"
+	C: "OP",1002240,1002208,"d|Y"
+	C: "OP",1002256,1002208,"d|Z"
+	C: "OO",1002272,1000480
+	C: "OO",1002288,1002272
+	C: "OP",1002304,1002272,"Lcl Translation"
+	C: "OP",1002368,1002272,"Lcl Rotation"
+	C: "OO",1002304,1000048
+	C: "OO",1002368,1000048
+	C: "OP",1002320,1002304,"d|X"
+	C: "OP",1002336,1002304,"d|Y"
+	C: "OP",1002352,1002304,"d|Z"
+	C: "OP",1002384,1002368,"d|X"
+	C: "OP",1002400,1002368,"d|Y"
+	C: "OP",1002416,1002368,"d|Z"
+	C: "OP",1002432,1002272,"Lcl Scaling"
+	C: "OO",1002432,1000048
+	C: "OP",1002448,1002432,"d|X"
+	C: "OP",1002464,1002432,"d|Y"
+	C: "OP",1002480,1002432,"d|Z"
+	C: "OO",1002496,1000016
+	C: "OP",1002512,1002496,"Lcl Translation"
+	C: "OP",1002576,1002496,"Lcl Rotation"
+	C: "OO",1002512,1000048
+	C: "OO",1002576,1000048
+	C: "OP",1002528,1002512,"d|X"
+	C: "OP",1002544,1002512,"d|Y"
+	C: "OP",1002560,1002512,"d|Z"
+	C: "OP",1002592,1002576,"d|X"
+	C: "OP",1002608,1002576,"d|Y"
+	C: "OP",1002624,1002576,"d|Z"
+	C: "OP",1002640,1002496,"Lcl Scaling"
+	C: "OO",1002640,1000048
+	C: "OP",1002656,1002640,"d|X"
+	C: "OP",1002672,1002640,"d|Y"
+	C: "OP",1002688,1002640,"d|Z"
+}
+
+Takes:  {
+	Current: ""
+	Take: "SKM_MKR9_New_A_W_MKR9_Mag_Check" {
+		FileName: "SKM_MKR9_New_A_W_MKR9_Mag_Check.tak"
+		LocalTime: 0,190902786400
+		ReferenceTime: 0,190902786400
+		Comments: "Animation Take: SKM_MKR9_New_A_W_MKR9_Mag_Check"
+	}
+}
