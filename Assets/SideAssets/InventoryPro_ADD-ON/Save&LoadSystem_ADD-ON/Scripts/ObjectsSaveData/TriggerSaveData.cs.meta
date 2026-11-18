@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a064daea585b2d546a3644a8c15d1453
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 0596a56e0b5126d48ae8ae0085cdbcfb, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Save&LoadSystem_ADD-ON/Scripts/ObjectsSaveData/TriggerSaveData.cs
+  uploadId: 1032558

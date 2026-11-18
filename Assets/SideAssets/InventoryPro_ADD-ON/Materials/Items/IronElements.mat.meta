@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c1812ce0d3f6b6448a789542e9dc015d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Materials/Items/IronElements.mat
+  uploadId: 1032558

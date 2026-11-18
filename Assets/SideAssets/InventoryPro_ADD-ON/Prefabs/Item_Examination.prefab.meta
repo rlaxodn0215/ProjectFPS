@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f935a84fac69de34bb59822e2066f7b2
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Prefabs/Item_Examination.prefab
+  uploadId: 1032558

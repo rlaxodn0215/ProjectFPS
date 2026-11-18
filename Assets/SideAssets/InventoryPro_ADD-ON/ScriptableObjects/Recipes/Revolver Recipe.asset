@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b75851763517f1c4cb16286009fe2dc7, type: 3}
+  m_Name: Revolver Recipe
+  m_EditorClassIdentifier: 
+  ingredients:
+  - item: {fileID: 11400000, guid: f8b063ebcbdaf354299a57ee188cfc0d, type: 2}
+    quantity: 2
+  - item: {fileID: 11400000, guid: f8110a67dba02304b869897fd2a4d47d, type: 2}
+    quantity: 3
+  result: {fileID: 11400000, guid: 80da6c1185b9c6744b9452ea80dee4b3, type: 2}
+  resultAmount: 1
+  timeToCraft: 6
+  minLevelRequired: 0

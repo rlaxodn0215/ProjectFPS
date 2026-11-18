@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d588a026a4337b4459426129580feebc
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Save&LoadSystem_ADD-ON/Shared Add-On Utilities/Prefabs/Models/ShieldPickUpGraphics.prefab
+  uploadId: 1032558

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3b7a2f0d4ed971f4b836cbda05111f5f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Save&LoadSystem_ADD-ON/Shared Add-On Utilities/ShowroomPostProcessing.asset
+  uploadId: 1032558

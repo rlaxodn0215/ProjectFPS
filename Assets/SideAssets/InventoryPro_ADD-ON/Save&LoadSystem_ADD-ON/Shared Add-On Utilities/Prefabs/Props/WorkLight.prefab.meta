@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d409606ec02d9b54eaa06f3a4f6d1635
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Save&LoadSystem_ADD-ON/Shared Add-On Utilities/Prefabs/Props/WorkLight.prefab
+  uploadId: 1032558

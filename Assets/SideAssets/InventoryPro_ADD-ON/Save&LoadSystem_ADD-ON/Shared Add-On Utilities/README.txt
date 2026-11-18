@@ -1,0 +1,1 @@
+This folder contains files used by both the Save & Load Add-On and the Inventory Pro Add-On (which also includes Save & Load functionality). These files are part of the FPS Engine by Cowsins.

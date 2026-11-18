@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f30f46692567ed746af855c6cef9ec18
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Save&LoadSystem_ADD-ON/Shared Add-On Utilities/Prefabs/ToastManager.prefab
+  uploadId: 1032558

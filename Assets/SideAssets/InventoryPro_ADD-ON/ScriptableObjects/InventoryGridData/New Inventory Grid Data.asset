@@ -1,0 +1,597 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 516bda6b2e1c0b7449ae3f436c1015bf, type: 3}
+  m_Name: New Inventory Grid Data
+  m_EditorClassIdentifier: 
+  rows: 6
+  columns: 6
+  buttonPrefab: {fileID: 4824573590937498599, guid: c9b43499c858f0e449aa703e085257ad, type: 3}
+  inventoryPadding:
+    horizontal: 10
+    vertical: 10
+  inventoryInitialData:
+  - item: {fileID: 11400000, guid: b8517e6bfc0840a40a4d784a37919a28, type: 2}
+    amount: 1
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 11400000, guid: f8b063ebcbdaf354299a57ee188cfc0d, type: 2}
+    amount: 3
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 11400000, guid: f8110a67dba02304b869897fd2a4d47d, type: 2}
+    amount: 1
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 11400000, guid: c86e20b76badbe5469143250c928aa68, type: 2}
+    amount: 2
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 11400000, guid: 71f468a43a77ded4eaca4953fc3b3272, type: 2}
+    amount: 1
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 11400000, guid: f87dfd8e7a729c44c9dd62bc3a0c4a52, type: 2}
+    amount: 64
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 11400000, guid: 048ec5bba03e6ed48a3238601e58544b, type: 2}
+    amount: 1
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 11400000, guid: c7fa8639ed794a74797b1d0fcc036441, type: 2}
+    amount: 1
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 11400000, guid: 56ff5d58ca988ff49bcf83c2a05d1030, type: 2}
+    amount: 1
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 11400000, guid: 78bac7e9072a77240b2f29c564aef43a, type: 2}
+    amount: 1
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 11400000, guid: 7a42b10098f4477d9c6e3b5e43a91204, type: 2}
+    amount: 1
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 11400000, guid: 14720ed1768e07440b902d9f08849807, type: 2}
+    amount: 4
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 11400000, guid: 80da6c1185b9c6744b9452ea80dee4b3, type: 2}
+    amount: 1
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 6
+    totalBullets: 6
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 11400000, guid: 907aa7bd70f532947bfa1d5f3ce12fa9, type: 2}
+    amount: 1
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 11400000, guid: 6251d21743b1c5f44a879277aa89a7d2, type: 2}
+    amount: 2
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 0
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 11400000, guid: 354403e2e1c9d094db0018ef2f98b0b5, type: 2}
+    amount: 1
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 1
+    totalBullets: 1
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    rotationAngle: 0
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+    currentDurability: 0
+    durabilityInitialized: 0
+    containedItems: []

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 34b60328e8d7d4844b1b6ee8a9a4b84e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Prefabs/ItemGenericPickeable.prefab
+  uploadId: 1032558

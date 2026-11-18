@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f28db7b256506744f95ffdf1213e1cc1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Save&LoadSystem_ADD-ON/Shared Add-On Utilities/Materials/Materials/Skybox_Daytime
+    1.mat
+  uploadId: 1032558

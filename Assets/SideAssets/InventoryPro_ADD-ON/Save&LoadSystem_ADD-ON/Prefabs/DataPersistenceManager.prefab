@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1470936011901817181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1470936011901817178}
+  - component: {fileID: 1470936011901817179}
+  - component: {fileID: 1470936011901817180}
+  m_Layer: 0
+  m_Name: DataPersistenceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1470936011901817178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470936011901817181}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1470936011901817179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470936011901817181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c738a52c14128654b8984446ac96a120, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataPersistenceSettings: {fileID: 11400000, guid: e187480219ccef544a44d95673581573, type: 2}
+  events:
+    onGameDataCreated:
+      m_PersistentCalls:
+        m_Calls: []
+    onSaveGame:
+      m_PersistentCalls:
+        m_Calls: []
+    onLoadGame:
+      m_PersistentCalls:
+        m_Calls: []
+    onSelectedProfileIDChanged:
+      m_PersistentCalls:
+        m_Calls: []
+    onGameDataDeleted:
+      m_PersistentCalls:
+        m_Calls: []
+    onSceneLoaded:
+      m_PersistentCalls:
+        m_Calls: []
+--- !u!114 &1470936011901817180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470936011901817181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75336e194aa56f44f813cdedccc17463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeToPrefabMappings:
+  - TypeName: WeaponPickeable
+    Prefab: {fileID: 1579534663180628573, guid: 15da3fccf9cbc6b4493c402b62f5ecbf, type: 3}
+  - TypeName: BulletsPickeable
+    Prefab: {fileID: 4788863507091020780, guid: 231461d17abfcdf439fa0418137c3556, type: 3}
+  - TypeName: AttachmentPickeable
+    Prefab: {fileID: 1454941234216864251, guid: f64e2887f983e2c4e8d883457bdd2742, type: 3}
+  - TypeName: InventoryItemPickeable
+    Prefab: {fileID: 6515330995256141581, guid: 34b60328e8d7d4844b1b6ee8a9a4b84e, type: 3}

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a0bad29014a8bcd428825a20ceea5414
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Prefabs/InventoryProManager.prefab
+  uploadId: 1032558

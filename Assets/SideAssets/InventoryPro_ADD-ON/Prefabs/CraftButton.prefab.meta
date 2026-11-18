@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5324af31e83e4684bbc8c478a9b70d9a
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Prefabs/CraftButton.prefab
+  uploadId: 1032558

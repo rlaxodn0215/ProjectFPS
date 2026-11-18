@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 39a363aef95a79445800fd8251d3d1f8
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Save&LoadSystem_ADD-ON/Shared Add-On Utilities/Prefabs/Props/ContainerNoLogo.prefab
+  uploadId: 1032558

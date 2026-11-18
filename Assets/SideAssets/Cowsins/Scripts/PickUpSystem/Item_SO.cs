@@ -28,6 +28,43 @@ namespace cowsins
         [Tooltip("Represents the weight of an entire stack of this item.")] public float weightMultiplier = 1f;
 
 #if INVENTORY_PRO_ADD_ON
+    [SerializeField] private bool useDurability;
+    [SerializeField, Min(1f)] private float maxDurability = 100f;
+    [SerializeField] private DurabilityReductionMethod durabilityMethod = DurabilityReductionMethod.Usage;
+
+    public bool UseDurability => useDurability;
+    public float MaxDurability => maxDurability;
+    public DurabilityReductionMethod DurabilityMethod => durabilityMethod;
+
+    public virtual bool CanUse(InventorySlot slot, InventoryProManager manager)
+    {
+        var useMethod = GetType().GetMethod(nameof(Use), new[] { typeof(InventoryProManager), typeof(InventorySlot) });
+        return useMethod != null && useMethod.DeclaringType != typeof(Item_SO)
+            && useMethod.GetBaseDefinition().DeclaringType == typeof(Item_SO);
+    }
+
+    public virtual string GetContextActionName(InventorySlot slot, InventoryProManager manager) => "USE";
+    public virtual bool ShowUseToast => true;
+    public virtual string GetUseToastMessage() => ToastManager.Instance != null
+        ? $"{_name} {ToastManager.Instance.ItemUsed}" : null;
+    public virtual SlotData[] CreateDefaultContainedItems() => null;
+
+    public virtual void OnEquipCustomSlot(InventorySlot slot, PlayerDependencies player)
+    {
+        ApplyCustomSlotEffects(slot, player);
+    }
+
+    public virtual void OnUnequipCustomSlot(InventorySlot slot, PlayerDependencies player)
+    {
+        RemoveCustomSlotEffects(slot, player);
+    }
+
+    public virtual void ApplyCustomSlotEffects(InventorySlot slot, PlayerDependencies player) { }
+    public virtual void RemoveCustomSlotEffects(InventorySlot slot, PlayerDependencies player) { }
+    public virtual void OnDurabilityReduced(InventorySlot slot, float previousDurability, float currentDurability) { }
+    // InventorySlot.BreakItem handles removal, unequipping and feedback after this callback.
+    public virtual void OnDurabilityDepleted(InventorySlot slot, PlayerDependencies player) { }
+
     public virtual void Use(InventoryProManager inventoryProManager, InventorySlot inventorySlot)
     {
         InventorySlot anchor = inventorySlot.GetAnchorSlot();

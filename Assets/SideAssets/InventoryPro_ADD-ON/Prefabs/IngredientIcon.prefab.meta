@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b5f0dfc240484a74b9d8092935a6296b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Prefabs/IngredientIcon.prefab
+  uploadId: 1032558

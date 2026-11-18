@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5835969e5c99c784b8f49aec22f5011e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Scripts/Interactables/InventoryItemPickeableEditor.cs
+  uploadId: 1032558

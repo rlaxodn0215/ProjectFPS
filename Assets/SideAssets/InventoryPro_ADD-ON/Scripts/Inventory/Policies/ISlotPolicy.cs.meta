@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c64f34590bea0034287f96f299042d6d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Scripts/Inventory/Policies/ISlotPolicy.cs
+  uploadId: 1032558

@@ -6,11 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/PlayerRoom.unity
-    guid: ffcb386b9dd09de419faa072ee7b8f18
+    path: Assets/SideAssets/InventoryPro_ADD-ON/Scenes/MainMenu_Inventory.unity
+    guid: a93d164d755965946988995a21f9d9fb
   - enabled: 1
-    path: Assets/Scenes/TestRoom.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/SideAssets/InventoryPro_ADD-ON/Scenes/Inventory_Showcase_Scene.unity
+    guid: 3ee0b58f9625bb344afaa4d452031007
+  - enabled: 1
+    path: Assets/SideAssets/InventoryPro_ADD-ON/Scenes/BlankScene_Inventory.unity
+    guid: 4753ee99abc0c7548964e8308ab218f7
+  - enabled: 1
+    path: Assets/SideAssets/InventoryPro_ADD-ON/Save&LoadSystem_ADD-ON/Scenes/Save
+      & Load Showroom Inventory.unity
+    guid: 3232ffb0b68f89e41a7b5b4f1e6e1b1b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 33f591010f343104f853b337a1fca25a, type: 2}
   m_UseUCBPForAssetBundles: 0

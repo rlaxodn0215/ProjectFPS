@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: b75851763517f1c4cb16286009fe2dc7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: f3aa378f399d7524db21744630e044fb, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Scripts/Crafting/Recipe_SO.cs
+  uploadId: 1032558

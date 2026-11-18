@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 44e7f88a4581a3e4082a7671126ffd27
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Materials/Environment/TableCloth.mat
+  uploadId: 1032558

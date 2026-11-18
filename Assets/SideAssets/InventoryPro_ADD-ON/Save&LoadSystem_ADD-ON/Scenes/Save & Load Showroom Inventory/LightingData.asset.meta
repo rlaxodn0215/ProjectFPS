@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 59020ccd08dbdec4ca8a5b79f6b05af5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 112000000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Save&LoadSystem_ADD-ON/Scenes/Save & Load
+    Showroom Inventory/LightingData.asset
+  uploadId: 1032558

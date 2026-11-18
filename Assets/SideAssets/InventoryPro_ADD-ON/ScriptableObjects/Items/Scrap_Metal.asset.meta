@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f8b063ebcbdaf354299a57ee188cfc0d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/ScriptableObjects/Items/Scrap_Metal.asset
+  uploadId: 1032558

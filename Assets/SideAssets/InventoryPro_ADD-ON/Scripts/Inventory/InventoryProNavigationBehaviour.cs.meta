@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 9611a0cede3642b48b3e64aa9150844c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: a56e11d69f295a041aa9eca6d079f930, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Scripts/Inventory/InventoryProNavigationBehaviour.cs
+  uploadId: 1032558

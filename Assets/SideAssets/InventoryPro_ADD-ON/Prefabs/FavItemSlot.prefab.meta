@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cf53724ad05bae74bb473ef44f7b4aca
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Prefabs/FavItemSlot.prefab
+  uploadId: 1032558

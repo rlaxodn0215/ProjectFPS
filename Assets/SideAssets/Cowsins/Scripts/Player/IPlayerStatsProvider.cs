@@ -28,5 +28,6 @@ namespace cowsins
     {
         public UnityEvent<IPlayerStatsProvider> OnInitializeHealth = new UnityEvent<IPlayerStatsProvider>();
         public UnityEvent<float, float, bool> OnHealthChanged = new UnityEvent<float, float, bool>();
+        public UnityEvent<float> OnDamageTaken = new UnityEvent<float>();
     }
 }

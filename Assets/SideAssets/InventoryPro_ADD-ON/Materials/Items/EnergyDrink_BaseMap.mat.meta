@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 53e7f8283334d034ea2978bc8e102643
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Materials/Items/EnergyDrink_BaseMap.mat
+  uploadId: 1032558

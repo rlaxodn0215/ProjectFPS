@@ -119,10 +119,12 @@ namespace cowsins
 
             // Ensure damage is a positive value
             float damage = Mathf.Abs(_damage);
+            damage *= multipliers != null ? Mathf.Max(0f, multipliers.DamageTakenMultiplier.Value) : 1f;
 
             foreach (var filter in GetComponents<IPlayerDamageFilter>())
                 damage = filter.FilterDamage(damage, DamageService.CurrentContext);
             if (float.IsNaN(damage) || float.IsInfinity(damage) || damage <= 0) return;
+            float damageTaken = damage;
 
             // Trigger damage event
             userEvents.OnDamage.Invoke();
@@ -141,6 +143,7 @@ namespace cowsins
             }
 
             // Notify UI about the health change
+            Events.OnDamageTaken?.Invoke(damageTaken);
             Events.OnHealthChanged?.Invoke(health, shield, true);
 
             if (health <= 0 && !IsDead) Die(); // Die in case we run out of health   

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4753ee99abc0c7548964e8308ab218f7
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Scenes/BlankScene_Inventory.unity
+  uploadId: 1032558

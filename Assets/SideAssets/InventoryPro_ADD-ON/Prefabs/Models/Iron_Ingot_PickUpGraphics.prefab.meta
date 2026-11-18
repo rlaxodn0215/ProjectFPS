@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 71f1c9a7f6ba5c44694ab123454e0f3b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Prefabs/Models/Iron_Ingot_PickUpGraphics.prefab
+  uploadId: 1032558

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0f7ac44112379ad43a0c60c1bbf2d66e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/ScriptableObjects/Recipes/Revolver Recipe.asset
+  uploadId: 1032558

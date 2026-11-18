@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2909c728e5836c14db180f4d237124fd
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/UI/Typography/OutlineTypo.asset
+  uploadId: 1032558

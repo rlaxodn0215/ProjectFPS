@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: dd75e407eb9238d4b9d0bd18a59f223e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Prefabs/Models/Gear.prefab
+  uploadId: 1032558

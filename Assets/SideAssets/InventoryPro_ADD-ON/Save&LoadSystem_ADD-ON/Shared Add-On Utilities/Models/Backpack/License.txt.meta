@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8f1d0dcb9fc57c645a34e1a66b333aa2
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Save&LoadSystem_ADD-ON/Shared Add-On Utilities/Models/Backpack/License.txt
+  uploadId: 1032558

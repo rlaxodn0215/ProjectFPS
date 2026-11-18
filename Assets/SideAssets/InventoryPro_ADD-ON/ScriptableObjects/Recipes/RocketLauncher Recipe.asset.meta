@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: cbd7f5f118b51214c804bc8058d95cde
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/ScriptableObjects/Recipes/RocketLauncher
+    Recipe.asset
+  uploadId: 1032558

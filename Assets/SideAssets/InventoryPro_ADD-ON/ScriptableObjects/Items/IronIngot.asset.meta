@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b8517e6bfc0840a40a4d784a37919a28
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/ScriptableObjects/Items/IronIngot.asset
+  uploadId: 1032558

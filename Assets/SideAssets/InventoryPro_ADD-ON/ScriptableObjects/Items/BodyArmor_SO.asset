@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1675ecf3e90859419e49231fd5b54b9, type: 3}
+  m_Name: BodyArmor_SO
+  m_EditorClassIdentifier: 
+  _name: Body Armor
+  description: Reduces incoming damage by 20%
+  icon: {fileID: 21300000, guid: 2a204cbab8a03c54199dc2574a135f4e, type: 3}
+  pickUpGraphics: {fileID: 348373999608449168, guid: d588a026a4337b4459426129580feebc, type: 3}
+  maxStack: 1
+  itemSize: {x: 1, y: 1}
+  irregularItemIcon: {fileID: 0}
+  applyWeight: 0
+  weightMultiplier: 1
+  useDurability: 1
+  maxDurability: 100
+  durabilityMethod: 1
+  damageMultiplier: 0.8

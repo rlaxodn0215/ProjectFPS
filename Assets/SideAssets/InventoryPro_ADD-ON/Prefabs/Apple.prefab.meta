@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ac9d11802b1a99c4e9c3bd4c94a8c6c9
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Prefabs/Apple.prefab
+  uploadId: 1032558

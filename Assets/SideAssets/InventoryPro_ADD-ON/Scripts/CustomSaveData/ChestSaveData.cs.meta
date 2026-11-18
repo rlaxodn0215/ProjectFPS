@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 9edd530eb5e32e345b2fe4a96b30b515
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 0596a56e0b5126d48ae8ae0085cdbcfb, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Scripts/CustomSaveData/ChestSaveData.cs
+  uploadId: 1032558

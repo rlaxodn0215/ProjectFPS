@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 88858789c869df546984f58b75d4b752
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Prefabs/CraftingBench.prefab
+  uploadId: 1032558

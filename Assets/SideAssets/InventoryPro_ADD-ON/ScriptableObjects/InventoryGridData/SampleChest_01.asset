@@ -1,0 +1,213 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 516bda6b2e1c0b7449ae3f436c1015bf, type: 3}
+  m_Name: SampleChest_01
+  m_EditorClassIdentifier: 
+  rows: 4
+  columns: 4
+  buttonPrefab: {fileID: 4824573590937498599, guid: c9b43499c858f0e449aa703e085257ad, type: 3}
+  inventoryPadding:
+    horizontal: 10
+    vertical: 5
+  inventoryInitialData:
+  - item: {fileID: 11400000, guid: 11986c1487b69b24fa433a76cf966fb5, type: 2}
+    amount: 1
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 4
+    totalBullets: 4
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+  - item: {fileID: 11400000, guid: 6251d21743b1c5f44a879277aa89a7d2, type: 2}
+    amount: 75
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+  - item: {fileID: 11400000, guid: 6553d6d464f4c3d489647f8005b06c2e, type: 2}
+    amount: 1
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 30
+    totalBullets: 30
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+  - item: {fileID: 11400000, guid: f8b063ebcbdaf354299a57ee188cfc0d, type: 2}
+    amount: 4
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+  - item: {fileID: 11400000, guid: 1cb39c6c8005c554e93289889a1892e1, type: 2}
+    amount: 1
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 36
+    totalBullets: 36
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+  - item: {fileID: 11400000, guid: 14720ed1768e07440b902d9f08849807, type: 2}
+    amount: 4
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+  - item: {fileID: 11400000, guid: c259d6fd3ab632a4980785deebd26164, type: 2}
+    amount: 1
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 17
+    totalBullets: 17
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+  - item: {fileID: 0}
+    amount: 0
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0
+  - item: {fileID: 11400000, guid: c86e20b76badbe5469143250c928aa68, type: 2}
+    amount: 8
+    isOriented: 1
+    barrel: {fileID: 0}
+    scope: {fileID: 0}
+    stock: {fileID: 0}
+    grip: {fileID: 0}
+    magazine: {fileID: 0}
+    flashlight: {fileID: 0}
+    laser: {fileID: 0}
+    bulletsLeftInMagazine: 0
+    totalBullets: 0

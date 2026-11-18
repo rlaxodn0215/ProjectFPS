@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c06ee3c7c4e7c24458e53f0e0fa0878f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Scripts/Inventory/Policies/HotbarSlotPolicy.cs
+  uploadId: 1032558

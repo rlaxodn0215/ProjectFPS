@@ -10,7 +10,6 @@ TagManager:
   - Weapons
   - Ramp
   - BodyShot
-  - Ladder
   layers:
   - Default
   - TransparentFX

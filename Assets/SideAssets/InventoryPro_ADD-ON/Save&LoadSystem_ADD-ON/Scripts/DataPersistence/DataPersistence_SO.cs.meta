@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: b42e751c39a4e254e9c37b130a1c0500
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: bdc2076c72144fb49b183f3b4c88ba44, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Save&LoadSystem_ADD-ON/Scripts/DataPersistence/DataPersistence_SO.cs
+  uploadId: 1032558

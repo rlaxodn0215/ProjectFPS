@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9dd35acf61380d24c839a102e815fe15
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/Save&LoadSystem_ADD-ON/UI/UIAnims/ButtonNewGame.controller
+  uploadId: 1032558

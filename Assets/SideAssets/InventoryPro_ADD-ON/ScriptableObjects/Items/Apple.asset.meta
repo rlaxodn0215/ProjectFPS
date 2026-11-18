@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6251d21743b1c5f44a879277aa89a7d2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: forced_inclusion
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/ScriptableObjects/Items/Apple.asset
+  uploadId: 1032558

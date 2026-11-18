@@ -19,16 +19,19 @@ namespace cowsins
         public IReadOnlyList<TemporaryModifierData> ActiveTemporaryModifiers => activeTemporaryModifiers;
         
         private ModifiableStat damageMultiplier = new ModifiableStat(1);
+        private ModifiableStat damageTakenMultiplier = new ModifiableStat(1);
         private ModifiableStat healMultiplier = new ModifiableStat(1);
         private ModifiableStat playerWeightMultiplier = new ModifiableStat(1);
         
         public ModifiableStat DamageMultiplier => damageMultiplier;
+        public ModifiableStat DamageTakenMultiplier => damageTakenMultiplier;
         public ModifiableStat HealMultiplier => healMultiplier;
         public ModifiableStat WeightMultiplier => playerWeightMultiplier;
         
         private void Awake()
         {
             damageMultiplier = new ModifiableStat(1);
+            damageTakenMultiplier = new ModifiableStat(1);
             healMultiplier = new ModifiableStat(1);
             playerWeightMultiplier = new ModifiableStat(1);
         }

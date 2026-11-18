@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b42e751c39a4e254e9c37b130a1c0500, type: 3}
+  m_Name: DataPersistence_SO
+  m_EditorClassIdentifier: 
+  firstLevelScene: {fileID: 102900000, guid: 3232ffb0b68f89e41a7b5b4f1e6e1b1b, type: 3}
+  firstLevelName: Save & Load Showroom Inventory
+  fileName: data
+  useEncryption: 1
+  savePlayerStats: 1
+  saveExperience: 1
+  saveCoins: 1
+  saveHotbar: 1
+  saveInventory: 1
+  savePlayerTransforms: 1
+  saveObjects: 1
+  autoSave: 1
+  autoSaveTimeSeconds: 20
+  showToastOnGameSaved: 1
+  toastMessage: Progress Saved
+  nonSaveableSceneNames:
+  - MainMenu
+  - Inventory_Showcase_Scene
+  - MainMenu_Inventory
+  excludedScenesFromSpecificSaveDataNames: []
+  nonSaveableScenes:
+  - {fileID: 102900000, guid: 8f9c85f44b8279c438ee7f287f4c2159, type: 3}
+  - {fileID: 102900000, guid: 3ee0b58f9625bb344afaa4d452031007, type: 3}
+  - {fileID: 102900000, guid: a93d164d755965946988995a21f9d9fb, type: 3}
+  excludedScenesFromSpecificSaveData: []

@@ -7,6 +7,7 @@ namespace cowsins
         IReadOnlyList<PlayerMultipliers.TemporaryModifierData> ActiveTemporaryModifiers { get; }
         
         ModifiableStat DamageMultiplier { get; }
+        ModifiableStat DamageTakenMultiplier { get; }
         ModifiableStat HealMultiplier { get; }
         ModifiableStat WeightMultiplier { get; }
 

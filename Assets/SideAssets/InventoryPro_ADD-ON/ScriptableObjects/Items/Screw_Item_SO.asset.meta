@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f8110a67dba02304b869897fd2a4d47d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/ScriptableObjects/Items/Screw_Item_SO.asset
+  uploadId: 1032558

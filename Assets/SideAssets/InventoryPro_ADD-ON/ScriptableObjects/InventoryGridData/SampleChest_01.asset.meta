@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 30d1c25a6d1c515469163489c2c64f0b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 318131
+  packageName: Inventory Pro Add-On for FPS Engine
+  packageVersion: 1.1
+  assetPath: Assets/InventoryPro_ADD-ON/ScriptableObjects/InventoryGridData/SampleChest_01.asset
+  uploadId: 1032558
