@@ -150,7 +150,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             AddOverrideSettingsFields(overridesFoldout, conversationProperty.FindPropertyRelative("overrideSettings"));
             Add(overridesFoldout);
 
-            AddPrimaryFields(fieldsProperty, template.conversationPrimaryFieldTitles, ConversationBuiltInFieldTitles);
+            AddPrimaryFields(fieldsProperty, template.conversationPrimaryFieldTitles, template.conversationFields, ConversationBuiltInFieldTitles);
 
             var fieldList = new FieldListElement(fieldsProperty, database, () => template.conversationFields, conversationsPanel.conversationsState.fieldsFoldout);
             fieldList.expandedChanged += expanded => conversationsPanel.conversationsState.fieldsFoldout = expanded;
@@ -385,7 +385,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
             Add(new EntryEventsElement(conversationsPanel, entryProperty, conversationID, entryID));
 
-            AddPrimaryFields(fieldsProperty, template.dialogueEntryPrimaryFieldTitles, EntryBuiltInFieldTitles);
+            AddPrimaryFields(fieldsProperty, template.dialogueEntryPrimaryFieldTitles, template.dialogueEntryFields, EntryBuiltInFieldTitles);
             var linksStartIndex = childCount;
             AddLinks(entryProperty, conversationID, entryID);
             var linksEndIndex = childCount;
@@ -1210,14 +1210,14 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             return container;
         }
 
-        private void AddPrimaryFields(SerializedProperty fieldsProperty, List<string> primaryFieldTitles, List<string> builtInTitles)
+        private void AddPrimaryFields(SerializedProperty fieldsProperty, List<string> primaryFieldTitles, List<Field> templateFields, List<string> builtInTitles)
         {
             if (primaryFieldTitles == null) return;
             for (int i = 0; i < fieldsProperty.arraySize; i++)
             {
                 var fieldProperty = fieldsProperty.GetArrayElementAtIndex(i);
                 var title = fieldProperty.FindPropertyRelative(FieldPropertyUtility.TitlePropertyName).stringValue;
-                if (string.IsNullOrEmpty(title) || builtInTitles.Contains(title) || !primaryFieldTitles.Contains(title)) continue;
+                if (string.IsNullOrEmpty(title) || builtInTitles.Contains(title) || !FieldPropertyUtility.IsPrimaryField(title, primaryFieldTitles, templateFields)) continue;
                 var isTextArea = FieldPropertyUtility.GetEffectiveTypeString(fieldProperty) == "CustomFieldType_Text" && FieldPropertyUtility.IsTextAreaField(title);
                 Add(FieldPropertyUtility.CreateValueEditor(fieldProperty, database, title, isTextArea));
             }

@@ -242,7 +242,15 @@ namespace PixelCrushers.DialogueSystem
         /// Gets the GUI style.
         /// </summary>
         /// <value>The GUI style.</value>
-        public GUIStyle GuiStyle { get { SetGuiStyle(); return guiStyle; } }
+        public GUIStyle GuiStyle
+        {
+            get
+            {
+                // Only create the style once; GUIStyle construction allocates.
+                if (guiStyle == null) SetGuiStyle(); else GUI.skin = guiSkin;
+                return guiStyle;
+            }
+        }
 
         private UnityEngine.EventSystems.EventSystem m_eventSystem = null;
         public UnityEngine.EventSystems.EventSystem eventSystem
@@ -289,6 +297,7 @@ namespace PixelCrushers.DialogueSystem
         protected bool hasReportedInvalidCamera = false;
         protected bool hasCheckedDefaultInputManager = false;
         protected bool isUsingDefaultInputManager = true;
+        protected UnityEngine.Camera m_mainCamera = null; // Camera.main cached by Update for this frame's raycast.
 
         protected virtual void Reset()
         {
@@ -306,6 +315,10 @@ namespace PixelCrushers.DialogueSystem
 
         protected virtual void OnEnable()
         {
+            // OnGUI doesn't use GUILayout, so skip the IMGUI Layout event pass.
+            // NOTE: If you're making a subclass whose OnGUI uses GUILayout, set
+            // useGUILayout = true after calling base.OnEnable().
+            useGUILayout = false;
             Enabled?.Invoke();
         }
 
@@ -330,7 +343,8 @@ namespace PixelCrushers.DialogueSystem
             if (!enabled || (Time.timeScale <= 0)) return;
 
             // Exit if there's no camera:
-            if (UnityEngine.Camera.main == null) return;
+            m_mainCamera = UnityEngine.Camera.main;
+            if (m_mainCamera == null) return;
 
 #if !USE_NEW_INPUT // (In new Input System, IsPointerOverGameObject returns true for all GameObjects, not just UI objects, so skip this check until Input System is fixed.)
             // Exit if using mouse selection and is over a UI element:
@@ -401,7 +415,8 @@ namespace PixelCrushers.DialogueSystem
         {
 #if USE_PHYSICS2D || !UNITY_2018_1_OR_NEWER
 
-            var mainCamera = UnityEngine.Camera.main;
+            var mainCamera = GetMainCamera();
+            if (mainCamera == null) return;
             if (!mainCamera.orthographic && !hasReportedInvalidCamera)
             {
                 hasReportedInvalidCamera = true;
@@ -414,27 +429,24 @@ namespace PixelCrushers.DialogueSystem
                 // Run Physics2D.RaycastAll:
                 if (lastHits2D == null) lastHits2D = new RaycastHit2D[MaxHits];
                 int numHits = Physics2D.RaycastNonAlloc(mainCamera.ScreenToWorldPoint(GetSelectionPoint()), Vector2.zero, lastHits2D, maxSelectionDistance, layerMask);
+                // (The 2D ray has zero length, so all hits are at the same point; there's no nearest hit to prefer.)
                 bool foundUsable = false;
                 for (int i = 0; i < numHits; i++)
                 {
-                    var hit = lastHits2D[i];
-                    float hitDistance = (distanceFrom == DistanceFrom.Camera) ? 0
-                        : (distanceFrom == DistanceFrom.GameObject || actorTransform == null)
-                            ? Vector3.Distance(gameObject.transform.position, hit.collider.transform.position)
-                            : Vector3.Distance(actorTransform.position, hit.collider.transform.position);
-                    if (selection == hit.collider.gameObject)
+                    var hitCollider = lastHits2D[i].collider;
+                    if (IsCurrentSelection(hitCollider.gameObject))
                     {
                         foundUsable = true;
-                        distance = hitDistance;
+                        distance = GetDistanceToHit(0, hitCollider.transform);
                         break;
                     }
                     else
                     {
-                        Usable hitUsable = hit.collider.GetComponent<Usable>();
+                        Usable hitUsable = GetUsable(hitCollider);
                         if (hitUsable != null && hitUsable.enabled)
                         {
                             foundUsable = true;
-                            distance = hitDistance;
+                            distance = GetDistanceToHit(0, hitCollider.transform);
                             SetCurrentUsable(hitUsable);
                             break;
                         }
@@ -452,19 +464,15 @@ namespace PixelCrushers.DialogueSystem
                 // Cast a ray and see what we hit:
                 RaycastHit2D hit;
                 hit = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(GetSelectionPoint()), Vector2.zero, maxSelectionDistance, layerMask);
-                if (hit.collider != null)
+                var hitCollider = hit.collider;
+                if (hitCollider != null)
                 {
-                    distance = (distanceFrom == DistanceFrom.Camera) ? 0
-                        : (distanceFrom == DistanceFrom.GameObject || actorTransform == null)
-                            ? Vector3.Distance(gameObject.transform.position, hit.collider.transform.position)
-                            : Vector3.Distance(actorTransform.position, hit.collider.transform.position);
-                    if (selection != hit.collider.gameObject)
+                    distance = GetDistanceToHit(0, hitCollider.transform);
+                    if (!IsCurrentSelection(hitCollider.gameObject))
                     {
-                        Usable hitUsable = hit.collider.GetComponent<Usable>();
+                        Usable hitUsable = GetUsable(hitCollider);
                         if (hitUsable != null && hitUsable.enabled)
                         {
-                            heading = string.Empty;
-                            useMessage = string.Empty;
                             SetCurrentUsable(hitUsable);
                         }
                         else
@@ -483,7 +491,9 @@ namespace PixelCrushers.DialogueSystem
 
         protected virtual void Run3DRaycast()
         {
-            Ray ray = UnityEngine.Camera.main.ScreenPointToRay(GetSelectionPoint());
+            var mainCamera = GetMainCamera();
+            if (mainCamera == null) return;
+            Ray ray = mainCamera.ScreenPointToRay(GetSelectionPoint());
             lastRay = ray;
 
             // New Variable rayCastDistance is used below for the raycasts instead of maxSelectionDistance to be able to set it to infinity (if using DistanceFrom.GameObject) instead of maxSelectionDistance:
@@ -493,36 +503,31 @@ namespace PixelCrushers.DialogueSystem
             if (raycastAll)
             {
 
-                // Run RaycastAll:
+                // Run RaycastAll. Results aren't sorted, so choose the usable nearest along the ray:
                 if (lastHits == null) lastHits = new RaycastHit[MaxHits];
                 numLastHits = Physics.RaycastNonAlloc(ray, lastHits, raycastDistance, layerMask);
-                bool foundUsable = false;
+                Usable bestUsable = null;
+                float bestRayDistance = Mathf.Infinity;
+                float bestDistance = 0;
                 for (int i = 0; i < numLastHits; i++)
                 {
                     var hit = lastHits[i];
-                    float hitDistance = (distanceFrom == DistanceFrom.Camera) ? hit.distance
-                        : (distanceFrom == DistanceFrom.GameObject || actorTransform == null)
-                            ? Vector3.Distance(gameObject.transform.position, hit.collider.transform.position)
-                            : Vector3.Distance(actorTransform.position, hit.collider.transform.position);
-                    if (selection == hit.collider.gameObject)
-                    {
-                        foundUsable = true;
-                        distance = hitDistance;
-                        break;
-                    }
-                    else
-                    {
-                        Usable hitUsable = hit.collider.GetComponent<Usable>();
-                        if (hitUsable != null && hitUsable.enabled && hitDistance <= maxSelectionDistance)
-                        {
-                            foundUsable = true;
-                            distance = hitDistance;
-                            SetCurrentUsable(hitUsable);
-                            break;
-                        }
-                    }
+                    if (hit.distance >= bestRayDistance) continue;
+                    var hitCollider = hit.collider;
+                    Usable hitUsable = IsCurrentSelection(hitCollider.gameObject) ? usable : GetUsable(hitCollider);
+                    if (hitUsable == null || !hitUsable.enabled) continue;
+                    float hitDistance = GetDistanceToHit(hit.distance, hitCollider.transform);
+                    if (hitDistance > maxSelectionDistance) continue;
+                    bestUsable = hitUsable;
+                    bestRayDistance = hit.distance;
+                    bestDistance = hitDistance;
                 }
-                if (!foundUsable)
+                if (bestUsable != null)
+                {
+                    distance = bestDistance;
+                    SetCurrentUsable(bestUsable);
+                }
+                else
                 {
                     DeselectTarget();
                 }
@@ -533,19 +538,14 @@ namespace PixelCrushers.DialogueSystem
 
                 // Cast a ray and see what we hit:
                 RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, maxSelectionDistance, layerMask))
+                if (Physics.Raycast(ray, out hit, raycastDistance, layerMask))
                 {
-                    distance = (distanceFrom == DistanceFrom.Camera) ? hit.distance
-                        : (distanceFrom == DistanceFrom.GameObject || actorTransform == null)
-                            ? Vector3.Distance(gameObject.transform.position, hit.collider.transform.position)
-                            : Vector3.Distance(actorTransform.position, hit.collider.transform.position);
-                    Usable hitUsable = hit.collider.GetComponent<Usable>();
-                    if (hitUsable != null && hitUsable.enabled)
+                    var hitCollider = hit.collider;
+                    distance = GetDistanceToHit(hit.distance, hitCollider.transform);
+                    Usable hitUsable = IsCurrentSelection(hitCollider.gameObject) ? usable : GetUsable(hitCollider);
+                    if (hitUsable != null && hitUsable.enabled && distance <= maxSelectionDistance)
                     {
-                        if (selection != hit.collider.gameObject)
-                        {
-                            SetCurrentUsable(hitUsable);
-                        }
+                        SetCurrentUsable(hitUsable); // Returns immediately if already selected.
                     }
                     else
                     {
@@ -558,6 +558,54 @@ namespace PixelCrushers.DialogueSystem
                 }
                 lastHit = hit;
             }
+        }
+
+        /// <summary>
+        /// Returns the main camera cached by Update this frame, or Camera.main if not cached.
+        /// </summary>
+        protected UnityEngine.Camera GetMainCamera()
+        {
+            return (m_mainCamera != null) ? m_mainCamera : UnityEngine.Camera.main;
+        }
+
+        /// <summary>
+        /// Returns true if go is the currently-selected usable's GameObject.
+        /// </summary>
+        protected bool IsCurrentSelection(GameObject go)
+        {
+            return (selection != null) && (go == selection);
+        }
+
+        /// <summary>
+        /// Returns the selection distance to a hit, according to the distanceFrom mode.
+        /// </summary>
+        /// <param name="rayDistance">Distance along the ray (used for DistanceFrom.Camera).</param>
+        /// <param name="hitTransform">Transform of the hit collider.</param>
+        protected float GetDistanceToHit(float rayDistance, Transform hitTransform)
+        {
+            switch (distanceFrom)
+            {
+                case DistanceFrom.Camera:
+                    return rayDistance;
+                case DistanceFrom.ActorTransform:
+                    var from = (actorTransform != null) ? actorTransform : transform;
+                    return Vector3.Distance(from.position, hitTransform.position);
+                default:
+                    return Vector3.Distance(transform.position, hitTransform.position);
+            }
+        }
+
+        /// <summary>
+        /// Gets a Usable on a component's GameObject without allocating when there's none.
+        /// </summary>
+        protected static Usable GetUsable(Component component)
+        {
+#if UNITY_2019_2_OR_NEWER
+            Usable result;
+            return component.TryGetComponent(out result) ? result : null;
+#else
+            return component.GetComponent<Usable>();
+#endif
         }
 
         public virtual void SetCurrentUsable(Usable usable)
@@ -596,6 +644,10 @@ namespace PixelCrushers.DialogueSystem
 
         protected virtual void DeselectTarget()
         {
+            // Nothing selected, so don't notify listeners again. (Raycasts call this every frame
+            // that they don't hit a usable.) Use ReferenceEquals so a destroyed usable still
+            // gets a deselect notification.
+            if (ReferenceEquals(usable, null) && ReferenceEquals(selection, null)) return;
             if (usable != null) usable.disabled -= OnUsableDisabled;
             OnDeselectedUsableObject(usable);
             usable = null;
@@ -626,8 +678,9 @@ namespace PixelCrushers.DialogueSystem
             if ((useKey != KeyCode.None) && InputDeviceManager.IsKeyDown(useKey)) return true;
             if (!string.IsNullOrEmpty(useButton))
             {
-                if (DialogueManager.instance != null &&
-                    DialogueManager.getInputButtonDown == DialogueManager.instance.StandardGetInputButtonDown && IsUsingDefaultInputManager())
+                var dialogueSystemController = DialogueManager.instance;
+                if (dialogueSystemController != null &&
+                    dialogueSystemController.isUsingStandardGetInputButtonDown && IsUsingDefaultInputManager())
                 {
                     return InputDeviceManager.IsButtonUp(useButton) && (selection == clickedDownOn);
                 }

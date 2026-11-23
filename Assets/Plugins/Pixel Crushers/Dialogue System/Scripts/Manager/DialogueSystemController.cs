@@ -459,7 +459,7 @@ namespace PixelCrushers.DialogueSystem
             else
             {
                 // Otherwise initialize this one:
-                getInputButtonDown = StandardGetInputButtonDown;
+                getInputButtonDown = standardGetInputButtonDownDelegate;
                 if ((instantiateDatabase || (warmUpConversationController != WarmUpMode.Off)) && initialDatabase != null)
                 {
                     var databaseInstance = Instantiate(initialDatabase) as DialogueDatabase;
@@ -869,6 +869,29 @@ namespace PixelCrushers.DialogueSystem
             return InputDeviceManager.IsButtonDown(buttonName);
         }
 
+        private GetInputButtonDownDelegate m_standardGetInputButtonDownDelegate = null;
+
+        /// <summary>
+        /// Cached delegate for StandardGetInputButtonDown. Use this instead of the
+        /// method group, which allocates a new delegate each time it's referenced.
+        /// </summary>
+        public GetInputButtonDownDelegate standardGetInputButtonDownDelegate
+        {
+            get
+            {
+                if (m_standardGetInputButtonDownDelegate == null) m_standardGetInputButtonDownDelegate = StandardGetInputButtonDown;
+                return m_standardGetInputButtonDownDelegate;
+            }
+        }
+
+        /// <summary>
+        /// True if getInputButtonDown is StandardGetInputButtonDown. Doesn't allocate.
+        /// </summary>
+        public bool isUsingStandardGetInputButtonDown
+        {
+            get { return getInputButtonDown == standardGetInputButtonDownDelegate; }
+        }
+
         private bool DisabledGetInputButtonDown(string buttonName)
         {
             return false;
@@ -895,7 +918,7 @@ namespace PixelCrushers.DialogueSystem
             {
                 if (IsDialogueSystemInputDisabled())
                 {
-                    getInputButtonDown = m_savedGetInputButtonDownDelegate ?? StandardGetInputButtonDown;
+                    getInputButtonDown = m_savedGetInputButtonDownDelegate ?? standardGetInputButtonDownDelegate;
                     m_disableInput = false;
                 }
             }

@@ -82,6 +82,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         public ConversationGraphView()
         {
             style.flexGrow = 1;
+            DialogueDatabaseEditorTheme.KeepLightThemeOnAttach(this); // GraphView forces Dark-theme styling on the window.
             SetupZoom(0.1f, 2f); // Same range as the IMGUI editor's zoom.
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new SelectionDragger());

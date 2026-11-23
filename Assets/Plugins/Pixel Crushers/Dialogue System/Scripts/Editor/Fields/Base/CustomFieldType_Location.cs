@@ -17,14 +17,12 @@ namespace PixelCrushers.DialogueSystem
         }
         public override string Draw(string currentValue, DialogueDatabase database)
         {
-            RequireDialogueEditorWindow(database);
-            return PixelCrushers.DialogueSystem.DialogueEditor.DialogueEditorWindow.instance.DrawAssetPopup<Location>(currentValue, (database != null) ? database.locations : null, null);
+            return DrawAssetPopup<Location>(currentValue, (database != null) ? database.locations : null);
         }
 
         public override string Draw(Rect rect, string currentValue, DialogueDatabase database)
         {
-            RequireDialogueEditorWindow(database);
-            return PixelCrushers.DialogueSystem.DialogueEditor.DialogueEditorWindow.instance.DrawAssetPopup<Location>(rect, currentValue, (database != null) ? database.locations : null, null);
+            return DrawAssetPopup<Location>(rect, currentValue, (database != null) ? database.locations : null);
         }
 
     }

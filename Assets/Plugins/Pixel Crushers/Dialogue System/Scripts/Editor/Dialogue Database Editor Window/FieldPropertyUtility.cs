@@ -58,6 +58,17 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             return (index >= 0) ? fieldsProperty.GetArrayElementAtIndex(index) : null;
         }
 
+        /// <summary>
+        /// True if a field should be drawn in an inspector's main section: its title is ticked
+        /// Main in the template and the template still has a field with that title. The second
+        /// check ignores stale Main titles left behind when template fields were deleted.
+        /// </summary>
+        public static bool IsPrimaryField(string title, List<string> primaryFieldTitles, List<Field> templateFields)
+        {
+            return primaryFieldTitles != null && templateFields != null &&
+                primaryFieldTitles.Contains(title) && Field.FieldExists(templateFields, title);
+        }
+
         public static string LookupValue(SerializedProperty fieldsProperty, string title)
         {
             var fieldProperty = FindField(fieldsProperty, title);

@@ -812,10 +812,12 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         /// <param name="excludeTitle">Optional filter for primary fields the caller draws itself.</param>
         protected void AddPrimaryFields(VisualElement parent, SerializedProperty fieldsProperty, bool alwaysShowDescription, Func<string, bool> excludeTitle = null)
         {
-            var primaryFieldTitles = GetPrimaryFieldTitles(window.Template, GetAssetObject(state.selectedIndex)) ?? new List<string>();
+            var asset = GetAssetObject(state.selectedIndex);
+            var primaryFieldTitles = GetPrimaryFieldTitles(window.Template, asset);
+            var templateFields = GetTemplateFields(window.Template, asset);
 
             var descriptionProperty = FieldPropertyUtility.FindField(fieldsProperty, DialogueSystemFields.Description);
-            if (descriptionProperty != null && (alwaysShowDescription || primaryFieldTitles.Contains(DialogueSystemFields.Description)) &&
+            if (descriptionProperty != null && (alwaysShowDescription || FieldPropertyUtility.IsPrimaryField(DialogueSystemFields.Description, primaryFieldTitles, templateFields)) &&
                 (excludeTitle == null || !excludeTitle(DialogueSystemFields.Description)))
             {
                 parent.Add(CreateTextAreaLabel("Description", null));
@@ -826,7 +828,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             {
                 var fieldProperty = fieldsProperty.GetArrayElementAtIndex(i);
                 var title = fieldProperty.FindPropertyRelative(FieldPropertyUtility.TitlePropertyName).stringValue;
-                if (string.IsNullOrEmpty(title) || title == DialogueSystemFields.Description || !primaryFieldTitles.Contains(title)) continue;
+                if (string.IsNullOrEmpty(title) || title == DialogueSystemFields.Description || !FieldPropertyUtility.IsPrimaryField(title, primaryFieldTitles, templateFields)) continue;
                 if (excludeTitle != null && excludeTitle(title)) continue;
                 var isTextArea = FieldPropertyUtility.GetEffectiveTypeString(fieldProperty) == "CustomFieldType_Text" && FieldPropertyUtility.IsTextAreaField(title);
                 parent.Add(FieldPropertyUtility.CreateValueEditor(fieldProperty, database, title, isTextArea));

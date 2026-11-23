@@ -326,6 +326,13 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             fieldsProperty.serializedObject.Update(); // The hook may have changed things.
             if (!(0 <= index && index < fieldsProperty.arraySize)) return;
             fieldsProperty.DeleteArrayElementAtIndex(index);
+            // In the template, also untick Main so the field stops showing in the inspectors'
+            // main section, unless a duplicate field with the same title is still there.
+            if (primaryFieldTitlesProperty != null && FieldPropertyUtility.FindField(fieldsProperty, title) == null)
+            {
+                var primaryIndex = IndexOfPrimaryTitle(title);
+                if (primaryIndex >= 0) primaryFieldTitlesProperty.DeleteArrayElementAtIndex(primaryIndex);
+            }
             fieldsProperty.serializedObject.ApplyModifiedProperties();
             OnStructureChanged();
         }

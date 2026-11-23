@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine.UIElements;
 using UnityEditor;
 
@@ -16,7 +17,14 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
     /// Colors that depend on the theme belong in the stylesheets (Editor Default Resources/
     /// Dialogue System/DialogueDatabaseEditorWindow*.uss). This class only holds the few
     /// values that code has to supply itself, such as colors inside rich text.
+    /// Unity applies its own default editor stylesheet (DefaultCommonDark or DefaultCommonLight)
+    /// to the root. The one exception this class handles is GraphView: see KeepLightThemeOnAttach.
+    /// That was a headache to track down because it only affected the ConversationsPanel's 
+    /// GraphView in the Light theme.
     /// </summary>
+#if UNITY_6000_7_OR_NEWER
+    [Unity.Scripting.LifecycleManagement.NoAutoStaticsCleanup]
+#endif
     public static class DialogueDatabaseEditorTheme
     {
 
@@ -41,7 +49,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         {
             if (root == null) return;
             root.AddToClassList(RootClass);
-            FixUnityDefaultStyleSheet(root);
+            RestoreLightEditorStyleSheet(root);
             AddStyleSheet(root, SharedStyleSheetPath);
             RemoveStyleSheet(root, IsDark ? LightStyleSheetPath : DarkStyleSheetPath);
             AddStyleSheet(root, IsDark ? DarkStyleSheetPath : LightStyleSheetPath);
@@ -59,12 +67,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             var wasDark = IsDark;
             root.schedule.Execute(() =>
             {
-                if (IsDark == wasDark)
-                {
-                    // Also catch Unity leaving the other theme's default sheet on the root.
-                    if (FindStyleSheet(root, IsDark ? "DefaultCommonLight" : "DefaultCommonDark") != null) FixUnityDefaultStyleSheet(root);
-                    return;
-                }
+                if (IsDark == wasDark) return;
                 wasDark = IsDark;
                 Apply(root);
                 onChanged?.Invoke();
@@ -72,52 +75,75 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         }
 
         /// <summary>
-        /// Unity gives each editor window's root its default stylesheet for the current theme
-        /// (DefaultCommonDark or DefaultCommonLight) and should swap it when the theme changes,
-        /// but this window's root can keep the other theme's sheet, which makes text white in
-        /// the Light theme. If the root has the wrong one, replace it with the matching sheet
-        /// from an ancestor (the panel container has it), or drop it so the ancestor's applies.
-        /// The sheets are rebuilt in their original order so the default sheet stays first.
+        /// When a GraphView is attached to a panel, Unity calls its internal
+        /// UIElementsEditorUtility.ForceDarkStyleSheet, which replaces DefaultCommonLight with
+        /// DefaultCommonDark on the window's root. In the Light theme that gives every control
+        /// in the window Dark-theme styling. This swaps the Light sheet back each time the
+        /// GraphView is attached. Call it from the GraphView's constructor so the callback runs
+        /// after GraphView's own.
         /// </summary>
-        private static void FixUnityDefaultStyleSheet(VisualElement root)
+        public static void KeepLightThemeOnAttach(VisualElement graphView)
         {
-            var wrongPrefix = IsDark ? "DefaultCommonLight" : "DefaultCommonDark";
-            var rightPrefix = IsDark ? "DefaultCommonDark" : "DefaultCommonLight";
-            if (FindStyleSheet(root, wrongPrefix) == null) return;
-            StyleSheet right = null;
-            for (var ancestor = root.hierarchy.parent; ancestor != null && right == null; ancestor = ancestor.hierarchy.parent)
+            if (graphView == null) return;
+            graphView.RegisterCallback<AttachToPanelEvent>(evt => RestoreLightEditorStyleSheet(graphView));
+        }
+
+        /// <summary>
+        /// In the Light theme, replaces Unity's DefaultCommonDark sheet with DefaultCommonLight
+        /// on the nearest of element and its ancestors that has it, keeping the sheets' order.
+        /// It only ever swaps one for the other, so it never leaves the root without a default sheet.
+        /// </summary>
+        private static void RestoreLightEditorStyleSheet(VisualElement element)
+        {
+            if (IsDark || element == null) return;
+            var dark = GetUnityCommonStyleSheet("GetCommonDarkStyleSheet");
+            var light = GetUnityCommonStyleSheet("GetCommonLightStyleSheet");
+            if (dark == null || light == null) return;
+            for (var e = element; e != null; e = e.hierarchy.parent)
             {
-                right = FindStyleSheet(ancestor, rightPrefix);
-            }
-            var sheets = new List<StyleSheet>();
-            for (int i = 0; i < root.styleSheets.count; i++)
-            {
-                var sheet = root.styleSheets[i];
-                if (sheet == null) continue;
-                if (sheet.name.StartsWith(wrongPrefix))
+                if (!e.styleSheets.Contains(dark)) continue;
+                var sheets = new List<StyleSheet>();
+                for (int i = 0; i < e.styleSheets.count; i++)
                 {
-                    if (right != null && !sheets.Contains(right)) sheets.Add(right);
+                    var sheet = (e.styleSheets[i] == dark) ? light : e.styleSheets[i];
+                    if (sheet != null && !sheets.Contains(sheet)) sheets.Add(sheet);
                 }
-                else if (!sheets.Contains(sheet))
+                e.styleSheets.Clear();
+                foreach (var sheet in sheets)
                 {
-                    sheets.Add(sheet);
+                    e.styleSheets.Add(sheet);
                 }
-            }
-            root.styleSheets.Clear();
-            foreach (var sheet in sheets)
-            {
-                root.styleSheets.Add(sheet);
+                return;
             }
         }
 
-        private static StyleSheet FindStyleSheet(VisualElement element, string namePrefix)
+        private static Type unityEditorUtilityType = null;
+        private static readonly Dictionary<string, StyleSheet> unityCommonStyleSheets = new Dictionary<string, StyleSheet>();
+
+        /// <summary>
+        /// Gets Unity's DefaultCommonDark or DefaultCommonLight sheet from the internal
+        /// UIElementsEditorUtility class, or null if a future Unity version removes it.
+        /// </summary>
+        private static StyleSheet GetUnityCommonStyleSheet(string methodName)
         {
-            for (int i = 0; i < element.styleSheets.count; i++)
+            StyleSheet styleSheet;
+            if (unityCommonStyleSheets.TryGetValue(methodName, out styleSheet) && styleSheet != null) return styleSheet;
+            try
             {
-                var sheet = element.styleSheets[i];
-                if (sheet != null && sheet.name.StartsWith(namePrefix)) return sheet;
+                if (unityEditorUtilityType == null)
+                {
+                    unityEditorUtilityType = typeof(EditorWindow).Assembly.GetType("UnityEditor.UIElements.UIElementsEditorUtility");
+                }
+                var method = unityEditorUtilityType?.GetMethod(methodName,
+                    BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, null, Type.EmptyTypes, null);
+                styleSheet = method?.Invoke(null, null) as StyleSheet;
             }
-            return null;
+            catch (Exception)
+            {
+                styleSheet = null;
+            }
+            unityCommonStyleSheets[methodName] = styleSheet;
+            return styleSheet;
         }
 
         private static void AddStyleSheet(VisualElement root, string path)

@@ -178,7 +178,9 @@ namespace PixelCrushers.DialogueSystem
 
         private void OpenDialogueDatabaseEditorWindow()
         {
-            PixelCrushers.DialogueSystem.DialogueEditor.DialogueDatabaseEditorWindow.OpenDialogueDatabaseEditorWindow();
+            // Open the inspected database (not the window's last-edited one). Uses target, not
+            // Selection.activeObject, so it also works when the inspector is locked.
+            PixelCrushers.DialogueSystem.DialogueEditor.DialogueDatabaseEditorWindow.Open(target as DialogueDatabase);
         }
 
         private void ReconvertDatabase()

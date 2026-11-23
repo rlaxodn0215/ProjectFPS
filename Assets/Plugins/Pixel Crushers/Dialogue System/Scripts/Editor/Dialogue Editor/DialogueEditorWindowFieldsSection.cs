@@ -160,6 +160,8 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 {
                     languages.Remove(fields[fieldToRemove].title);
                     fields.RemoveAt(fieldToRemove);
+                    // In the template, also untick Main unless a duplicate field with the same title remains:
+                    if (isTemplate && !Field.FieldExists(fields, fieldTitle)) primaryFieldTitles.Remove(fieldTitle);
                     //--- Never remove from all types of assets in database. Only from current type.
                     //if (isLocalizationTemplate)
                     //{

@@ -45,7 +45,10 @@ namespace PixelCrushers.DialogueSystem
         protected AbstractUsableUI usableUI = null;
         protected bool started = false;
         protected string originalDefaultUseMessage;
-        protected bool previousUseDefaultGUI;
+        protected bool previousUseDefaultGUI; // Kept for compatibility; no longer used.
+        protected bool previousSelectorUseDefaultGUI;
+        protected bool previousProximitySelectorUseDefaultGUI;
+        protected bool isConnected = false;
 
         protected float CurrentDistance
         {
@@ -97,7 +100,7 @@ namespace PixelCrushers.DialogueSystem
             selector = GetComponent<Selector>();
             if (selector != null)
             {
-                previousUseDefaultGUI = selector.useDefaultGUI;
+                previousSelectorUseDefaultGUI = selector.useDefaultGUI;
                 selector.useDefaultGUI = false;
                 selector.Enabled += OnSelectorEnabled;
                 selector.Disabled += OnSelectorDisabled;
@@ -108,7 +111,7 @@ namespace PixelCrushers.DialogueSystem
             proximitySelector = GetComponent<ProximitySelector>();
             if (proximitySelector != null)
             {
-                previousUseDefaultGUI = proximitySelector.useDefaultGUI;
+                previousProximitySelectorUseDefaultGUI = proximitySelector.useDefaultGUI;
                 proximitySelector.useDefaultGUI = false;
                 proximitySelector.Enabled += OnSelectorEnabled;
                 proximitySelector.Disabled += OnSelectorDisabled;
@@ -117,14 +120,19 @@ namespace PixelCrushers.DialogueSystem
                 defaultUseMessage = proximitySelector.defaultUseMessage;
             }
             originalDefaultUseMessage = defaultUseMessage;
+            isConnected = true;
         }
 
         public virtual void DisconnectDelegates()
         {
+            // Only restore useDefaultGUI if ConnectDelegates saved it. (ConnectDelegates calls this
+            // first, before it has saved anything.)
+            var restoreUseDefaultGUI = isConnected;
+            isConnected = false;
             selector = GetComponent<Selector>();
             if (selector != null)
             {
-                selector.useDefaultGUI = previousUseDefaultGUI;
+                if (restoreUseDefaultGUI) selector.useDefaultGUI = previousSelectorUseDefaultGUI;
                 selector.Enabled -= OnSelectorEnabled;
                 selector.Disabled -= OnSelectorDisabled;
                 selector.SelectedUsableObject -= OnSelectedUsable;
@@ -133,7 +141,7 @@ namespace PixelCrushers.DialogueSystem
             proximitySelector = GetComponent<ProximitySelector>();
             if (proximitySelector != null)
             {
-                proximitySelector.useDefaultGUI = previousUseDefaultGUI;
+                if (restoreUseDefaultGUI) proximitySelector.useDefaultGUI = previousProximitySelectorUseDefaultGUI;
                 proximitySelector.Enabled -= OnSelectorEnabled;
                 proximitySelector.Disabled -= OnSelectorDisabled;
                 proximitySelector.SelectedUsableObject -= OnSelectedUsable;
@@ -144,27 +152,31 @@ namespace PixelCrushers.DialogueSystem
 
         protected virtual void SetElementsForUsable(Usable usable)
         {
-            // Check tag-specific UI elements:
-            for (int i = 0; i < tagSpecificElements.Count; i++)
+            if (usable != null)
             {
-                var tagInfo = tagSpecificElements[i];
-                if (usable != null && usable.CompareTag(tagInfo.tag))
+                // Check tag-specific UI elements:
+                for (int i = 0; i < tagSpecificElements.Count; i++)
                 {
-                    defaultUseMessage = tagInfo.defaultUseMessage;
-                    elements = tagInfo.UIElements ?? StandardUISelectorElements.instance;
-                    return;
+                    var tagInfo = tagSpecificElements[i];
+                    if (usable.CompareTag(tagInfo.tag))
+                    {
+                        defaultUseMessage = tagInfo.defaultUseMessage;
+                        elements = (tagInfo.UIElements != null) ? tagInfo.UIElements : StandardUISelectorElements.instance;
+                        return;
+                    }
                 }
-            }
 
-            // Check layer-specific UI elements:
-            for (int i = 0; i < layerSpecificElements.Count; i++)
-            {
-                var layerInfo = layerSpecificElements[i];
-                if (usable != null && ((1 << usable.gameObject.layer) & layerInfo.layerMask.value) != 0)
+                // Check layer-specific UI elements:
+                var usableLayerBit = 1 << usable.gameObject.layer;
+                for (int i = 0; i < layerSpecificElements.Count; i++)
                 {
-                    defaultUseMessage = layerInfo.defaultUseMessage;
-                    elements = layerInfo.UIElements ?? StandardUISelectorElements.instance;
-                    return;
+                    var layerInfo = layerSpecificElements[i];
+                    if ((usableLayerBit & layerInfo.layerMask.value) != 0)
+                    {
+                        defaultUseMessage = layerInfo.defaultUseMessage;
+                        elements = (layerInfo.UIElements != null) ? layerInfo.UIElements : StandardUISelectorElements.instance;
+                        return;
+                    }
                 }
             }
 
@@ -175,9 +187,7 @@ namespace PixelCrushers.DialogueSystem
                 for (int i = 0; i < StandardUISelectorElements.instances.Count; i++)
                 {
                     var instance = StandardUISelectorElements.instances[i];
-                    var isSpecific = (layerSpecificElements.Find(x => x.UIElements == instance) != null) ||
-                        (tagSpecificElements.Find(x => x.UIElements == instance) != null);
-                    if (!isSpecific)
+                    if (!IsSpecificElements(instance))
                     {
                         elements = instance;
                         return;
@@ -185,6 +195,23 @@ namespace PixelCrushers.DialogueSystem
                 }
             }
             elements = StandardUISelectorElements.instance;
+        }
+
+        /// <summary>
+        /// Returns true if the instance is assigned to a tag- or layer-specific entry.
+        /// (Plain loops instead of List.Find with a capturing lambda, which allocates.)
+        /// </summary>
+        protected bool IsSpecificElements(StandardUISelectorElements instance)
+        {
+            for (int i = 0; i < layerSpecificElements.Count; i++)
+            {
+                if (layerSpecificElements[i].UIElements == instance) return true;
+            }
+            for (int i = 0; i < tagSpecificElements.Count; i++)
+            {
+                if (tagSpecificElements[i].UIElements == instance) return true;
+            }
+            return false;
         }
 
         protected virtual void OnSelectedUsable(Usable usable)
@@ -238,8 +265,9 @@ namespace PixelCrushers.DialogueSystem
             elements.useMessageText.SetActive(true);
             elements.nameText.text = usable.GetName();
             elements.useMessageText.text = GetUseMessage();
-            Tools.SetGameObjectActive(elements.reticleInRange, IsUsableInRange());
-            Tools.SetGameObjectActive(elements.reticleOutOfRange, !IsUsableInRange());
+            var inRange = IsUsableInRange();
+            Tools.SetGameObjectActive(elements.reticleInRange, inRange);
+            Tools.SetGameObjectActive(elements.reticleOutOfRange, !inRange);
             if (CanTriggerAnimations() && !string.IsNullOrEmpty(elements.animationTransitions.showTrigger))
             {
                 elements.animator.ResetTrigger(elements.animationTransitions.hideTrigger);

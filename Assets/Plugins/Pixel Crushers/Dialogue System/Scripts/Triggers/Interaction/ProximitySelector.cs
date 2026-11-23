@@ -160,7 +160,15 @@ namespace PixelCrushers.DialogueSystem
         /// Gets the GUI style.
         /// </summary>
         /// <value>The GUI style.</value>
-        public GUIStyle GuiStyle { get { SetGuiStyle(); return guiStyle; } }
+        public GUIStyle GuiStyle
+        {
+            get
+            {
+                // Only create the style once; GUIStyle construction allocates.
+                if (guiStyle == null) SetGuiStyle(); else GUI.skin = guiSkin;
+                return guiStyle;
+            }
+        }
 
         /// <summary>
         /// Keeps track of which usable objects' triggers the selector is currently inside.
@@ -204,6 +212,10 @@ namespace PixelCrushers.DialogueSystem
 
         protected virtual void OnEnable()
         {
+            // OnGUI doesn't use GUILayout, so skip the IMGUI Layout event pass. 
+            // NOTE: If you're making a subclass whose OnGUI uses GUILayout, set
+            // useGUILayout = true after calling base.OnEnable().
+            useGUILayout = false;
             Enabled?.Invoke();
         }
 
@@ -243,13 +255,58 @@ namespace PixelCrushers.DialogueSystem
             // If the currentUsable went missing (was destroyed, deactivated, or we changed scene), tell listeners:
             if (toldListenersHaveUsable && (currentUsable == null || !currentUsable.enabled || !currentUsable.gameObject.activeInHierarchy))
             {
-                SetCurrentUsable(null);
-                OnDeselectedUsableObject(null);
-                toldListenersHaveUsable = false;
+                HandleLostCurrentUsable();
             }
 
             // If the player presses the use key/button, send the OnUse message:
             if (IsUseButtonDown()) UseCurrentSelection();
+        }
+
+        /// <summary>
+        /// Called when the current usable was destroyed, disabled, or deactivated without
+        /// the selector being told. Notifies listeners once and selects the next usable in range.
+        /// </summary>
+        protected virtual void HandleLostCurrentUsable()
+        {
+            if (currentUsable != null)
+            {
+                // Still exists but is disabled or inactive. This deselects it (one notification)
+                // and selects the next usable in range, if any:
+                RemoveUsableFromDetectedList(currentUsable);
+            }
+            else
+            {
+                // Destroyed. SetCurrentUsable(null) can't notify listeners about a destroyed
+                // usable, so clear it directly and notify once:
+                var lostUsable = currentUsable;
+                if (!ReferenceEquals(lostUsable, null)) lostUsable.disabled -= OnUsableDisabled;
+                currentUsable = null; // (SelectNextUsableInRange removes destroyed entries from usablesInRange.)
+                currentHeading = string.Empty;
+                currentUseMessage = string.Empty;
+                toldListenersHaveUsable = false;
+                OnDeselectedUsableObject(null);
+                SelectNextUsableInRange();
+            }
+        }
+
+        /// <summary>
+        /// Removes destroyed and inactive usables from usablesInRange, then selects the
+        /// first remaining one, or clears the selection if none remain.
+        /// </summary>
+        protected virtual void SelectNextUsableInRange()
+        {
+            usablesInRange.RemoveAll(x => x == null || !x.gameObject.activeInHierarchy);
+            if (usablesInRange.Count > 0)
+            {
+                var newUsable = usablesInRange[0];
+                SetCurrentUsable(newUsable);
+                OnSelectedUsableObject(newUsable);
+                toldListenersHaveUsable = true;
+            }
+            else
+            {
+                SetCurrentUsable(null);
+            }
         }
 
         protected void OnSelectedUsableObject(Usable usable)
@@ -311,15 +368,32 @@ namespace PixelCrushers.DialogueSystem
 
         protected bool IsTouchDown()
         {
-            if (Input.touchCount >= 1)
+            int touchCount = Input.touchCount;
+            if (touchCount >= 1)
             {
-                foreach (Touch touch in Input.touches)
+                // Use GetTouch instead of Input.touches, which allocates a new array each call:
+                var pixelRect = touchArea.GetPixelRect();
+                for (int i = 0; i < touchCount; i++)
                 {
-                    Vector2 screenPosition = new Vector2(touch.position.x, Screen.height - touch.position.y);
-                    if (touchArea.GetPixelRect().Contains(screenPosition)) return true;
+                    var touchPosition = Input.GetTouch(i).position;
+                    Vector2 screenPosition = new Vector2(touchPosition.x, Screen.height - touchPosition.y);
+                    if (pixelRect.Contains(screenPosition)) return true;
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Gets a Usable on a GameObject without allocating when there's none.
+        /// </summary>
+        protected static Usable GetUsable(GameObject go)
+        {
+#if UNITY_2019_2_OR_NEWER
+            Usable result;
+            return go.TryGetComponent(out result) ? result : null;
+#else
+            return go.GetComponent<Usable>();
+#endif
         }
 
         /// <summary>
@@ -379,11 +453,14 @@ namespace PixelCrushers.DialogueSystem
         protected virtual void CheckTriggerEnter(GameObject other)
         {
             if (!enabled) return;
-            Usable usable = other.GetComponent<Usable>();
+            Usable usable = GetUsable(other);
             if (usable != null && usable.enabled)
             {
-                SetCurrentUsable(usable);
                 if (!usablesInRange.Contains(usable)) usablesInRange.Add(usable);
+                // If it's already the current selection and listeners know, don't re-notify
+                // (e.g., usable with multiple trigger colliders, or re-entering a trigger):
+                if (usable == currentUsable && toldListenersHaveUsable) return;
+                SetCurrentUsable(usable);
                 OnSelectedUsableObject(usable);
                 toldListenersHaveUsable = true;
             }
@@ -391,7 +468,7 @@ namespace PixelCrushers.DialogueSystem
 
         protected virtual void CheckTriggerExit(GameObject other)
         {
-            Usable usable = other.GetComponent<Usable>();
+            Usable usable = GetUsable(other);
             if (usable != null)
             {
                 RemoveUsableFromDetectedList(usable);
@@ -407,22 +484,11 @@ namespace PixelCrushers.DialogueSystem
         {
             if (usable != null)
             {
-                if (usablesInRange.Contains(usable)) usablesInRange.Remove(usable);
+                usablesInRange.Remove(usable);
                 if (currentUsable == usable)
                 {
                     toldListenersHaveUsable = false;
-                    usablesInRange.RemoveAll(x => x == null || !x.gameObject.activeInHierarchy);
-                    if (usablesInRange.Count > 0)
-                    {
-                        var newUsable = usablesInRange[0];
-                        SetCurrentUsable(newUsable);
-                        OnSelectedUsableObject(newUsable);
-                        toldListenersHaveUsable = true;
-                    }
-                    else
-                    {
-                        SetCurrentUsable(null);
-                    }
+                    SelectNextUsableInRange();
                 }
             }
         }
