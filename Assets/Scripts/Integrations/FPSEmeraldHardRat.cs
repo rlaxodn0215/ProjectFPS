@@ -11,9 +11,9 @@ namespace ProjectFPS
     {
         [SerializeField, Range(0f, 1f)] private float dodgeChance = 0.3f;
         [SerializeField, Min(0f)] private float dodgeCooldown = 4f;
+        [SerializeField] private float DodgeDistance = 1.25f;
+        [SerializeField] private float DodgeDuration = 0.15f;
 
-        private const float DodgeDistance = 1.25f;
-        private const float DodgeDuration = 0.15f;
         private const float GroundClearance = 0.05f;
         private readonly RaycastHit[] sweepHits = new RaycastHit[16];
 
@@ -75,7 +75,8 @@ namespace ProjectFPS
             if (consideredAmbush) return;
             consideredAmbush = true;
             ambushTarget = system.CombatTarget;
-            if (ambushTarget && ambushTarget.TryGetComponent<FPSEmeraldPlayerAdapter>(out _) &&
+            if ((!TryGetComponent<FPSEmeraldRatAlert>(out var alert) || !alert.IsAlerting) &&
+                ambushTarget && ambushTarget.TryGetComponent<FPSEmeraldPlayerAdapter>(out _) &&
                 ambushTarget.TryGetComponent<WeaponController>(out var weapons) && weapons.MainCamera)
             {
                 ambushCamera = weapons.MainCamera.transform;

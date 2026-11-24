@@ -1051,6 +1051,7 @@ GameObject:
   - component: {fileID: 290285419570170866}
   - component: {fileID: 8034192865100370404}
   - component: {fileID: 8034192865100370405}
+  - component: {fileID: 8034192865100370410}
   m_Layer: 7
   m_Name: Enemy_GiantRat_Nornal
   m_TagString: Enemy
@@ -1137,13 +1138,14 @@ MonoBehaviour:
   AnimationListsChanged: 0
   MissingRuntimeController: 0
   AnimationsUpdated: 0
-  AIAnimator: {fileID: 0}
+  AIAnimator: {fileID: 3142158956654261542}
   AttackingTracker: 0
   AttackTriggered: 0
   WarningAnimationTriggered: 0
   BusyBetweenStates: 0
   CurrentAnimationState: 2
-  Type1AttackEnumAnimations: []
+  Type1AttackEnumAnimations:
+  - GiantRat_JumpBite
   Type2AttackEnumAnimations: []
   Type1AttackBlankOptions:
   - No Type 1 Attack Animations
@@ -1180,7 +1182,7 @@ MonoBehaviour:
   StartingDetectionRadius: 0
   DetectionRadius: 15
   StartingChaseDistance: 0
-  FieldOfViewAngle: 120
+  FieldOfViewAngle: 270
   StartingFieldOfViewAngle: 0
   CurrentDetectionState: 1
   PickTargetType: 0
@@ -1372,9 +1374,9 @@ MonoBehaviour:
   NonCombatAngleToTurn: 20
   CombatAngleToTurn: 30
   StationaryTurningSpeedNonCombat: 10
-  StationaryTurningSpeedCombat: 10
+  StationaryTurningSpeedCombat: 30
   MovingTurnSpeedNonCombat: 200
-  MovingTurnSpeedCombat: 200
+  MovingTurnSpeedCombat: 600
   BackupTurningSpeed: 150
   MaxNormalAngle: 50
   MaxSlopeLimit: 30
@@ -1638,6 +1640,126 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectFPS.FPSEmeraldAIAdapter
   ragdollForce: 40
   meleeStunSeconds: 1
+--- !u!114 &8034192865100370404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5914130026280449982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d6ef8f12bd54dde9ea737ed68f93c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectFPS.FPSEmeraldHeadHitbox
+  headCollider: {fileID: 8034192865100370403}
+--- !u!114 &8034192865100370405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5914130026280449982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a9deb83781e644a8e353dfbc492941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EmeraldAI.EmeraldEvents
+  OnEnabledEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEnemyTargetDetectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartCombatEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 779300708386391635}
+        m_TargetAssemblyTypeName: EmeraldAI.EmeraldSounds, Assembly-CSharp
+        m_MethodName: PlayWarningSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnEndCombatEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAttackStartEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 779300708386391635}
+        m_TargetAssemblyTypeName: EmeraldAI.EmeraldSounds, Assembly-CSharp
+        m_MethodName: PlayAttackSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnAttackEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTakeDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTakeCritDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoCritDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnKilledTargetEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnReachedDestinationEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnReachedWaypointEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGeneratedWaypointEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlayerDetectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnFleeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  HideSettingsFoldout: 0
+  GeneralEventsFoldout: 0
+  CombatEventsFoldout: 0
+--- !u!114 &8034192865100370410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5914130026280449982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aff12cfbdea4ca2ae44f14776e50ea9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectFPS.FPSEmeraldRatAlert
+  ImpactRadius: 3
+  ContactTolerance: 0.1
 --- !u!1 &6301810415820348913
 GameObject:
   m_ObjectHideFlags: 0
@@ -1796,6 +1918,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1223130329920972462}
   m_LocalEulerAnglesHint: {x: -0.5719019, y: 19.07719, z: -3.9450483}
+--- !u!1 &8034192865100370401
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8034192865100370402}
+  - component: {fileID: 8034192865100370403}
+  m_Layer: 7
+  m_Name: HeadHitbox
+  m_TagString: Critical
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8034192865100370402
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8034192865100370401}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8754205887505114392}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8034192865100370403
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8034192865100370401}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.38, y: 0.32, z: 0.34}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8078378946984640024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1956,162 +2131,3 @@ Transform:
   - {fileID: 4596784705353961695}
   m_Father: {fileID: 5725912542932157784}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!1 &8034192865100370401
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8034192865100370402}
-  - component: {fileID: 8034192865100370403}
-  m_Layer: 7
-  m_Name: HeadHitbox
-  m_TagString: Critical
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8034192865100370402
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8034192865100370401}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8754205887505114392}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8034192865100370403
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8034192865100370401}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.38, y: 0.32, z: 0.34}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8034192865100370404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5914130026280449982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d6ef8f12bd54dde9ea737ed68f93c6c, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::ProjectFPS.FPSEmeraldHeadHitbox
-  headCollider: {fileID: 8034192865100370403}
---- !u!114 &8034192865100370405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5914130026280449982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41a9deb83781e644a8e353dfbc492941, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::EmeraldAI.EmeraldEvents
-  OnEnabledEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnStartEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEnemyTargetDetectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnStartCombatEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 779300708386391635}
-        m_TargetAssemblyTypeName: EmeraldAI.EmeraldSounds, Assembly-CSharp
-        m_MethodName: PlayWarningSound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument:
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnEndCombatEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnAttackStartEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 779300708386391635}
-        m_TargetAssemblyTypeName: EmeraldAI.EmeraldSounds, Assembly-CSharp
-        m_MethodName: PlayAttackSound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument:
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnAttackEndEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTakeDamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTakeCritDamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDoDamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDoCritDamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnKilledTargetEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnReachedDestinationEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnReachedWaypointEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnGeneratedWaypointEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPlayerDetectedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnFleeEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  HideSettingsFoldout: 0
-  GeneralEventsFoldout: 0
-  CombatEventsFoldout: 0

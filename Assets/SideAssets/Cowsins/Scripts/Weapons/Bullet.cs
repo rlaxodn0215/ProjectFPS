@@ -58,6 +58,8 @@ namespace cowsins
             }
             else if (IsGroundOrObstacleLayer(other.gameObject.layer))
             {
+                projectileHasAlreadyHit = true;
+                ShotImpact.Report(Player, other.ClosestPoint(transform.position), other);
                 DestroyProjectile();
             }
         }
@@ -68,6 +70,7 @@ namespace cowsins
             {
                 DamageService.RequestDamage(target, dmg, isCritical, new DamageContext(Player, hitCollider, DamageKind.Projectile));
                 projectileHasAlreadyHit = true;
+                ShotImpact.Report(Player, hitCollider.ClosestPoint(transform.position), hitCollider);
                 DestroyProjectile();
             }
         }

@@ -124,6 +124,7 @@ namespace cowsins
 
                 float dmg = id.damage * multipliers.DamageMultiplier.Value;
                 weaponEvents.Events.OnHit?.Invoke(hit.collider.gameObject.layer, dmg, hit, true);
+                ShotImpact.Report(playerDependencies.transform, hit.point, hit.collider);
                 hitObj = hit.collider.transform;
 
                 //Handle Penetration
@@ -136,6 +137,8 @@ namespace cowsins
                     {
                         float dmg_ = id.damage * multipliers.DamageMultiplier.Value * weapon.penetrationDamageReduction;
                         weaponEvents.Events.OnHit?.Invoke(newHit.collider.gameObject.layer, dmg_, newHit, true);
+                        if (newHit.collider.transform.root != playerRoot)
+                            ShotImpact.Report(playerDependencies.transform, newHit.point, newHit.collider);
                     }
                 }
 
