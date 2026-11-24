@@ -44,7 +44,8 @@ MonoBehaviour:
     Enabled: 1
     ImpactEffect: {fileID: 0}
     ImpactEffectTimeoutSeconds: 2
-    ImpactSoundsList: []
+    ImpactSoundsList:
+    - {fileID: 8300000, guid: b7ad9d676916ef644b06e24d8839e740, type: 3}
     MaxDamageDistance: 1.9
     MaxAttackHeight: 5
     MaxDamageAngle: 90

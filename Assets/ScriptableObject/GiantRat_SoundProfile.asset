@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55a67ba0da1c9f644a2a3734305677bf, type: 3}
+  m_Name: GiantRat_SoundProfile
+  m_EditorClassIdentifier: Assembly-CSharp::EmeraldAI.Utility.EmeraldSoundProfile
+  IdleSounds: []
+  FootStepSounds: []
+  BlockingSounds: []
+  JumpSounds: []
+  LandSounds: []
+  InteractSounds: []
+  InjuredSoundOdds: 100
+  InjuredVolume: 1
+  AttackVolume: 1
+  WarningVolume: 1
+  DeathVolume: 0.7
+  AttackSounds:
+  - {fileID: 8300000, guid: fc66ca3dde3d696468b962f4d6064ab8, type: 3}
+  - {fileID: 8300000, guid: 9537bba3b7d6aeb489ba4fba9bf7a166, type: 3}
+  InjuredSounds:
+  - {fileID: 8300000, guid: 9b6f20586733fdf4da49c363e13788e4, type: 3}
+  - {fileID: 8300000, guid: 099b3ee79b62e8644b67b6b1dce9888c, type: 3}
+  WarningSounds:
+  - {fileID: 8300000, guid: 6ad52a39361c33d4a8ac88484c0eb8dd, type: 3}
+  - {fileID: 8300000, guid: dbd6f993dd1782047896387474b36b57, type: 3}
+  DeathSounds:
+  - {fileID: 8300000, guid: 0b74af418090ceb4aaddc3a93bc59ae5, type: 3}
+  - {fileID: 8300000, guid: 2895ee3e2b44de642b3c4a77b1956bd9, type: 3}

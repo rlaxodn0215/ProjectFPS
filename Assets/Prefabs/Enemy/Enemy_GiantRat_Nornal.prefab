@@ -1050,8 +1050,9 @@ GameObject:
   - component: {fileID: 6531959908898932249}
   - component: {fileID: 290285419570170866}
   - component: {fileID: 8034192865100370404}
+  - component: {fileID: 8034192865100370405}
   m_Layer: 7
-  m_Name: Enemy_GiantRat
+  m_Name: Enemy_GiantRat_Nornal
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1211,7 +1212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b69db04fa6da5fc498d3d30b4df09c69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EmeraldAI.EmeraldSounds
-  SoundProfile: {fileID: 0}
+  SoundProfile: {fileID: 11400000, guid: 743cb01f110c438993b421826e96828f, type: 2}
   SoundProfileFoldout: 0
   HideSettingsFoldout: 0
   IdleSoundsSeconds: 0
@@ -1360,8 +1361,8 @@ MonoBehaviour:
   StartingMovementState: 1
   CurrentMovementState: 0
   UseRandomRotationOnStart: 0
-  AlignAIOnStart: 0
-  AlignAIWithGround: 0
+  AlignAIOnStart: 1
+  AlignAIWithGround: 1
   AlignmentQuality: 1
   WalkBackwardsSpeed: 1
   WalkSpeed: 1.5
@@ -1375,7 +1376,7 @@ MonoBehaviour:
   MovingTurnSpeedNonCombat: 200
   MovingTurnSpeedCombat: 200
   BackupTurningSpeed: 150
-  MaxNormalAngle: 20
+  MaxNormalAngle: 50
   MaxSlopeLimit: 30
   NonCombatAlignmentSpeed: 15
   CombatAlignmentSpeed: 25
@@ -1384,7 +1385,7 @@ MonoBehaviour:
   MaximumWaitTime: 6
   AlignmentLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 9
   AngleToTurn: 0
   DecelerationDampTime: 0.15
   WaypointTimer: 0
@@ -2021,3 +2022,96 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectFPS.FPSEmeraldHeadHitbox
   headCollider: {fileID: 8034192865100370403}
+--- !u!114 &8034192865100370405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5914130026280449982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a9deb83781e644a8e353dfbc492941, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::EmeraldAI.EmeraldEvents
+  OnEnabledEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEnemyTargetDetectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartCombatEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 779300708386391635}
+        m_TargetAssemblyTypeName: EmeraldAI.EmeraldSounds, Assembly-CSharp
+        m_MethodName: PlayWarningSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument:
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnEndCombatEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAttackStartEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 779300708386391635}
+        m_TargetAssemblyTypeName: EmeraldAI.EmeraldSounds, Assembly-CSharp
+        m_MethodName: PlayAttackSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument:
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnAttackEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTakeDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTakeCritDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoCritDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnKilledTargetEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnReachedDestinationEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnReachedWaypointEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGeneratedWaypointEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlayerDetectedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnFleeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  HideSettingsFoldout: 0
+  GeneralEventsFoldout: 0
+  CombatEventsFoldout: 0
