@@ -52,6 +52,12 @@ namespace cowsins
 
         public override void UpdateState()
         {
+            if (controller.Weapon == null || controller.Id == null)
+            {
+                SwitchToDefault();
+                return;
+            }
+
             if (CanShoot()) shootAction?.Invoke();
             HandleAiming();
             CheckSwitchState();
@@ -61,9 +67,9 @@ namespace cowsins
 
         public override void ExitState()
         {
-            controller.settings.userEvents.OnSelectWeapon.RemoveListener(UpdateShootEventListeners);
+            controller.settings.userEvents.OnUnholster.RemoveListener(UpdateShootEventListeners);
 
-            if (isHoldAndRelease && holdProgress > 100f)
+            if (isHoldAndRelease && holdProgress > 100f && controller.Weapon == currentWeapon && controller.Id != null)
                 controller.shootBehaviour.Shoot();
 
             if (!isPressToShoot)
