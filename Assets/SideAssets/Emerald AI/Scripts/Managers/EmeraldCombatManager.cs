@@ -210,7 +210,7 @@ namespace EmeraldAI.Utility
         /// <summary>
         /// Sets the data of the currently generated attack.
         /// </summary>
-        static void SetAttackValues(EmeraldSystem EmeraldComponent, AttackClass.AttackData AttackData, bool CooldownIgnored)
+        internal static void SetAttackValues(EmeraldSystem EmeraldComponent, AttackClass.AttackData AttackData, bool CooldownIgnored)
         {
             EmeraldComponent.CombatComponent.CurrentAttackData = AttackData;
 

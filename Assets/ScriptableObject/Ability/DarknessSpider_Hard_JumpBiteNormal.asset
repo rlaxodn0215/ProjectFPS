@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c0b1b2f03bea34bafceaa774a3d3db, type: 3}
+  m_Name: DarknessSpider_Hard_JumpBiteNormal
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectFPS.DarknessSpiderAbility
+  AbilityName: DarknessSpider_Hard_JumpBiteNormal
+  AbilityDescription: Ability Description
+  AbilityIcon: {fileID: 0}
+  InfoSettingsFoldout: 1
+  DerivedSettingsFoldout: 0
+  ModularSettingsFoldout: 0
+  HideSettingsFoldout: 0
+  CooldownSettings:
+    Enabled: 0
+    CooldownLength: 1
+  ConditionSettings:
+    Foldout: 1
+    Enabled: 0
+    ConditionType: 0
+    ValueCompareType: 1
+    HighPriority: 0
+    DistanceFromTarget: 3
+    LowHealthPercentage: 60
+  Damage: 10
+  Web: {fileID: 0}

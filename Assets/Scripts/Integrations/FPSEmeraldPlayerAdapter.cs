@@ -19,6 +19,8 @@ namespace ProjectFPS
         private TargetPositionModifier position;
         private bool deathNotified;
         private FPSPlayerCombat combatState;
+        private PlayerMultipliers multipliers;
+        private readonly object spiderWebSlow = new object();
 
         public Transform LastAttacker { get; private set; }
 
@@ -49,6 +51,7 @@ namespace ProjectFPS
             weapons = GetComponent<WeaponController>();
             position = GetComponent<TargetPositionModifier>();
             combatState = GetComponent<FPSPlayerCombat>();
+            multipliers = GetComponent<PlayerMultipliers>();
         }
 
         private void OnEnable()
@@ -60,6 +63,7 @@ namespace ProjectFPS
 
         private void OnDisable()
         {
+            if (multipliers) multipliers.RemoveModifierFromSource(spiderWebSlow);
             if (stats == null) return;
             stats.RemoveOnDieListener(NotifyDeath);
             stats.Events.OnHealthChanged.RemoveListener(HealthChanged);
@@ -79,7 +83,17 @@ namespace ProjectFPS
         {
             if (deathNotified) return;
             deathNotified = true;
+            if (multipliers) multipliers.RemoveModifierFromSource(spiderWebSlow);
             OnDeath.Invoke();
+        }
+
+        internal void ReceiveSpiderWeb(int damage, Transform attacker)
+        {
+            float before = Stats.health + Stats.shield;
+            Damage(damage, attacker, 100, false, EmeraldAttackKind.Projectile);
+            if (multipliers && !Stats.IsDead && Stats.health + Stats.shield < before)
+                multipliers.AddTemporaryModifier(multipliers.WeightMultiplier,
+                    new StatModifier(-0.3f, StatModifierType.Multiplicative, spiderWebSlow), 2f);
         }
 
         public void Damage(int DamageAmount, Transform AttackerTransform = null, int RagdollForce = 100, bool CriticalHit = false)

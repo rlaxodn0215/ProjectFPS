@@ -96,6 +96,9 @@ namespace EmeraldAI
         public bool TargetDetectionActive;
         public bool TargetOutOfHeightRange;
         public float TooCloseDistance = 1;
+        [SerializeField, Min(0f)]
+        [Tooltip("When positive, selects Type 1 attack slot 1 below this distance and slot 2 at or above it. Both slots should use the same engagement range.")]
+        private float closeAttackThreshold;
         public float AttackDistance = 2.5f;
         public EmeraldAbilityObject CurrentEmeraldAIAbility;
         public List<AttackClass.AttackData> AvailableConditionAbilities = new List<AttackClass.AttackData>();
@@ -280,6 +283,20 @@ namespace EmeraldAI
                if (CombatActions[i].CooldownLengthTimer >= CombatActions[i].emeraldAction.CooldownLength - 0.25f)
                     CombatActions[i].CooldownLengthTimer = 0;
             }
+        }
+
+        internal bool SelectAttackByDistance(EmeraldSystem system)
+        {
+            if (closeAttackThreshold <= 0f || CurrentWeaponType != WeaponTypes.Type1 || Type1Attacks.AttackDataList.Count < 2)
+                return true;
+            if (system.CombatTarget == null) return false;
+
+            float distance = EmeraldCombatManager.GetDistanceFromTarget(system);
+            var attack = Type1Attacks.AttackDataList[distance < closeAttackThreshold ? 0 : 1];
+            if (distance > attack.AttackDistance) return false;
+
+            EmeraldCombatManager.SetAttackValues(system, attack, false);
+            return true;
         }
 
         /// <summary>

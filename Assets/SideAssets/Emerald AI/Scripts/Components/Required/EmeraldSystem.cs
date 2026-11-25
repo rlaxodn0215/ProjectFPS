@@ -69,6 +69,8 @@ namespace EmeraldAI
         [HideInInspector] public EmeraldCover CoverComponent;
         #endregion
 
+        private ProjectFPS.FPSEmeraldHardSpider hardSpider;
+
         //Initialize Emerald AI and its components
         void Awake()
         {
@@ -91,6 +93,7 @@ namespace EmeraldAI
             m_NavMeshAgent = GetComponent<NavMeshAgent>();
             AIBoxCollider = GetComponent<BoxCollider>();
             AIAnimator = GetComponent<Animator>();
+            hardSpider = GetComponent<ProjectFPS.FPSEmeraldHardSpider>();
             InitializeEmeraldObjectPool();
             InitializeCombatText();
         }
@@ -145,8 +148,13 @@ namespace EmeraldAI
             if (HealthComponent.CurrentHealth <= 0) return;
 
             AnimationComponent.AnimationUpdate(); //A custom update function for the EmeraldAnimation called through the EmeraldAISystem script.
-            MovementComponent.MovementUpdate(); //A custom update function for the EmeraldMovement called through the EmeraldAISystem script.
-            BehaviorsComponent.BehaviorUpdate(); //A custom update function for the EmeraldBehaviors script called through the EmeraldAISystem script.
+            if (hardSpider && hardSpider.isActiveAndEnabled)
+                hardSpider.Tick();
+            else
+            {
+                MovementComponent.MovementUpdate();
+                BehaviorsComponent.BehaviorUpdate();
+            }
             DetectionComponent.DetectionUpdate(); //A custom update function for the EmeraldDetection script called through the EmeraldAISystem script.
             CombatComponent.CombatUpdate(); //A custom update function for the EmeraldCombat script called through the EmeraldAISystem script.
             if (DebuggerComponent) DebuggerComponent.DebuggerUpdate(); //A custom update function for the EmeraldDebugger script called through the EmeraldAISystem script.

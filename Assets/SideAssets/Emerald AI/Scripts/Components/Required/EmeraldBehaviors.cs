@@ -296,6 +296,8 @@ namespace EmeraldAI
 
             if (EmeraldCombatManager.AllowedToAttack(EmeraldComponent) && EnterConditions && !IsAiming && AttackTimer >= EmeraldComponent.CombatComponent.CurrentAttackCooldown)
             {
+                if (!EmeraldComponent.CombatComponent.SelectAttackByDistance(EmeraldComponent)) return;
+
                 EmeraldCombatManager.CheckAttackHeight(EmeraldComponent);
 
                 if (!EmeraldComponent.CombatComponent.TargetOutOfHeightRange)
