@@ -28,7 +28,7 @@ namespace cowsins.Inventory
         public bool durabilityInitialized;
 
         // Handle Contained Items (For Backpacks or other containers)
-        [UnityEngine.SerializeReference] public SlotData[] containedItems;
+        public SlotData[] containedItems;
 
         // Constructors
         public SlotData(Item_SO item, int amount)

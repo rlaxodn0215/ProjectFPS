@@ -95,7 +95,6 @@ namespace cowsins
 
         private void DisableWeaponUI()
         {
-            crosshairShape?.ResetCrosshairToDefault();
             overheatUI?.transform.parent.gameObject.SetActive(false);
             bulletsUI?.gameObject.SetActive(false);
             magazineUI?.gameObject.SetActive(false);
