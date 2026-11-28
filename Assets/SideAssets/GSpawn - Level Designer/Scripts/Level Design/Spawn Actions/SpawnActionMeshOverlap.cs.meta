@@ -1,9 +1,0 @@
-fileFormatVersion: 2
-guid: 8d163eb91bee4da5bb543bfbad0d8d5b
-AssetOrigin:
-  serializedVersion: 1
-  productId: 45021
-  packageName: GSpawn - Level Designer
-  packageVersion: 3.8.1
-  assetPath: Assets/GSpawn - Level Designer/Scripts/Level Design/Spawn Actions/SpawnActionMeshOverlap.cs
-  uploadId: 1023946
